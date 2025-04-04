@@ -1,0 +1,21 @@
+{% sw_extends '@Storefront/storefront/component/listing/filter/filter-multi-select-list-item.html.twig' %}
+
+{% block component_filter_multi_select_list_item %}
+    {% if element is multi_select_filter_element %}
+        <div class="form-check">
+            {% set filterName = name %}
+            {% set id = element.id %}
+            {% set name = element.translated.name %}
+            <input type="checkbox"
+                   class="form-check-input filter-multi-select-checkbox"
+                   data-label="{{ name }}"
+                   value="{{ id }}"
+                   id="{{ filterName }}_{{ id }}">
+            <label class="filter-multi-select-item-label form-check-label" for="{{ filterName }}_{{ id }}">
+                {{ name }}
+            </label>
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

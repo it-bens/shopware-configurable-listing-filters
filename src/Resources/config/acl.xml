@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<acl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/Framework/App/Acl/acl.xsd">
+    <area name="itb_configurable_listing_filters">
+        <privilege>itb_configurable_listing_filters.viewer</privilege>
+        <privilege>itb_configurable_listing_filters.editor</privilege>
+        <privilege>itb_configurable_listing_filters.creator</privilege>
+        <privilege>itb_configurable_listing_filters.deleter</privilege>
+    </area>
+</acl>

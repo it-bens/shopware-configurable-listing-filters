@@ -1,0 +1,102 @@
+{
+    "itb-configurable-listing-filters": {
+        "general": {
+            "mainMenuItemGeneral": "Konfigurierbare Filter",
+            "descriptionTextModule": "Verwalte konfigurierbare Listing-Filter",
+            "errorTitle": "Fehler",
+            "successTitle": "Erfolg",
+            "addButtonText": "Filter hinzufügen",
+            "deleteSuccessMessage": "Filter erfolgreich gelöscht",
+            "deletionErrorMessage": "Beim Löschen des Filters ist ein Fehler aufgetreten",
+            "saveSuccessMessage": "Filter erfolgreich gespeichert",
+            "saveErrorMessage": "Beim Speichern des Filters ist ein Fehler aufgetreten",
+            "createSuccessMessage": "Filter erfolgreich erstellt",
+            "updateSuccessMessage": "Filter erfolgreich aktualisiert",
+            "loadingErrorMessage": "Beim Laden des Filters ist ein Fehler aufgetreten",
+            "invalidFilterType": "Ungültiger Filter-Typ"
+        },
+        "list": {
+            "title": "Konfigurierbare Listing-Filter",
+            "columnFilterType": "Filtertyp",
+            "columnDalField": "Datenfeld",
+            "columnDisplayName": "Anzeigename",
+            "columnPosition": "Position",
+            "columnEnabled": "Aktiv",
+            "columnActions": "Aktionen",
+            "deleteModalTitle": "Filter löschen",
+            "deleteModalText": "Möchten Sie diesen Filter wirklich löschen?",
+            "buttonCancel": "Abbrechen",
+            "buttonDelete": "Löschen",
+            "buttonEdit": "Bearbeiten",
+            "filterTypeCheckbox": "Checkbox",
+            "filterTypeMultiSelect": "Multi-Select",
+            "filterTypeRange": "Bereich",
+            "createCheckboxFilter": "Checkbox-Filter erstellen",
+            "createMultiSelectFilter": "Multi-Select-Filter erstellen",
+            "createRangeFilter": "Bereichs-Filter erstellen",
+            "createFilterButton": "Filter erstellen",
+            "salesChannelAll": "Alle Verkaufskanäle",
+            "groupBySalesChannel": "Gruppiert nach Verkaufskanälen",
+            "infoTitle": "Information",
+            "infoContent": "Wählen Sie einen Filter-Typ aus, um einen neuen Filter zu erstellen."
+        },
+        "create": {
+            "titleDefault": "Neuen Filter erstellen",
+            "titleCheckbox": "Neuen Checkbox-Filter erstellen",
+            "titleMultiSelect": "Neuen Multi-Select-Filter erstellen",
+            "titleRange": "Neuen Bereichs-Filter erstellen"
+        },
+        "detail": {
+            "titleDefault": "Filter bearbeiten",
+            "titleCheckbox": "Checkbox-Filter bearbeiten",
+            "titleMultiSelect": "Multi-Select-Filter bearbeiten",
+            "titleRange": "Bereichs-Filter bearbeiten"
+        },
+        "filter": {
+            "modalCreateTitle": "Neuen Filter erstellen",
+            "modalEditTitle": "Filter bearbeiten",
+            "buttonCancel": "Abbrechen",
+            "buttonSave": "Speichern",
+            "labelDalField": "Datenfeld",
+            "placeholderDalField": "Datenfeld eingeben...",
+            "labelDisplayName": "Anzeigename",
+            "placeholderDisplayName": "Anzeigename eingeben...",
+            "labelTwigTemplate": "Twig-Template",
+            "placeholderTwigTemplate": "Pfad zum Template eingeben...",
+            "labelEnabled": "Aktiv",
+            "labelPosition": "Position",
+            "placeholderPosition": "Sortierposition eingeben...",
+            "labelSalesChannel": "Verkaufskanal",
+            "placeholderSalesChannel": "Verkaufskanal auswählen...",
+            "selectAllSalesChannels": "Alle Verkaufskanäle"
+        },
+        "checkbox": {
+            "title": "Checkbox-Filter"
+        },
+        "multiSelect": {
+            "title": "Multi-Select-Filter",
+            "labelSortingOrder": "Sortierreihenfolge",
+            "sortingOrderAsc": "Aufsteigend",
+            "sortingOrderDesc": "Absteigend",
+            "labelAllowedElements": "Erlaubte Elemente",
+            "placeholderAllowedElements": "Erlaubte Elemente eingeben...",
+            "helpTextAllowedElements": "Nur diese Elemente werden angezeigt. Leer lassen, um alle anzuzeigen.",
+            "labelForbiddenElements": "Verbotene Elemente",
+            "placeholderForbiddenElements": "Verbotene Elemente eingeben...",
+            "helpTextForbiddenElements": "Diese Elemente werden ausgeblendet.",
+            "labelElementPrefix": "Element-Präfix",
+            "placeholderElementPrefix": "Präfix eingeben...",
+            "labelElementSuffix": "Element-Suffix",
+            "placeholderElementSuffix": "Suffix eingeben...",
+            "labelExplicitElementSorting": "Explizite Elementsortierung",
+            "placeholderExplicitElementSorting": "Elemente zur Sortierung eingeben..."
+        },
+        "range": {
+            "title": "Bereichs-Filter",
+            "labelUnit": "Einheit",
+            "placeholderUnit": "Einheit eingeben...",
+            "labelUseSlider": "Schieberegler verwenden",
+            "helpTextUseSlider": "Zeigt den Bereichsfilter als Schieberegler statt als Eingabefelder an."
+        }
+    }
+}

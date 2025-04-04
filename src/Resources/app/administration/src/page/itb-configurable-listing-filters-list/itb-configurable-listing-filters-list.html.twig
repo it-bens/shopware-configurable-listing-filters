@@ -1,0 +1,132 @@
+{% block itb_configurable_listing_filters_list %}
+    <sw-page class="itb-configurable-listing-filters-list">
+        {% block itb_configurable_listing_filters_list_smart_bar_header %}
+            <template #smart-bar-header>
+                <h2>{{ $tc('itb-configurable-listing-filters.list.title') }}</h2>
+            </template>
+        {% endblock %}
+
+        {% block itb_configurable_listing_filters_list_smart_bar_actions %}
+            <template #smart-bar-actions>
+                <sw-button-group>
+                    <sw-context-button>
+                        <template #button>
+                            <sw-button variant="primary">
+                                {{ $tc('itb-configurable-listing-filters.list.createFilterButton') }}
+                                <sw-icon name="regular-chevron-down-xs" decorative size="12"></sw-icon>
+                            </sw-button>
+                        </template>
+                        
+                        <sw-context-menu-item @click="navigateToCreate('checkbox')">
+                            {{ $tc('itb-configurable-listing-filters.list.createCheckboxFilter') }}
+                        </sw-context-menu-item>
+                        
+                        <sw-context-menu-item @click="navigateToCreate('multiSelect')">
+                            {{ $tc('itb-configurable-listing-filters.list.createMultiSelectFilter') }}
+                        </sw-context-menu-item>
+                        
+                        <sw-context-menu-item @click="navigateToCreate('range')">
+                            {{ $tc('itb-configurable-listing-filters.list.createRangeFilter') }}
+                        </sw-context-menu-item>
+                    </sw-context-button>
+                </sw-button-group>
+            </template>
+        {% endblock %}
+        
+        {% block itb_configurable_listing_filters_list_language_switch %}
+            <template #language-switch>
+                <sw-language-switch
+                    :saveChangesFunction="saveOnLanguageChange"
+                    :abortChangeFunction="abortOnLanguageChange"
+                    @on-change="onChangeLanguage"
+                ></sw-language-switch>
+            </template>
+        {% endblock %}
+
+        {% block itb_configurable_listing_filters_list_content %}
+            <template #content>
+                <sw-card-view>
+                    {% block itb_configurable_listing_filters_list_content_filter %}
+                        <sw-card>
+                            <sw-container columns="1fr" gap="0px 30px">
+                                <sw-single-select
+                                    :label="$tc('itb-configurable-listing-filters.filter.labelSalesChannel')"
+                                    :options="salesChannelOptions"
+                                    :value="selectedSalesChannel"
+                                    valueProperty="id"
+                                    labelProperty="name"
+                                    @change="onSalesChannelChange">
+                                </sw-single-select>
+                            </sw-container>
+                        </sw-card>
+                    {% endblock %}
+
+                    {% block itb_configurable_listing_filters_list_grid %}
+                        <template v-for="(filters, salesChannelId) in groupedFilters">
+                            <sw-card :title="getSalesChannelName(salesChannelId)" :isLoading="isLoading">
+                                    <sw-data-grid
+                                        :dataSource="filters"
+                                        :columns="filterColumns"
+                                        :showSelection="false"
+                                        :showActions="true"
+                                        :allowInlineEdit="false"
+                                        :allowColumnEdit="false"
+                                        identifier="itb-filters-grid">
+                                        
+                                        {% block itb_configurable_listing_filters_list_grid_columns %}
+                                            <template #column-filterType="{ item }">
+                                                {{ item.filterTypeLabel }}
+                                            </template>
+
+                                            <template #column-enabled="{ item }">
+                                                <sw-icon v-if="item.enabled" name="regular-checkmark-xs" small></sw-icon>
+                                                <sw-icon v-else name="regular-times-s" small></sw-icon>
+                                            </template>
+                                        {% endblock %}
+
+                                        {% block itb_configurable_listing_filters_list_grid_actions %}
+                                            <template #actions="{ item }">
+                                                <sw-context-menu-item @click="onEditFilter(item)">
+                                                    {{ $tc('itb-configurable-listing-filters.list.buttonEdit') }}
+                                                </sw-context-menu-item>
+                                                <sw-context-menu-item variant="danger" @click="onDeleteFilter(item, item.filterType)">
+                                                    {{ $tc('itb-configurable-listing-filters.list.buttonDelete') }}
+                                                </sw-context-menu-item>
+                                            </template>
+                                        {% endblock %}
+
+                                        {% block itb_configurable_listing_filters_list_grid_empty %}
+                                            <template #empty-state>
+                                                <sw-empty-state :title="$tc('itb-configurable-listing-filters.general.addButtonText')" icon="regular-filter"></sw-empty-state>
+                                            </template>
+                                        {% endblock %}
+                                    </sw-data-grid>
+                            </sw-card>
+                        </template>
+                    {% endblock %}
+                </sw-card-view>
+            </template>
+        {% endblock %}
+
+        {% block itb_configurable_listing_filters_list_delete_modal %}
+            <sw-modal v-if="showDeleteModal"
+                    :title="$tc('itb-configurable-listing-filters.list.deleteModalTitle')"
+                    variant="small"
+                    @modal-close="onCloseDeleteModal">
+                
+                <p>{{ $tc('itb-configurable-listing-filters.list.deleteModalText') }}</p>
+
+                <template #modal-footer>
+                    <sw-button @click="onCloseDeleteModal">
+                        {{ $tc('itb-configurable-listing-filters.list.buttonCancel') }}
+                    </sw-button>
+                    <sw-button @click="onConfirmDelete" variant="danger">
+                        {{ $tc('itb-configurable-listing-filters.list.buttonDelete') }}
+                    </sw-button>
+                </template>
+            </sw-modal>
+        {% endblock %}
+
+
+    </sw-page>
+{% endblock %}

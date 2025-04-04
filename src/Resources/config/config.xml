@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+
+    <card>
+        <title>Basic Configuration</title>
+        <title lang="de-DE">Grundkonfiguration</title>
+
+        <input-field type="bool">
+            <name>enabled</name>
+            <label>Enable plugin</label>
+            <label lang="de-DE">Plugin aktivieren</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="single-select">
+            <name>filterListPosition</name>
+            <label>Position of configurable filters in filter list</label>
+            <label lang="de-DE">Position der konfigurierbaren Filter in der Filterliste</label>
+            <options>
+                <option>
+                    <id>beginning</id>
+                    <name>At the beginning</name>
+                    <name lang="de-DE">Am Anfang</name>
+                </option>
+                <option>
+                    <id>end</id>
+                    <name>At the end</name>
+                    <name lang="de-DE">Am Ende</name>
+                </option>
+            </options>
+            <defaultValue>beginning</defaultValue>
+        </input-field>
+    </card>
+</config>

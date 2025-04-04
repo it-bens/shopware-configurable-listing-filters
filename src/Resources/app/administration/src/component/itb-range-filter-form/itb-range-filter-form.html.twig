@@ -1,0 +1,83 @@
+{% block itb_range_filter_form %}
+    <div class="itb-range-filter-form">
+        <sw-container 
+            columns="repeat(auto-fit, minmax(250px, 1fr))" 
+            gap="0 30px">
+            {% block itb_range_filter_form_basic_info %}
+                <sw-card :title="$tc('itb-configurable-listing-filters.filter.modalCreateTitle')" :isLoading="isLoading">
+                    <sw-container columns="1fr" gap="0 30px" v-if="filter">
+                        {% block itb_range_filter_form_dal_field %}
+                            <sw-text-field
+                                :label="$tc('itb-configurable-listing-filters.filter.labelDalField')"
+                                :placeholder="$tc('itb-configurable-listing-filters.filter.placeholderDalField')"
+                                :error="filterDalFieldError"
+                                v-model="filter.dalField"
+                                :disabled="!!filterId"
+                                required>
+                            </sw-text-field>
+                        {% endblock %}
+
+                        {% block itb_range_filter_form_display_name %}
+                            <sw-text-field
+                                :label="$tc('itb-configurable-listing-filters.filter.labelDisplayName')"
+                                :placeholder="$tc('itb-configurable-listing-filters.filter.placeholderDisplayName')"
+                                :error="filterDisplayNameError"
+                                v-model="filter.displayName"
+                                required>
+                            </sw-text-field>
+                        {% endblock %}
+
+                        {% block itb_range_filter_form_enabled %}
+                            <sw-switch-field
+                                :label="$tc('itb-configurable-listing-filters.filter.labelEnabled')"
+                                v-model="filter.enabled">
+                            </sw-switch-field>
+                        {% endblock %}
+
+                        {% block itb_range_filter_form_position %}
+                            <sw-number-field
+                                :label="$tc('itb-configurable-listing-filters.filter.labelPosition')"
+                                :placeholder="$tc('itb-configurable-listing-filters.filter.placeholderPosition')"
+                                v-model="filter.position"
+                                :min="0">
+                            </sw-number-field>
+                        {% endblock %}
+
+                        {% block itb_range_filter_form_twig_template %}
+                            <sw-text-field
+                                :label="$tc('itb-configurable-listing-filters.filter.labelTwigTemplate')"
+                                :placeholder="$tc('itb-configurable-listing-filters.filter.placeholderTwigTemplate')"
+                                :error="filterTwigTemplateError"
+                                v-model="filter.twigTemplate"
+                                required>
+                            </sw-text-field>
+                        {% endblock %}
+
+                        {% block itb_range_filter_form_sales_channel %}
+                            <sw-entity-single-select
+                                :label="$tc('itb-configurable-listing-filters.filter.labelSalesChannel')"
+                                :placeholder="$tc('itb-configurable-listing-filters.filter.placeholderSalesChannel')"
+                                entity="sales_channel"
+                                v-model="filter.salesChannelId">
+                            </sw-entity-single-select>
+                        {% endblock %}
+                    </sw-container>
+                </sw-card>
+            {% endblock %}
+
+            {% block itb_range_filter_form_advanced_settings %}
+                <sw-card :title="$tc('itb-configurable-listing-filters.range.title')" :isLoading="isLoading">
+                    <sw-container columns="1fr" gap="0 30px" v-if="filter">
+                        {% block itb_range_filter_form_unit %}
+                            <sw-text-field
+                                :label="$tc('itb-configurable-listing-filters.range.labelUnit')"
+                                :placeholder="$tc('itb-configurable-listing-filters.range.placeholderUnit')"
+                                v-model="filter.unit">
+                            </sw-text-field>
+                        {% endblock %}
+                    </sw-container>
+                </sw-card>
+            {% endblock %}
+        </sw-container>
+    </div>
+{% endblock %}

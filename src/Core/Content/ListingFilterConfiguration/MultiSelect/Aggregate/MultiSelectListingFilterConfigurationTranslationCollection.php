@@ -1,0 +1,29 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\Aggregate;
+
+use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
+
+/**
+ * @extends EntityCollection<MultiSelectListingFilterConfigurationTranslationEntity>
+ */
+final class MultiSelectListingFilterConfigurationTranslationCollection extends EntityCollection
+{
+    /**
+     * @api
+     */
+    public function getApiAlias(): string
+    {
+        return 'itb_listing_filter_configuration_translation_collection_multi_select';
+    }
+
+    /**
+     * @api
+     */
+    protected function getExpectedClass(): string
+    {
+        return MultiSelectListingFilterConfigurationTranslationEntity::class;
+    }
+}

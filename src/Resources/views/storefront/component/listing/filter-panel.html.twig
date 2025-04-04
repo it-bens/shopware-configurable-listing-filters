@@ -1,0 +1,29 @@
+{% sw_extends '@Storefront/storefront/component/listing/filter-panel.html.twig' %}
+
+{% block component_filter_panel_items %}
+    {% set itbConfigurableListingFiltersPluginConfig = config('ITBConfigurableListingFilters') %}
+    {% if itbConfigurableListingFiltersPluginConfig.config.enabled == false %}
+        {{ parent() }}
+    {% elseif listing|length == 0 %}
+        {{ parent() }}
+    {% else %}
+        {% if itbConfigurableListingFiltersPluginConfig.config.filterListPosition == 'end' %}
+            {{ parent() }}
+        {% endif %}
+
+        {% set itbListingFiltersRenderDataCollection = element.extensions['itb-listing-filters-render-data-collection'].renderDatasets %}
+        {% if itbListingFiltersRenderDataCollection is not null %}
+            {% for itbListingFiltersRenderDataset in itbListingFiltersRenderDataCollection %}
+                {% if itbListingFiltersRenderDataset.shouldBeRendered %}
+                    {% with itbListingFiltersRenderDataset.toArray %}
+                        {% sw_include itbListingFiltersRenderDataset.twigTemplate %}
+                    {% endwith %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% if itbConfigurableListingFiltersPluginConfig.config.filterListPosition == 'beginning' %}
+            {{ parent() }}
+        {% endif %}
+    {% endif %}
+{% endblock component_filter_panel_items %}

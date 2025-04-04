@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es6",
+    "checkJs": true,
+    "allowUmdGlobalAccess": true,
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "vue$": ["./node_modules/vue/dist/vue.esm.js"],
+      "@/*": ["./src/Resources/app/administration/src/*"],
+      "module/*": ["./vendor/shopware/administration/Resources/app/administration/src/module/*"],
+      "scss/*": ["./vendor/shopware/administration/Resources/app/administration/src/app/assets/scss/*"],
+      "assets/*": ["./vendor/shopware/administration/Resources/app/administration/static/*"],
+      "Shopware": ["./vendor/shopware/administration/Resources/app/administration/src/core/shopware"]
+    }
+  },
+  "include": [
+    "./src/Resources/app/administration/src/**/*.js",
+    "./src/Resources/app/administration/src/**/*.vue"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

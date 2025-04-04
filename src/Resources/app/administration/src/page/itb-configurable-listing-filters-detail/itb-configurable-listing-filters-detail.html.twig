@@ -1,0 +1,64 @@
+{% block itb_configurable_listing_filters_detail %}
+    <sw-page class="itb-configurable-listing-filters-detail">
+        {% block itb_configurable_listing_filters_detail_header %}
+            <template #smart-bar-header>
+                <h2>{{ pageTitle }}</h2>
+            </template>
+        {% endblock %}
+
+        {% block itb_configurable_listing_filters_detail_actions %}
+            <template #smart-bar-actions>
+                <sw-button
+                    @click="onCancel">
+                    {{ $tc('itb-configurable-listing-filters.filter.buttonCancel') }}
+                </sw-button>
+                
+                <sw-button
+                    variant="primary"
+                    @click="onSave">
+                    {{ $tc('itb-configurable-listing-filters.filter.buttonSave') }}
+                </sw-button>
+            </template>
+        {% endblock %}
+        
+        {% block itb_configurable_listing_filters_detail_language_switch %}
+            <template #language-switch>
+                <sw-language-switch />
+            </template>
+        {% endblock %}
+
+        {% block itb_configurable_listing_filters_detail_content %}
+            <template #content>
+                <sw-card-view>
+                    <sw-card
+                        :title="pageTitle"
+                        :isLoading="isLoading">
+                        <template v-if="filterType === 'checkbox'">
+                            <itb-checkbox-filter-form
+                                ref="filterForm"
+                                :filter-id="filterId"
+                                @saved="onFilterSaved">
+                            </itb-checkbox-filter-form>
+                        </template>
+                        
+                        <template v-else-if="filterType === 'multiSelect'">
+                            <itb-multi-select-filter-form
+                                ref="filterForm"
+                                :filter-id="filterId"
+                                @saved="onFilterSaved">
+                            </itb-multi-select-filter-form>
+                        </template>
+                        
+                        <template v-else-if="filterType === 'range'">
+                            <itb-range-filter-form
+                                ref="filterForm"
+                                :filter-id="filterId"
+                                @saved="onFilterSaved">
+                            </itb-range-filter-form>
+                        </template>
+                    </sw-card>
+                </sw-card-view>
+            </template>
+        {% endblock %}
+    </sw-page>
+{% endblock %}

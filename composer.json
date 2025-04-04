@@ -1,0 +1,81 @@
+{
+  "name": "it-bens/configurable-listing-filters",
+  "description": "sdgsdg",
+  "version": "0.1.0",
+  "type": "shopware-platform-plugin",
+  "license": "proprietary",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "IT Martin Bens",
+      "email": "martin.bens@it-bens.de"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "shopware/administration": "6.5.*",
+    "shopware/core": "6.5.*",
+    "shopware/storefront": "6.5.*"
+  },
+  "require-dev": {
+    "captainhook/captainhook": "^5.25",
+    "captainhook/plugin-composer": "^5.3",
+    "frosh/shopware-rector": "^0.3.0",
+    "phpstan/phpstan": "^1.12",
+    "phpstan/phpstan-phpunit": "^1.4",
+    "phpstan/phpstan-symfony": "^1.4",
+    "phpunit/phpunit": "^10.5",
+    "rector/rector": "^1.2",
+    "symplify/coding-standard": "^12.0",
+    "symplify/easy-coding-standard": "^12.1"
+  },
+  "extra": {
+    "shopware-plugin-class": "ITB\\ITBConfigurableListingFilters\\ITBConfigurableListingFilters",
+    "copyright": "IT Martin Bens",
+    "label": {
+      "de-DE": "Konfigurierbare Listing Filter",
+      "en-GB": "Configurable Listing Filters"
+    },
+    "description": {
+      "de-DE": "sdgdg",
+      "en-GB": "sdggdg"
+    },
+    "manufacturerLink": {
+      "en-GB": "dsgds",
+      "de-DE": "sgdg"
+    },
+    "supportLink": {
+      "de-DE": "dsgsdg",
+      "en-GB": "sdgg"
+    },
+    "phpstan": {
+      "includes": [
+        "extension.neon"
+      ]
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "ITB\\ITBConfigurableListingFilters\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ITB\\ITBConfigurableListingFilters\\Test\\": "tests/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "symfony/runtime": true,
+      "captainhook/plugin-composer": true
+    }
+  },
+  "scripts": {
+    "style-check": "php vendor/bin/ecs check --config=ecs.php src tests",
+    "style-fix": "php vendor/bin/ecs check --config=ecs.php --fix src tests",
+    "code-upgrade": "php vendor/bin/rector process --config=rector.php src tests",
+    "static-analysis": "php vendor/bin/phpstan analyze --configuration=phpstan-local.neon --memory-limit=-1 src tests"
+  }
+}

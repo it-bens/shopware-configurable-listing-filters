@@ -1,0 +1,28 @@
+services:
+  dev-tools:
+    build:
+      context: .
+      dockerfile: docker/dev-tools/Dockerfile
+    volumes:
+      - "./:/var/www/html"
+
+  shopware:
+    build:
+      context: .
+      dockerfile: docker/shopware/Dockerfile
+    ports:
+      - "80:80"
+      - "8888:8888" # Administration Watcher
+      - "9999:9999" # Storefront Watcher
+      - "9998:9998" # Storefront Watcher
+    environment:
+      PHP_VERSION: 8.1
+      XDEBUG_ENABLED: 1
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    volumes:
+      - "./:/var/www/html/custom/plugins/ITBConfigurableListingFilters"
+      # exclude by using anonymous volumes
+      - "/var/www/html/custom/plugins/ITBConfigurableListingFilters/.git/"
+      - "/var/www/html/custom/plugins/ITBConfigurableListingFilters/vendor/"
+      - "/var/www/html/custom/plugins/ITBConfigurableListingFilters/tests/Cypress/"

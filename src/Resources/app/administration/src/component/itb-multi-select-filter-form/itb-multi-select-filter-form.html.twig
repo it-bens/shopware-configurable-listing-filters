@@ -1,0 +1,127 @@
+{% block itb_multi_select_filter_form %}
+    <div class="itb-multi-select-filter-form">
+        <sw-container 
+            columns="repeat(auto-fit, minmax(250px, 1fr))" 
+            gap="0 30px">
+            {% block itb_multi_select_filter_form_basic_info %}
+                <sw-card :title="$tc('itb-configurable-listing-filters.filter.modalCreateTitle')" :isLoading="isLoading">
+                    <sw-container columns="1fr" gap="0 30px" v-if="filter">
+                        {% block itb_multi_select_filter_form_dal_field %}
+                            <sw-text-field
+                                :label="$tc('itb-configurable-listing-filters.filter.labelDalField')"
+                                :placeholder="$tc('itb-configurable-listing-filters.filter.placeholderDalField')"
+                                :error="filterDalFieldError"
+                                v-model="filter.dalField"
+                                :disabled="!!filterId"
+                                required>
+                            </sw-text-field>
+                        {% endblock %}
+
+                        {% block itb_multi_select_filter_form_display_name %}
+                            <sw-text-field
+                                :label="$tc('itb-configurable-listing-filters.filter.labelDisplayName')"
+                                :placeholder="$tc('itb-configurable-listing-filters.filter.placeholderDisplayName')"
+                                :error="filterDisplayNameError"
+                                v-model="filter.displayName"
+                                required>
+                            </sw-text-field>
+                        {% endblock %}
+
+                        {% block itb_multi_select_filter_form_enabled %}
+                            <sw-switch-field
+                                :label="$tc('itb-configurable-listing-filters.filter.labelEnabled')"
+                                v-model="filter.enabled">
+                            </sw-switch-field>
+                        {% endblock %}
+
+                        {% block itb_multi_select_filter_form_position %}
+                            <sw-number-field
+                                :label="$tc('itb-configurable-listing-filters.filter.labelPosition')"
+                                :placeholder="$tc('itb-configurable-listing-filters.filter.placeholderPosition')"
+                                v-model="filter.position"
+                                :min="0">
+                            </sw-number-field>
+                        {% endblock %}
+
+                        {% block itb_multi_select_filter_form_twig_template %}
+                            <sw-text-field
+                                :label="$tc('itb-configurable-listing-filters.filter.labelTwigTemplate')"
+                                :placeholder="$tc('itb-configurable-listing-filters.filter.placeholderTwigTemplate')"
+                                :error="filterTwigTemplateError"
+                                v-model="filter.twigTemplate"
+                                required>
+                            </sw-text-field>
+                        {% endblock %}
+
+                        {% block itb_multi_select_filter_form_sales_channel %}
+                            <sw-entity-single-select
+                                :label="$tc('itb-configurable-listing-filters.filter.labelSalesChannel')"
+                                :placeholder="$tc('itb-configurable-listing-filters.filter.placeholderSalesChannel')"
+                                entity="sales_channel"
+                                v-model="filter.salesChannelId">
+                            </sw-entity-single-select>
+                        {% endblock %}
+                    </sw-container>
+                </sw-card>
+            {% endblock %}
+
+            {% block itb_multi_select_filter_form_advanced_settings %}
+                <sw-card :title="$tc('itb-configurable-listing-filters.multiSelect.title')" :isLoading="isLoading">
+                    <sw-container columns="1fr" gap="0 30px" v-if="filter">
+                        {% block itb_multi_select_filter_form_sorting_order %}
+                            <sw-single-select
+                                :label="$tc('itb-configurable-listing-filters.multiSelect.labelSortingOrder')"
+                                :options="sortingOptions"
+                                v-model="filter.sortingOrder"
+                                :error="filterSortingOrderError"
+                                required>
+                            </sw-single-select>
+                        {% endblock %}
+
+                        {% block itb_multi_select_filter_form_allowed_elements %}
+                            <sw-textarea-field
+                                :label="$tc('itb-configurable-listing-filters.multiSelect.labelAllowedElements')"
+                                :placeholder="$tc('itb-configurable-listing-filters.multiSelect.placeholderAllowedElements')"
+                                :helpText="$tc('itb-configurable-listing-filters.multiSelect.helpTextAllowedElements')"
+                                v-model="filter.allowedElements">
+                            </sw-textarea-field>
+                        {% endblock %}
+
+                        {% block itb_multi_select_filter_form_forbidden_elements %}
+                            <sw-textarea-field
+                                :label="$tc('itb-configurable-listing-filters.multiSelect.labelForbiddenElements')"
+                                :placeholder="$tc('itb-configurable-listing-filters.multiSelect.placeholderForbiddenElements')"
+                                :helpText="$tc('itb-configurable-listing-filters.multiSelect.helpTextForbiddenElements')"
+                                v-model="filter.forbiddenElements">
+                            </sw-textarea-field>
+                        {% endblock %}
+
+                        {% block itb_multi_select_filter_form_element_prefix %}
+                            <sw-text-field
+                                :label="$tc('itb-configurable-listing-filters.multiSelect.labelElementPrefix')"
+                                :placeholder="$tc('itb-configurable-listing-filters.multiSelect.placeholderElementPrefix')"
+                                v-model="filter.elementPrefix">
+                            </sw-text-field>
+                        {% endblock %}
+
+                        {% block itb_multi_select_filter_form_element_suffix %}
+                            <sw-text-field
+                                :label="$tc('itb-configurable-listing-filters.multiSelect.labelElementSuffix')"
+                                :placeholder="$tc('itb-configurable-listing-filters.multiSelect.placeholderElementSuffix')"
+                                v-model="filter.elementSuffix">
+                            </sw-text-field>
+                        {% endblock %}
+
+                        {% block itb_multi_select_filter_form_explicit_element_sorting %}
+                            <sw-textarea-field
+                                :label="$tc('itb-configurable-listing-filters.multiSelect.labelExplicitElementSorting')"
+                                :placeholder="$tc('itb-configurable-listing-filters.multiSelect.placeholderExplicitElementSorting')"
+                                v-model="filter.explicitElementSorting">
+                            </sw-textarea-field>
+                        {% endblock %}
+                    </sw-container>
+                </sw-card>
+            {% endblock %}
+        </sw-container>
+    </div>
+{% endblock %}
