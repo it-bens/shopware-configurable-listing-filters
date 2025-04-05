@@ -15,7 +15,6 @@ interface FilterFormComponent extends Vue {
     loadFilterWithLanguage(languageId: string): Promise<ITB.BaseFilter | null>;
 }
 
-// Detail page component
 Component.register('itb-configurable-listing-filters-detail', {
     template,
 

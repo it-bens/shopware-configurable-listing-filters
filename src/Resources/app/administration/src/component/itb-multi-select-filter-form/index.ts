@@ -9,7 +9,6 @@ interface SortingOption {
     label: string;
 }
 
-// Erstellen der Komponente
 const multiSelectFilterForm = Component.register('itb-multi-select-filter-form', {
     template,
 
@@ -168,7 +167,6 @@ const multiSelectFilterForm = Component.register('itb-multi-select-filter-form',
         save(): Promise<ITB.MultiSelectFilter | void> {
             this.isLoading = true;
 
-            // Manuelle Validierung
             this.errors = {};
             if (!this.filter?.dalField) {
                 this.errors.dalField = { code: 'REQUIRED', detail: 'This field is required' };

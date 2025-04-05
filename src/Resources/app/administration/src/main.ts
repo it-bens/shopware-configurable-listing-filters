@@ -8,7 +8,6 @@ import './component/itb-checkbox-filter-form';
 import './component/itb-multi-select-filter-form';
 import './component/itb-range-filter-form';
 
-// Modul registrieren
 Shopware.Module.register('itb-configurable-listing-filters', {
     type: 'plugin',
     name: 'ConfigurableListingFilters',

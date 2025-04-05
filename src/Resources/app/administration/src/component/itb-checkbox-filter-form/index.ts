@@ -4,7 +4,6 @@ const { Component, Mixin } = Shopware;
 const { Criteria } = Shopware.Data;
 const { mapPropertyErrors } = Component.getComponentHelper();
 
-// Erstellen der Komponente
 const checkboxFilterForm = Component.register('itb-checkbox-filter-form', {
     template,
 
@@ -133,8 +132,7 @@ const checkboxFilterForm = Component.register('itb-checkbox-filter-form', {
 
         save(): Promise<ITB.CheckboxFilter | void> {
             this.isLoading = true;
-            
-            // Manuelle Validierung
+
             this.errors = {};
             if (!this.filter?.dalField) {
                 this.errors.dalField = { code: 'REQUIRED', detail: 'This field is required' };

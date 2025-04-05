@@ -4,7 +4,6 @@ const { Component, Mixin } = Shopware;
 const { Criteria } = Shopware.Data;
 const { mapPropertyErrors } = Component.getComponentHelper();
 
-// Erstellen der Komponente
 const rangeFilterForm = Component.register('itb-range-filter-form', {
     template,
 
@@ -130,7 +129,6 @@ const rangeFilterForm = Component.register('itb-range-filter-form', {
         save(): Promise<ITB.RangeFilter | void> {
             this.isLoading = true;
 
-            // Manuelle Validierung
             this.errors = {};
             if (!this.filter?.dalField) {
                 this.errors.dalField = { code: 'REQUIRED', detail: 'This field is required' };

@@ -26,7 +26,6 @@ interface SalesChannelOption {
     name: string;
 }
 
-// Erstellen der Komponente
 const listPage = Component.register('itb-configurable-listing-filters-list', {
     template,
 
@@ -344,8 +343,6 @@ const listPage = Component.register('itb-configurable-listing-filters-list', {
     }
 });
 
-// Registrierung der Komponente
 Component.register('itb-configurable-listing-filters-list', listPage);
 
-// Export für externe Nutzung
 export default listPage;
