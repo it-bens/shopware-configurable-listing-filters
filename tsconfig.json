@@ -13,19 +13,23 @@
     "noEmit": true,
     "noErrorTruncation": false,
     "paths": {
-      "@/*": ["./src/Resources/app/administration/src/*"]
+      "@/*": ["./src/Resources/app/administration/src/*"],
+      "Shopware/*": ["./vendor/shopware/administration/Resources/app/administration/src/*"],
+      "vue": ["./node_modules/vue/dist/vue.esm.js"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "es2020",
-    "types": ["./src/Resources/app/administration/src/types"]
+    "types": ["node", "./src/Resources/app/administration/src/types"]
   },
   "include": [
     "./src/Resources/app/administration/src/**/*.ts",
     "./src/Resources/app/administration/src/**/*.js",
     "./src/Resources/app/administration/src/**/*.tsx",
-    "./src/Resources/app/administration/src/**/*.vue"
+    "./src/Resources/app/administration/src/**/*.vue",
+    "./vendor/shopware/administration/Resources/app/administration/src/**/*.d.ts",
+    "vendor/shopware/administration/Resources/app/administration/src/global.types.ts"
   ],
   "exclude": [
     "node_modules", 
