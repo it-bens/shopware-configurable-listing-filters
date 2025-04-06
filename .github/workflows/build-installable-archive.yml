@@ -1,0 +1,70 @@
+name: Build Installable Archive
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-archive:
+    name: Build Archive
+    runs-on: ubuntu-latest
+    env:
+      PLUGIN_NAME: "ITBConfigurableListingFilters"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Extract plugin version
+        id: version
+        run: |
+          PLUGIN_VERSION=$(jq -r '.version' "./composer.json")
+          echo "PLUGIN_VERSION=$PLUGIN_VERSION" >> $GITHUB_ENV
+          echo "Plugin Version: $PLUGIN_VERSION"
+
+      - name: Apply zip blocklist
+        run: |
+          # Create a working copy without files in blocklist
+          if [ -f .sw-zip-blocklist ]; then
+            while IFS= read -r line || [[ -n "$line" ]]; do
+              if [[ -n "$line" && ! "$line" =~ ^# ]]; then
+                rm -rf "$line" || true
+              fi
+            done < .sw-zip-blocklist
+            rm -rf .sw-zip-blocklist
+          fi
+
+      - name: Create .shopware-extension.yml
+        run: |
+          echo 'build:' > .shopware-extension.yml
+          echo '  shopwareVersionConstraint: ">=6.5.0.0 <6.6.0.0"' >> .shopware-extension.yml
+
+      - name: Install shopware-cli
+        uses: shopware/shopware-cli-action@59ae24c10db19dc1a20836623b714d586dfdb9a8 # v1.0.4
+        
+      - name: Build and rename ZIP
+        run: |
+          # Create ZIP using shopware-cli
+          shopware-cli extension zip . --disable-git
+          
+          # Find and rename the ZIP file
+          SOURCE_ZIP=$(find . -name "*.zip" -type f | head -n 1)
+          TARGET_ZIP="${{ env.PLUGIN_NAME }}_${{ env.PLUGIN_VERSION }}.zip"
+          
+          echo "Source ZIP: $SOURCE_ZIP"
+          echo "Target ZIP: $TARGET_ZIP"
+          
+          mv "$SOURCE_ZIP" "$TARGET_ZIP"
+          echo "Renamed to $TARGET_ZIP"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: "${{ env.PLUGIN_NAME }}_${{ env.PLUGIN_VERSION }}"
+          path: "${{ env.PLUGIN_NAME }}_${{ env.PLUGIN_VERSION }}.zip"
