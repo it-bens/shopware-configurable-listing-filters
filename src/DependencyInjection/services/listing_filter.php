@@ -8,8 +8,6 @@ use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Dal\RequestValueBui
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Dal\RequestValueBuilderInterface as CheckboxRequestValueBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Storefront\RenderDataBuilder as CheckboxRenderDataBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Storefront\RenderDataBuilderInterface as CheckboxRenderDataBuilderInterface;
-use ITB\ITBConfigurableListingFilters\ListingFilter\FilterAndAggregationNameBuilder;
-use ITB\ITBConfigurableListingFilters\ListingFilter\FilterAndAggregationNameBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\FilterBuilder as MultiSelectFilterBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\FilterBuilderInterface as MultiSelectFilterBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\RequestValueBuilder as MultiSelectRequestValueBuilder;
@@ -36,9 +34,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->autoconfigure();
 
     // DAL listing filter services
-    $services->set(FilterAndAggregationNameBuilder::class);
-    $services->alias(FilterAndAggregationNameBuilderInterface::class, FilterAndAggregationNameBuilder::class);
-
     $services->set(CheckboxFilterBuilder::class);
     $services->alias(CheckboxFilterBuilderInterface::class, CheckboxFilterBuilder::class);
     $services->set(CheckboxRequestValueBuilder::class);
