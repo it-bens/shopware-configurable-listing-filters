@@ -25,16 +25,16 @@ final class FilterBuilder implements FilterBuilderInterface
         $aggregationFilter = [
             new NotFilter(MultiFilter::CONNECTION_AND, [new EqualsFilter($configurationEntity->getFullyQualifiedDalField(), null)]),
         ];
-        if ($configurationEntity->getAllowedElements() !== []) {
+        if ($configurationEntity->getAllowedElements() !== null && $configurationEntity->getAllowedElements() !== []) {
             $aggregationFilter[] = new EqualsAnyFilter(
                 $configurationEntity->getFullyQualifiedDalField(),
-                $configurationEntity->getAllowedElements() ?? []
+                $configurationEntity->getAllowedElements()
             );
         }
 
-        if ($configurationEntity->getForbiddenElements() !== []) {
+        if ($configurationEntity->getForbiddenElements() !== null && $configurationEntity->getForbiddenElements() !== []) {
             $aggregationFilter[] = new NotFilter(MultiFilter::CONNECTION_AND, [
-                new EqualsAnyFilter($configurationEntity->getFullyQualifiedDalField(), $configurationEntity->getForbiddenElements() ?? []),
+                new EqualsAnyFilter($configurationEntity->getFullyQualifiedDalField(), $configurationEntity->getForbiddenElements()),
             ]);
         }
 
