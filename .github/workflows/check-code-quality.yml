@@ -1,0 +1,128 @@
+name: Check Code Quality
+
+on:
+  push:
+    branches: [ 'main' ]
+  pull_request:
+    branches: [ 'main' ]
+
+permissions:
+  contents: read
+
+jobs:
+  code-style:
+    name: Code style
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@9e72090525849c5e82e596468b86eb55e9cc5401 # 2.32.0
+        with:
+          php-version: '8.1'
+          tools: composer:v2
+
+      - name: Check PHP Version
+        run: php -v
+
+      - name: Update dependencies with composer
+        run: composer update --no-interaction --no-ansi --no-progress
+
+      - name: Load ECS Cache
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+        with:
+          path: /tmp/ecs
+          key: ${{ runner.os }}-ecs-${{ github.run_id }}
+          restore-keys: ${{ runner.os }}-ecs-
+
+      - name: Create cache directory
+        run: mkdir -p /tmp/ecs
+
+      - name: Run ECS
+        run: ./vendor/bin/ecs --config=ecs.php check
+
+  code-quality:
+    name: Code quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@9e72090525849c5e82e596468b86eb55e9cc5401 # 2.32.0
+        with:
+          php-version: '8.1'
+          tools: composer:v2
+
+      - name: Check PHP Version
+        run: php -v
+
+      - name: Update dependencies with composer
+        run: composer update --no-interaction --no-ansi --no-progress
+
+      - name: Load Rector Cache
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+        with:
+          path: /tmp/rector
+          key: ${{ runner.os }}-rector-${{ github.run_id }}
+          restore-keys: ${{ runner.os }}-rector-
+
+      - name: Create cache directory
+        run: mkdir -p /tmp/rector
+
+      - name: Run Rector
+        run: ./vendor/bin/rector --config=rector.php process --dry-run
+
+  static-analysis:
+    name: Static analysis (PHPStan)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: [ '8.1', '8.2', '8.3' ]
+        shopware-version: [ 'v6.5.8.16' ]
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Prepare dependency list
+        id: dependency-list
+        shell: bash
+        run: |
+          REPOS='{
+              "ITBConfigurableListingFilters": {
+                "type": "path",
+                "url": "custom/plugins/ITBConfigurableListingFilters",
+                "symlink": true
+              }
+            }'
+          echo "repos=$(echo $REPOS | jq -c .)" >> "$GITHUB_OUTPUT"
+
+      - uses: shopware/github-actions/setup-extension@main
+        with:
+          extensionName: 'ITBConfigurableListingFilters'
+          mysqlVersion: 'builtin'
+          shopwareVersion: ${{ matrix.shopware-version }}
+          phpVersion: ${{ matrix.php-version }}
+          install: true
+          install-admin: true
+          install-storefront: true
+          extraRepositories: ${{ steps.dependency-list.outputs.repos }}
+
+      - name: Prepare Administration
+        shell: bash
+        run: |
+          bin/console bundle:dump
+          composer admin:generate-entity-schema-types
+
+      - name: Prepare PHPStan
+        working-directory: 'custom/plugins/ITBConfigurableListingFilters'
+        run: |
+          composer dump-autoload --dev -d "${GITHUB_WORKSPACE}/custom/plugins/ITBConfigurableListingFilters"
+          composer dump-autoload --dev -d "${GITHUB_WORKSPACE}/custom/plugins/ITBConfigurableListingFilters"
+          sed -i 's|reportUnmatchedIgnoredErrors: true|reportUnmatchedIgnoredErrors: false|' ./phpstan.neon.dist
+
+      - name: Run PHPStan
+        run: |
+          composer -d custom/plugins/ITBConfigurableListingFilters run phpstan
