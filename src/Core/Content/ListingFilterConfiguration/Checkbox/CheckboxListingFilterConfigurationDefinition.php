@@ -12,7 +12,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
-final class CheckboxListingFilterConfigurationDefinition extends ListingFilterConfigurationDefinition
+class CheckboxListingFilterConfigurationDefinition extends ListingFilterConfigurationDefinition
 {
     public const ENTITY_NAME = 'itb_listing_filter_configuration_checkbox';
 

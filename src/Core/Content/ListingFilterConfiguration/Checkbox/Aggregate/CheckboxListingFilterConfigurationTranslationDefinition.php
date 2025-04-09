@@ -8,7 +8,7 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Ag
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Checkbox\CheckboxListingFilterConfigurationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 
-final class CheckboxListingFilterConfigurationTranslationDefinition extends ListingFilterConfigurationTranslationDefinition
+class CheckboxListingFilterConfigurationTranslationDefinition extends ListingFilterConfigurationTranslationDefinition
 {
     public const ENTITY_NAME = 'itb_listing_filter_configuration_checkbox_translation';
 

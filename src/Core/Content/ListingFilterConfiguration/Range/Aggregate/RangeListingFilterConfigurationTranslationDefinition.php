@@ -11,7 +11,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
-final class RangeListingFilterConfigurationTranslationDefinition extends ListingFilterConfigurationTranslationDefinition
+class RangeListingFilterConfigurationTranslationDefinition extends ListingFilterConfigurationTranslationDefinition
 {
     public const ENTITY_NAME = 'itb_listing_filter_configuration_range_translation';
 

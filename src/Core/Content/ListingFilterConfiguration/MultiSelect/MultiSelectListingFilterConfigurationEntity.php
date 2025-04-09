@@ -6,7 +6,7 @@ namespace ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfigurat
 
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\ListingFilterConfigurationEntity;
 
-final class MultiSelectListingFilterConfigurationEntity extends ListingFilterConfigurationEntity
+class MultiSelectListingFilterConfigurationEntity extends ListingFilterConfigurationEntity
 {
     public const TWIG_TEMPLATE = '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig';
 

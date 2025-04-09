@@ -9,7 +9,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 /**
  * @extends EntityCollection<RangeListingFilterConfigurationTranslationEntity>
  */
-final class RangeListingFilterConfigurationTranslationCollection extends EntityCollection
+class RangeListingFilterConfigurationTranslationCollection extends EntityCollection
 {
     /**
      * @api

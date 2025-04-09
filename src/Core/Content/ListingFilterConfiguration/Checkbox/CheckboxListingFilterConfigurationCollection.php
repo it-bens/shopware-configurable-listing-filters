@@ -9,7 +9,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 /**
  * @extends EntityCollection<CheckboxListingFilterConfigurationEntity>
  */
-final class CheckboxListingFilterConfigurationCollection extends EntityCollection
+class CheckboxListingFilterConfigurationCollection extends EntityCollection
 {
     /**
      * @api

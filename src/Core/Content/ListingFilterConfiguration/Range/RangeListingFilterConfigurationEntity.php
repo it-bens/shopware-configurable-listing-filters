@@ -6,7 +6,7 @@ namespace ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfigurat
 
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\ListingFilterConfigurationEntity;
 
-final class RangeListingFilterConfigurationEntity extends ListingFilterConfigurationEntity
+class RangeListingFilterConfigurationEntity extends ListingFilterConfigurationEntity
 {
     public const TWIG_TEMPLATE = '@Storefront/storefront/component/listing/filter/filter-range.html.twig';
 

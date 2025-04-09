@@ -9,7 +9,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 /**
  * @extends EntityCollection<MultiSelectListingFilterConfigurationEntity>
  */
-final class MultiSelectListingFilterConfigurationCollection extends EntityCollection
+class MultiSelectListingFilterConfigurationCollection extends EntityCollection
 {
     /**
      * @api

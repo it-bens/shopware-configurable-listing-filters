@@ -7,7 +7,7 @@ namespace ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfigurat
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Aggregate\ListingFilterConfigurationTranslation\ListingFilterConfigurationTranslationEntity;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationEntity;
 
-final class MultiSelectListingFilterConfigurationTranslationEntity extends ListingFilterConfigurationTranslationEntity
+class MultiSelectListingFilterConfigurationTranslationEntity extends ListingFilterConfigurationTranslationEntity
 {
     /**
      * @var array<string>|null

@@ -12,7 +12,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\ListField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
-final class MultiSelectListingFilterConfigurationTranslationDefinition extends ListingFilterConfigurationTranslationDefinition
+class MultiSelectListingFilterConfigurationTranslationDefinition extends ListingFilterConfigurationTranslationDefinition
 {
     public const ENTITY_NAME = 'itb_listing_filter_configuration_multi_select_translation';
 

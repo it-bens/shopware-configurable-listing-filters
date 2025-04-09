@@ -13,7 +13,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
-final class RangeListingFilterConfigurationDefinition extends ListingFilterConfigurationDefinition
+class RangeListingFilterConfigurationDefinition extends ListingFilterConfigurationDefinition
 {
     public const ENTITY_NAME = 'itb_listing_filter_configuration_range';
 
