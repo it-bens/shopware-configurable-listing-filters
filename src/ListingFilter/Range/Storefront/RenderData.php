@@ -7,7 +7,7 @@ namespace ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront;
 final class RenderData
 {
     public function __construct(
-        private readonly string $twigTemplate,
+        public readonly string $twigTemplate,
         private readonly string $filterName,
         private readonly string $displayName,
         private readonly string $gteQueryParameter,
@@ -61,13 +61,5 @@ final class RenderData
             'maxInputValue' => $this->lteInputValue,
             'unit' => $this->unit ?? '',
         ];
-    }
-
-    /**
-     * @api
-     */
-    public function twigTemplate(): string
-    {
-        return $this->twigTemplate;
     }
 }

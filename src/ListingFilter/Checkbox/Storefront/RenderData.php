@@ -7,7 +7,7 @@ namespace ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Storefront;
 final class RenderData
 {
     public function __construct(
-        private readonly string $twigTemplate,
+        public readonly string $twigTemplate,
         private readonly string $name,
         private readonly string $displayName,
         private readonly string $disabledFilterTooltip
@@ -46,13 +46,5 @@ final class RenderData
                 ],
             ],
         ];
-    }
-
-    /**
-     * @api
-     */
-    public function twigTemplate(): string
-    {
-        return $this->twigTemplate;
     }
 }

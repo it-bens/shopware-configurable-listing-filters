@@ -10,7 +10,7 @@ final class RenderData
      * @param array<Element> $elements
      */
     public function __construct(
-        private readonly string $twigTemplate,
+        public readonly string $twigTemplate,
         private readonly string $name,
         private readonly string $displayName,
         private readonly string $pluginSelector,
@@ -59,13 +59,5 @@ final class RenderData
             ],
             'elements' => $this->elements,
         ];
-    }
-
-    /**
-     * @api
-     */
-    public function twigTemplate(): string
-    {
-        return $this->twigTemplate;
     }
 }
