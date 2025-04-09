@@ -18,6 +18,9 @@
         <testsuite name="unit tests">
             <directory>tests/PHPUnit/Unit</directory>
         </testsuite>
+        <testsuite name="integration tests">
+            <directory>tests/PHPUnit/Integration</directory>
+        </testsuite>
     </testsuites>
 
     <source>

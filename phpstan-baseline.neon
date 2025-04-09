@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Static property Shopware\\\\Core\\\\Framework\\\\Adapter\\\\Kernel\\\\KernelFactory\\:\\:\\$kernelClass \\(class\\-string\\<Shopware\\\\Core\\\\Kernel\\>\\) does not accept string\\.$#"
+			count: 1
+			path: tests/PHPUnit/Integration/EntityDefinitionRegistrationTest.php
+
+		-
+			message: "#^Static property Shopware\\\\Core\\\\Framework\\\\Adapter\\\\Kernel\\\\KernelFactory\\:\\:\\$kernelClass \\(class\\-string\\<Shopware\\\\Core\\\\Kernel\\>\\) does not accept string\\.$#"
+			count: 1
+			path: tests/PHPUnit/Integration/SubscriberRegistrationTest.php
+
+		-
 			message: "#^Call to an undefined method ITB\\\\ITBConfigurableListingFilters\\\\Core\\\\Content\\\\ListingFilterConfiguration\\\\Checkbox\\\\Aggregate\\\\CheckboxListingFilterConfigurationTranslationDefinition\\:\\:getDefinedFields\\(\\)\\.$#"
 			count: 1
 			path: tests/PHPUnit/Unit/Core/Content/ListingFilterConfiguration/Checkbox/Aggregate/CheckboxListingFilterConfigurationTranslationDefinitionTest.php
@@ -44,6 +54,16 @@ parameters:
 			message: "#^Property Symfony\\\\Component\\\\HttpFoundation\\\\Request\\:\\:\\$query \\(Symfony\\\\Component\\\\HttpFoundation\\\\InputBag\\<string\\>\\) does not accept Symfony\\\\Component\\\\HttpFoundation\\\\InputBag\\<bool\\|float\\|int\\|string\\>\\.$#"
 			count: 4
 			path: tests/PHPUnit/Unit/ListingFilter/MultiSelect/Dal/RequestValueBuilderTest.php
+
+		-
+			message: "#^Property Symfony\\\\Component\\\\HttpFoundation\\\\Request\\:\\:\\$query \\(Symfony\\\\Component\\\\HttpFoundation\\\\InputBag\\<string\\>\\) does not accept PHPUnit\\\\Framework\\\\MockObject\\\\Stub&Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 2
+			path: tests/PHPUnit/Unit/ListingFilter/MultiSelect/Dal/ValueFromRequestExtractorTest.php
+
+		-
+			message: "#^Property Symfony\\\\Component\\\\HttpFoundation\\\\Request\\:\\:\\$request \\(Symfony\\\\Component\\\\HttpFoundation\\\\InputBag\\<bool\\|float\\|int\\|string\\>\\) does not accept PHPUnit\\\\Framework\\\\MockObject\\\\Stub&Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 2
+			path: tests/PHPUnit/Unit/ListingFilter/MultiSelect/Dal/ValueFromRequestExtractorTest.php
 
 		-
 			message: "#^Offset 'gte' does not exist on array\\{gte\\?\\: int, lte\\?\\: int\\}\\.$#"
