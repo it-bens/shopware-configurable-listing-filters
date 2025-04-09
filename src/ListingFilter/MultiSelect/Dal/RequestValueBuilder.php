@@ -9,10 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class RequestValueBuilder implements RequestValueBuilderInterface
 {
+    public function __construct(
+        private readonly ValueFromRequestExtractorInterface $valueFromRequestExtractor,
+    ) {
+    }
+
     public function buildRequestValue(MultiSelectListingFilterConfigurationEntity $configurationEntity, Request $request): RequestValue
     {
-        /** @var string $valuesAsString */
-        $valuesAsString = $request->get($configurationEntity->getFilterName(), '');
+        $valuesAsString = $this->valueFromRequestExtractor->extractValueFromRequest($request, $configurationEntity->getFilterName());
 
         /** @var array<string> $values */
         $values = explode('|', $valuesAsString);

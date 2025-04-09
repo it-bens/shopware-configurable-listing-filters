@@ -12,6 +12,8 @@ use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\FilterBuilde
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\FilterBuilderInterface as MultiSelectFilterBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\RequestValueBuilder as MultiSelectRequestValueBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\RequestValueBuilderInterface as MultiSelectRequestValueBuilderInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\ValueFromRequestExtractor;
+use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\ValueFromRequestExtractorInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\ElementsExtractor;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\ElementsExtractorInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\RenderDataBuilder as MultiSelectRenderDataBuilder;
@@ -39,9 +41,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(CheckboxRequestValueBuilder::class);
     $services->alias(CheckboxRequestValueBuilderInterface::class, CheckboxRequestValueBuilder::class);
 
+    $services->set(ValueFromRequestExtractor::class);
+    $services->alias(ValueFromRequestExtractorInterface::class, ValueFromRequestExtractor::class);
     $services->set(MultiSelectFilterBuilder::class);
     $services->alias(MultiSelectFilterBuilderInterface::class, MultiSelectFilterBuilder::class);
-    $services->set(MultiSelectRequestValueBuilder::class);
+    $services->set(MultiSelectRequestValueBuilder::class)->args([service(ValueFromRequestExtractorInterface::class)]);
     $services->alias(MultiSelectRequestValueBuilderInterface::class, MultiSelectRequestValueBuilder::class);
 
     $services->set(RangeFilterBuilder::class);
