@@ -24,6 +24,10 @@ final class RenderData
      */
     public function shouldBeRendered(): bool
     {
+        if ($this->gteInputValue === null && $this->lteInputValue === null) {
+            return true;
+        }
+
         return $this->gteInputValue !== $this->lteInputValue;
     }
 
