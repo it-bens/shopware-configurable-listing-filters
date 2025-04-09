@@ -70,12 +70,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Listing subscriber and helper services
     $services->set(FilterCollectionEnricher::class)
         ->args([
-            service(CheckboxFilterBuilderInterface::class),
             service(CheckboxRequestValueBuilderInterface::class),
-            service(MultiSelectFilterBuilderInterface::class),
+            service(CheckboxFilterBuilderInterface::class),
             service(MultiSelectRequestValueBuilderInterface::class),
-            service(RangeFilterBuilderInterface::class),
+            service(MultiSelectFilterBuilderInterface::class),
             service(RangeRequestValueBuilderInterface::class),
+            service(RangeFilterBuilderInterface::class),
         ]);
     $services->alias(FilterCollectionEnricherInterface::class, FilterCollectionEnricher::class);
     $services->set(ProductListingSubscriber::class)

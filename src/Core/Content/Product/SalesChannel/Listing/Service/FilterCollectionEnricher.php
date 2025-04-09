@@ -20,12 +20,12 @@ use Symfony\Component\HttpFoundation\Request;
 final class FilterCollectionEnricher implements FilterCollectionEnricherInterface
 {
     public function __construct(
-        private readonly CheckboxFilterBuilder $checkboxFilterBuilder,
         private readonly CheckboxRequestValueBuilder $checkboxRequestValueBuilder,
-        private readonly MultiSelectFilterBuilder $multiSelectFilterBuilder,
+        private readonly CheckboxFilterBuilder $checkboxFilterBuilder,
         private readonly MultiSelectRequestValueBuilder $multiSelectRequestValueBuilder,
-        private readonly RangeFilterBuilder $rangeFilterBuilder,
+        private readonly MultiSelectFilterBuilder $multiSelectFilterBuilder,
         private readonly RangeRequestValueBuilder $rangeRequestValueBuilder,
+        private readonly RangeFilterBuilder $rangeFilterBuilder,
     ) {
     }
 
