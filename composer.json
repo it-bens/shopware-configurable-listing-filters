@@ -76,6 +76,7 @@
     "style-check": "php vendor/bin/ecs check --config=ecs.php src tests",
     "style-fix": "php vendor/bin/ecs check --config=ecs.php --fix src tests",
     "code-upgrade": "php vendor/bin/rector process --config=rector.php src tests",
-    "static-analysis": "php vendor/bin/phpstan analyze --configuration=phpstan-local.neon --memory-limit=-1 src tests"
+    "static-analysis": "php vendor/bin/phpstan analyze --configuration=phpstan-local.neon --memory-limit=-1 src tests",
+    "generate-static-analysis-baseline": "php vendor/bin/phpstan analyze --configuration=phpstan-local.neon --memory-limit=-1 src tests --generate-baseline "
   }
 }
