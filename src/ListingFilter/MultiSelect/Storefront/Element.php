@@ -6,6 +6,9 @@ namespace ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront
 
 final class Element
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function __construct(
         public readonly string $name,
         public readonly string $text

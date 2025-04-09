@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class RequestValueBuilder implements RequestValueBuilderInterface
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function __construct(
         private readonly ValueFromRequestExtractorInterface $valueFromRequestExtractor,
     ) {

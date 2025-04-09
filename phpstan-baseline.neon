@@ -1,2 +1,61 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Call to an undefined method ITB\\\\ITBConfigurableListingFilters\\\\Core\\\\Content\\\\ListingFilterConfiguration\\\\Checkbox\\\\Aggregate\\\\CheckboxListingFilterConfigurationTranslationDefinition\\:\\:getDefinedFields\\(\\)\\.$#"
+			count: 1
+			path: tests/PHPUnit/Unit/Core/Content/ListingFilterConfiguration/Checkbox/Aggregate/CheckboxListingFilterConfigurationTranslationDefinitionTest.php
+
+		-
+			message: "#^Call to an undefined method ITB\\\\ITBConfigurableListingFilters\\\\Core\\\\Content\\\\ListingFilterConfiguration\\\\Checkbox\\\\CheckboxListingFilterConfigurationDefinition\\:\\:getDefinedFields\\(\\)\\.$#"
+			count: 1
+			path: tests/PHPUnit/Unit/Core/Content/ListingFilterConfiguration/Checkbox/CheckboxListingFilterConfigurationDefinitionTest.php
+
+		-
+			message: "#^Call to an undefined method ITB\\\\ITBConfigurableListingFilters\\\\Core\\\\Content\\\\ListingFilterConfiguration\\\\ListingFilterConfigurationDefinition\\:\\:getDefinedFields\\(\\)\\.$#"
+			count: 1
+			path: tests/PHPUnit/Unit/Core/Content/ListingFilterConfiguration/ListingFilterConfigurationDefinitionTest.php
+
+		-
+			message: "#^Call to an undefined method ITB\\\\ITBConfigurableListingFilters\\\\Core\\\\Content\\\\ListingFilterConfiguration\\\\MultiSelect\\\\Aggregate\\\\MultiSelectListingFilterConfigurationTranslationDefinition\\:\\:getDefinedFields\\(\\)\\.$#"
+			count: 1
+			path: tests/PHPUnit/Unit/Core/Content/ListingFilterConfiguration/MultiSelect/Aggregate/MultiSelectListingFilterConfigurationTranslationDefinitionTest.php
+
+		-
+			message: "#^Call to an undefined method ITB\\\\ITBConfigurableListingFilters\\\\Core\\\\Content\\\\ListingFilterConfiguration\\\\MultiSelect\\\\MultiSelectListingFilterConfigurationDefinition\\:\\:getDefinedFields\\(\\)\\.$#"
+			count: 1
+			path: tests/PHPUnit/Unit/Core/Content/ListingFilterConfiguration/MultiSelect/MultiSelectListingFilterConfigurationDefinitionTest.php
+
+		-
+			message: "#^Call to an undefined method ITB\\\\ITBConfigurableListingFilters\\\\Core\\\\Content\\\\ListingFilterConfiguration\\\\Range\\\\Aggregate\\\\RangeListingFilterConfigurationTranslationDefinition\\:\\:getDefinedFields\\(\\)\\.$#"
+			count: 1
+			path: tests/PHPUnit/Unit/Core/Content/ListingFilterConfiguration/Range/Aggregate/RangeListingFilterConfigurationTranslationDefinitionTest.php
+
+		-
+			message: "#^Call to an undefined method ITB\\\\ITBConfigurableListingFilters\\\\Core\\\\Content\\\\ListingFilterConfiguration\\\\Range\\\\RangeListingFilterConfigurationDefinition\\:\\:getDefinedFields\\(\\)\\.$#"
+			count: 1
+			path: tests/PHPUnit/Unit/Core/Content/ListingFilterConfiguration/Range/RangeListingFilterConfigurationDefinitionTest.php
+
+		-
+			message: "#^Property Symfony\\\\Component\\\\HttpFoundation\\\\Request\\:\\:\\$query \\(Symfony\\\\Component\\\\HttpFoundation\\\\InputBag\\<string\\>\\) does not accept Symfony\\\\Component\\\\HttpFoundation\\\\InputBag\\<bool\\|float\\|int\\|string\\>\\.$#"
+			count: 4
+			path: tests/PHPUnit/Unit/ListingFilter/Checkbox/Dal/RequestValueBuilderTest.php
+
+		-
+			message: "#^Property Symfony\\\\Component\\\\HttpFoundation\\\\Request\\:\\:\\$query \\(Symfony\\\\Component\\\\HttpFoundation\\\\InputBag\\<string\\>\\) does not accept Symfony\\\\Component\\\\HttpFoundation\\\\InputBag\\<bool\\|float\\|int\\|string\\>\\.$#"
+			count: 4
+			path: tests/PHPUnit/Unit/ListingFilter/MultiSelect/Dal/RequestValueBuilderTest.php
+
+		-
+			message: "#^Offset 'gte' does not exist on array\\{gte\\?\\: int, lte\\?\\: int\\}\\.$#"
+			count: 1
+			path: tests/PHPUnit/Unit/ListingFilter/Range/Dal/RequestValueBuilderTest.php
+
+		-
+			message: "#^Offset 'lte' does not exist on array\\{gte\\?\\: int, lte\\?\\: int\\}\\.$#"
+			count: 1
+			path: tests/PHPUnit/Unit/ListingFilter/Range/Dal/RequestValueBuilderTest.php
+
+		-
+			message: "#^Property Symfony\\\\Component\\\\HttpFoundation\\\\Request\\:\\:\\$query \\(Symfony\\\\Component\\\\HttpFoundation\\\\InputBag\\<string\\>\\) does not accept Symfony\\\\Component\\\\HttpFoundation\\\\InputBag\\<bool\\|float\\|int\\|string\\>\\.$#"
+			count: 5
+			path: tests/PHPUnit/Unit/ListingFilter/Range/Dal/RequestValueBuilderTest.php

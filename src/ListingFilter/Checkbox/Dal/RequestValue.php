@@ -6,6 +6,9 @@ namespace ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Dal;
 
 final class RequestValue
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function __construct(
         public readonly bool $value,
     ) {

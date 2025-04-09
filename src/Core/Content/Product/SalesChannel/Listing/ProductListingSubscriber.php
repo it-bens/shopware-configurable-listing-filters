@@ -34,6 +34,8 @@ final class ProductListingSubscriber implements EventSubscriberInterface
     }
 
     /**
+     * @codeCoverageIgnore
+     *
      * @return array<class-string, string>
      */
     public static function getSubscribedEvents(): array

@@ -7,6 +7,8 @@ namespace ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront
 final class RenderData
 {
     /**
+     * @codeCoverageIgnore
+     *
      * @param array<Element> $elements
      */
     public function __construct(

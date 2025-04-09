@@ -7,6 +7,8 @@ namespace ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal;
 final class RequestValue
 {
     /**
+     * @codeCoverageIgnore
+     *
      * @param array<float|int|string> $values
      */
     public function __construct(

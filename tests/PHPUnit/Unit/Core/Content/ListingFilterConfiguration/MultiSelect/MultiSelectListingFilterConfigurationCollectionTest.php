@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ITB\ITBConfigurableListingFilters\Test\PHPUnit\Unit\Core\Content\ListingFilterConfiguration\MultiSelect;
+
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationCollection;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationEntity;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
+
+#[CoversClass(MultiSelectListingFilterConfigurationCollection::class)]
+final class MultiSelectListingFilterConfigurationCollectionTest extends TestCase
+{
+    public function testGetApiAlias(): void
+    {
+        $collection = new MultiSelectListingFilterConfigurationCollection();
+
+        $this->assertSame('itb_listing_filter_configuration_collection_multi_select', $collection->getApiAlias());
+    }
+
+    public function testGetExpectedClass(): void
+    {
+        $collection = new MultiSelectListingFilterConfigurationCollection();
+
+        $reflection = new \ReflectionClass(MultiSelectListingFilterConfigurationCollection::class);
+        $method = $reflection->getMethod('getExpectedClass');
+        $method->setAccessible(true);
+
+        $this->assertSame(MultiSelectListingFilterConfigurationEntity::class, $method->invoke($collection));
+    }
+}

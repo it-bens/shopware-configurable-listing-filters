@@ -48,6 +48,8 @@ final class ProductListingPageSubscriber implements EventSubscriberInterface
     }
 
     /**
+     * @codeCoverageIgnore
+     *
      * @return array<string, string>
      */
     public static function getSubscribedEvents(): array
