@@ -85,9 +85,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Listing page subscriber and helper services
     $services->set(ProductListingPageSubscriber::class)
         ->args([
-            service(ListingFilterConfigurationRepositoryInterface::class),
             service(SidebarFilterCmsSlotsExtractorInterface::class),
             service(ProductListingAggregationsExtractorInterface::class),
+            service(ListingFilterConfigurationRepositoryInterface::class),
             service(RenderDataCollectionBuilderInterface::class),
         ])
         ->tag('kernel.event_subscriber');

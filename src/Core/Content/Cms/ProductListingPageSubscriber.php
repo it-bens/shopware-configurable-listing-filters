@@ -15,9 +15,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class ProductListingPageSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly ListingFilterConfigurationRepositoryInterface $listingFilterConfigurationRepository,
         private readonly SidebarFilterCmsSlotsExtractorInterface $sidebarFilterCmsSlotsExtractor,
         private readonly ProductListingAggregationsExtractorInterface $productListingAggregationsExtractor,
+        private readonly ListingFilterConfigurationRepositoryInterface $listingFilterConfigurationRepository,
         private readonly RenderDataCollectionBuilderInterface $renderDataCollectionBuilder,
     ) {
     }
