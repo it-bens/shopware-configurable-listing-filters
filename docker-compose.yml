@@ -10,6 +10,8 @@ services:
     build:
       context: .
       dockerfile: docker/shopware/Dockerfile
+      args:
+        SHOPWARE_VERSION: "6.5.8.16"
     ports:
       - "80:80"
       - "8888:8888" # Administration Watcher
