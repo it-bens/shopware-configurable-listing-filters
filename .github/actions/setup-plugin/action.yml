@@ -1,0 +1,81 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-action.json
+
+name: Setup Plugin
+description: 'Setup steps for ITBConfigurableListingFilters'
+author: 'IT Martin Bens'
+branding:
+  color: 'blue'
+  icon: 'download'
+
+inputs:
+  shopware-version:
+    default: 'trunk'
+    required: false
+    description: 'Which version/branch of shopware should be used'
+  php-version:
+    default: '8.1'
+    required: false
+    description: 'Which PHP version should be used'
+  install-phpstan:
+    default: 'false'
+    required: false
+    description: 'Should we install the PHPStan'
+  install-phpunit:
+    default: 'false'
+    required: false
+    description: 'Should we install the PHPUnit'
+  install-shopware-dev-tools:
+    default: 'false'
+    required: false
+    description: 'Should we install the Shopware dev tools'
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Shopware
+      uses: shopware/setup-shopware@main
+      with:
+        shopware-version: ${{ inputs.shopware-version }}
+        php-version: ${{ inputs.php-version }}
+        mysql-version: 'builtin'
+        install: 'true'
+        install-admin: 'true'
+        install-storefront: 'true'
+
+    - name: Check out the repository
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      with:
+        path: 'custom/plugins/ITBConfigurableListingFilters'
+
+    - name: Install extension with Composer
+      shell: bash
+      run: composer require $(composer -d custom/plugins/ITBConfigurableListingFilters config name)
+
+    - name: Refresh Plugins
+      shell: bash
+      run: php bin/console plugin:refresh
+
+    - name: Install Plugin
+      shell: bash
+      run: php bin/console plugin:install --activate ITBConfigurableListingFilters
+
+    - name: Install PHPStan
+      if: ${{ inputs.install-phpstan }}
+      shell: bash
+      run: composer require --dev -W phpstan/phpstan:'1.12.*' phpstan/phpstan-phpunit:'1.4.*' phpstan/phpstan-symfony:'1.4.*'
+
+    - name: Install PHPUnit
+      if: ${{ inputs.install-phpunit }}
+      shell: bash
+      run: |
+        composer rem --dev johnkary/phpunit-speedtrap brianium/paratest
+        composer require --dev -W phpunit/phpunit:'10.5.*' zalas/phpunit-globals:'4.0.*'
+
+    - name: Install Shopware dev tools
+      if: ${{ inputs.install-shopware-dev-tools }}
+      shell: bash
+      run: composer require --dev -W shopware/dev-tools:'1.5.*'
+
+    - name: Remove JWT keys
+      shell: bash
+      run: rm -rf config/jwt
