@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace ITB\ITBConfigurableListingFilters\Test\PHPUnit\Integration;
 
-use PHPUnit\Framework\TestCase;
 use Shopware\Core\Framework\Test\TestCaseBase\KernelLifecycleManager;
 use Shopware\Core\Framework\Test\TestCaseBase\KernelTestBehaviour;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerLintCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
-final class ContainerListTest extends TestCase
+final class ContainerListTest extends AbstractIntegrationTestCase
 {
     use KernelTestBehaviour;
 

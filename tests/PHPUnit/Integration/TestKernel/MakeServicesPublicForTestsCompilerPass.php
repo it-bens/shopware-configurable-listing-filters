@@ -17,7 +17,7 @@ final class MakeServicesPublicForTestsCompilerPass implements CompilerPassInterf
             return;
         }
 
-        $productListingPageSubscriberDefinition = $container->getDefinition(PRoductListingPageSubscriber::class);
+        $productListingPageSubscriberDefinition = $container->getDefinition(ProductListingPageSubscriber::class);
         $productListingPageSubscriberDefinition->setPublic(true);
 
         $productListingSubscriberDefinition = $container->getDefinition(ProductListingSubscriber::class);

@@ -10,6 +10,10 @@ if (is_readable(__DIR__ . '/../vendor/shopware/platform/src/Core/TestBootstrappe
     require __DIR__ . '/../vendor/shopware/core/TestBootstrapper.php';
 }
 
+require __DIR__ . '/PHPUnit/Integration/AbstractIntegrationTestCase.php';
+require __DIR__ . '/PHPUnit/Integration/TestKernel/TestKernel.php';
+require __DIR__ . '/PHPUnit/Integration/TestKernel/MakeServicesPublicForTestsCompilerPass.php';
+
 return (new TestBootstrapper())
     ->setProjectDir($_SERVER['PROJECT_ROOT'] ?? dirname(__DIR__, 4))
     ->setLoadEnvFile(true)

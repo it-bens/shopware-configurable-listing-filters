@@ -2,7 +2,12 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
          bootstrap="tests/Bootstrap.php"
-         executionOrder="random">
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnPhpunitDeprecations="true"
+         displayDetailsOnIncompleteTests="true">
 
     <php>
         <ini name="memory_limit" value="-1" />
@@ -35,8 +40,9 @@
     </source>
     
     <coverage pathCoverage="true">
-        <report>
-            <html outputDirectory="coverage/html" />
-        </report>
     </coverage>
+
+    <extensions>
+        <bootstrap class="Zalas\PHPUnit\Globals\AttributeExtension" />
+    </extensions>
 </phpunit>

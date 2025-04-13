@@ -9,30 +9,17 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Ch
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationDefinition;
 use ITB\ITBConfigurableListingFilters\Test\PHPUnit\Integration\TestKernel\TestKernel;
-use PHPUnit\Framework\TestCase;
-use Shopware\Core\Framework\Adapter\Kernel\KernelFactory;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\Test\TestCaseBase\KernelLifecycleManager;
 use Shopware\Core\Framework\Test\TestCaseBase\KernelTestBehaviour;
+use Zalas\PHPUnit\Globals\Attribute\Server;
 
-final class EntityDefinitionRegistrationTest extends TestCase
+final class EntityDefinitionRegistrationTest extends AbstractIntegrationTestCase
 {
     use KernelTestBehaviour;
 
-    private static string $originalKernelClass;
-
-    public static function setUpBeforeClass(): void
-    {
-        self::$originalKernelClass = KernelFactory::$kernelClass;
-        KernelFactory::$kernelClass = TestKernel::class;
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        KernelFactory::$kernelClass = self::$originalKernelClass;
-    }
-
-    public function testDefintionIsRegistered(): void
+    #[Server('KERNEL_CLASS', TestKernel::class)]
+    public function testDefinitionIsRegistered(): void
     {
         $separateKernel = KernelLifecycleManager::createKernel(
             TestKernel::class,

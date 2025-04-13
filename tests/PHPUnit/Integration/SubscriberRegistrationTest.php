@@ -7,28 +7,15 @@ namespace ITB\ITBConfigurableListingFilters\Test\PHPUnit\Integration;
 use ITB\ITBConfigurableListingFilters\Core\Content\Cms\ProductListingPageSubscriber;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\ProductListingSubscriber;
 use ITB\ITBConfigurableListingFilters\Test\PHPUnit\Integration\TestKernel\TestKernel;
-use PHPUnit\Framework\TestCase;
-use Shopware\Core\Framework\Adapter\Kernel\KernelFactory;
 use Shopware\Core\Framework\Test\TestCaseBase\KernelLifecycleManager;
 use Shopware\Core\Framework\Test\TestCaseBase\KernelTestBehaviour;
+use Zalas\PHPUnit\Globals\Attribute\Env;
 
-final class SubscriberRegistrationTest extends TestCase
+final class SubscriberRegistrationTest extends AbstractIntegrationTestCase
 {
     use KernelTestBehaviour;
 
-    private static string $originalKernelClass;
-
-    public static function setUpBeforeClass(): void
-    {
-        self::$originalKernelClass = KernelFactory::$kernelClass;
-        KernelFactory::$kernelClass = TestKernel::class;
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        KernelFactory::$kernelClass = self::$originalKernelClass;
-    }
-
+    #[Env('KERNEL_CLASS', TestKernel::class)]
     public function testSubscribersAreInstantiatable(): void
     {
         $separateKernel = KernelLifecycleManager::createKernel(
