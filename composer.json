@@ -28,7 +28,8 @@
     "phpunit/phpunit": "^10.5",
     "rector/rector": "^1.2",
     "symplify/coding-standard": "^12.0",
-    "symplify/easy-coding-standard": "^12.1"
+    "symplify/easy-coding-standard": "^12.1",
+    "zalas/phpunit-globals": "^4.0"
   },
   "extra": {
     "shopware-plugin-class": "ITB\\ITBConfigurableListingFilters\\ITBConfigurableListingFilters",

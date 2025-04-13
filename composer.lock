@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a88dee0a3f7ee1aac71e7fde865679f9",
+    "content-hash": "e0f8d61fca13dd142b194d4f6e85fc76",
     "packages": [
         {
             "name": "async-aws/core",
@@ -476,16 +476,16 @@
         },
         {
             "name": "composer/composer",
-            "version": "2.8.7",
+            "version": "2.8.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "fc06c099955929ac67270d169e8b5fb83ad53807"
+                "reference": "85ff84d6c5260ba21740a7c5c9a111890805d6e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/fc06c099955929ac67270d169e8b5fb83ad53807",
-                "reference": "fc06c099955929ac67270d169e8b5fb83ad53807",
+                "url": "https://api.github.com/repos/composer/composer/zipball/85ff84d6c5260ba21740a7c5c9a111890805d6e7",
+                "reference": "85ff84d6c5260ba21740a7c5c9a111890805d6e7",
                 "shasum": ""
             },
             "require": {
@@ -570,7 +570,7 @@
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/composer/issues",
                 "security": "https://github.com/composer/composer/security/policy",
-                "source": "https://github.com/composer/composer/tree/2.8.7"
+                "source": "https://github.com/composer/composer/tree/2.8.8"
             },
             "funding": [
                 {
@@ -586,7 +586,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-04-03T14:26:28+00:00"
+            "time": "2025-04-04T14:56:46+00:00"
         },
         {
             "name": "composer/metadata-minifier",
@@ -1312,26 +1312,29 @@
         },
         {
             "name": "doctrine/deprecations",
-            "version": "1.1.4",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/deprecations.git",
-                "reference": "31610dbb31faa98e6b5447b62340826f54fbc4e9"
+                "reference": "459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/31610dbb31faa98e6b5447b62340826f54fbc4e9",
-                "reference": "31610dbb31faa98e6b5447b62340826f54fbc4e9",
+                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38",
+                "reference": "459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1 || ^8.0"
             },
+            "conflict": {
+                "phpunit/phpunit": "<=7.5 || >=13"
+            },
             "require-dev": {
-                "doctrine/coding-standard": "^9 || ^12",
-                "phpstan/phpstan": "1.4.10 || 2.0.3",
+                "doctrine/coding-standard": "^9 || ^12 || ^13",
+                "phpstan/phpstan": "1.4.10 || 2.1.11",
                 "phpstan/phpstan-phpunit": "^1.0 || ^2",
-                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.6 || ^10.5 || ^11.5 || ^12",
                 "psr/log": "^1 || ^2 || ^3"
             },
             "suggest": {
@@ -1351,9 +1354,9 @@
             "homepage": "https://www.doctrine-project.org/",
             "support": {
                 "issues": "https://github.com/doctrine/deprecations/issues",
-                "source": "https://github.com/doctrine/deprecations/tree/1.1.4"
+                "source": "https://github.com/doctrine/deprecations/tree/1.1.5"
             },
-            "time": "2024-12-07T21:18:45+00:00"
+            "time": "2025-04-07T20:06:18+00:00"
         },
         {
             "name": "doctrine/event-manager",
@@ -1871,16 +1874,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v6.11.0",
+            "version": "v6.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/firebase/php-jwt.git",
-                "reference": "8f718f4dfc9c5d5f0c994cdfd103921b43592712"
+                "reference": "d1e91ecf8c598d073d0995afa8cd5c75c6e19e66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/8f718f4dfc9c5d5f0c994cdfd103921b43592712",
-                "reference": "8f718f4dfc9c5d5f0c994cdfd103921b43592712",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/d1e91ecf8c598d073d0995afa8cd5c75c6e19e66",
+                "reference": "d1e91ecf8c598d073d0995afa8cd5c75c6e19e66",
                 "shasum": ""
             },
             "require": {
@@ -1928,9 +1931,9 @@
             ],
             "support": {
                 "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/v6.11.0"
+                "source": "https://github.com/firebase/php-jwt/tree/v6.11.1"
             },
-            "time": "2025-01-23T05:11:06+00:00"
+            "time": "2025-04-09T20:32:01+00:00"
         },
         {
             "name": "friendsofphp/proxy-manager-lts",
@@ -2818,16 +2821,16 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "6.4.0",
+            "version": "6.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jsonrainbow/json-schema.git",
-                "reference": "16b274cb469bc8165c59b76c283724a035d27f4c"
+                "reference": "35d262c94959571e8736db1e5c9bc36ab94ae900"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/16b274cb469bc8165c59b76c283724a035d27f4c",
-                "reference": "16b274cb469bc8165c59b76c283724a035d27f4c",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/35d262c94959571e8736db1e5c9bc36ab94ae900",
+                "reference": "35d262c94959571e8736db1e5c9bc36ab94ae900",
                 "shasum": ""
             },
             "require": {
@@ -2887,9 +2890,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jsonrainbow/json-schema/issues",
-                "source": "https://github.com/jsonrainbow/json-schema/tree/6.4.0"
+                "source": "https://github.com/jsonrainbow/json-schema/tree/6.4.1"
             },
-            "time": "2025-04-01T18:50:59+00:00"
+            "time": "2025-04-04T13:08:07+00:00"
         },
         {
             "name": "laminas/laminas-code",
@@ -5508,22 +5511,22 @@
         },
         {
             "name": "shopware/administration",
-            "version": "v6.5.8.16",
+            "version": "v6.5.8.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shopware/administration.git",
-                "reference": "945d0ccf54bd7f1a9cb60f8b65496af83efa1ef6"
+                "reference": "9e0a1907461a6e5dcc94be305607466248a76ad9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shopware/administration/zipball/945d0ccf54bd7f1a9cb60f8b65496af83efa1ef6",
-                "reference": "945d0ccf54bd7f1a9cb60f8b65496af83efa1ef6",
+                "url": "https://api.github.com/repos/shopware/administration/zipball/9e0a1907461a6e5dcc94be305607466248a76ad9",
+                "reference": "9e0a1907461a6e5dcc94be305607466248a76ad9",
                 "shasum": ""
             },
             "require": {
                 "doctrine/dbal": "^3.7",
                 "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
-                "shopware/core": "v6.5.8.16",
+                "shopware/core": "v6.5.8.17",
                 "symfony/framework-bundle": "~6.4.0",
                 "symfony/http-foundation": "~6.4.0",
                 "symfony/mime": "~6.4.0",
@@ -5551,39 +5554,36 @@
                 "docs": "https://developer.shopware.com",
                 "forum": "https://forum.shopware.com",
                 "issues": "https://issues.shopware.com",
-                "source": "https://github.com/shopware/administration/tree/v6.5.8.16",
+                "source": "https://github.com/shopware/administration/tree/v6.5.8.17",
                 "wiki": "https://developer.shopware.com"
             },
-            "time": "2025-02-07T11:05:45+00:00"
+            "time": "2025-04-08T10:33:09+00:00"
         },
         {
             "name": "shopware/conflicts",
-            "version": "0.1.20",
+            "version": "0.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shopware/conflicts.git",
-                "reference": "189ef7931005997e4a70ad20d4f2d91f02b120fb"
+                "reference": "4dde9b99f5100c95540da3d3e4bd9c3e45c2d719"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shopware/conflicts/zipball/189ef7931005997e4a70ad20d4f2d91f02b120fb",
-                "reference": "189ef7931005997e4a70ad20d4f2d91f02b120fb",
+                "url": "https://api.github.com/repos/shopware/conflicts/zipball/4dde9b99f5100c95540da3d3e4bd9c3e45c2d719",
+                "reference": "4dde9b99f5100c95540da3d3e4bd9c3e45c2d719",
                 "shasum": ""
             },
             "require": {
-                "shopware/core": "*"
+                "shopware/core": ">6.5.8.16 <6.6"
             },
             "conflict": {
                 "phenx/php-font-lib": "<0.5.5",
-                "shopware/core": "<6.5",
-                "squirrelphp/twig-php-syntax": "~1.8",
                 "symfony/cache": "6.2.3 || 5.4.17",
                 "symfony/messenger": "6.3.5",
                 "symfony/notifier": "v5.3.8",
+                "symfony/phpunit-bridge": "6.4.8 || 7.0.8",
                 "symfony/symfony": "*",
                 "symfony/var-exporter": "v6.3.9 || v6.4.0",
-                "twig/intl-extra": "~3.9.0",
-                "twig/twig": "~3.9.0",
                 "zircote/swagger-php": "4.8.7"
             },
             "type": "metapackage",
@@ -5594,22 +5594,22 @@
             "description": "Shopware 6 conflicting packages",
             "support": {
                 "issues": "https://github.com/shopware/conflicts/issues",
-                "source": "https://github.com/shopware/conflicts/tree/0.1.20"
+                "source": "https://github.com/shopware/conflicts/tree/0.1.23"
             },
-            "time": "2024-05-08T07:02:38+00:00"
+            "time": "2025-03-12T08:41:53+00:00"
         },
         {
             "name": "shopware/core",
-            "version": "v6.5.8.16",
+            "version": "v6.5.8.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shopware/core.git",
-                "reference": "8a0d8b4dc98dc9d18dbd6b41d292956df7056e59"
+                "reference": "5cc2c51a888dff5511db86735f1d9bb3d2add25c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shopware/core/zipball/8a0d8b4dc98dc9d18dbd6b41d292956df7056e59",
-                "reference": "8a0d8b4dc98dc9d18dbd6b41d292956df7056e59",
+                "url": "https://api.github.com/repos/shopware/core/zipball/5cc2c51a888dff5511db86735f1d9bb3d2add25c",
+                "reference": "5cc2c51a888dff5511db86735f1d9bb3d2add25c",
                 "shasum": ""
             },
             "require": {
@@ -5660,7 +5660,7 @@
                 "ramsey/uuid": "^4.7",
                 "setasign/fpdi": "^2.3.7",
                 "setasign/tfpdf": "^1.33",
-                "shopware/conflicts": ">= 0.1.7",
+                "shopware/conflicts": ">= 0.1.23",
                 "squirrelphp/twig-php-syntax": "^1.7.0",
                 "symfony/asset": "~6.4.0",
                 "symfony/cache": "~6.4.4",
@@ -5704,15 +5704,15 @@
                 "symfony/string": "~6.4.0",
                 "symfony/translation": "~6.4.0",
                 "symfony/translation-contracts": "~3.1.0",
-                "symfony/twig-bridge": "~6.3.5",
-                "symfony/twig-bundle": "~6.3.0",
+                "symfony/twig-bridge": "~6.4.0",
+                "symfony/twig-bundle": "~6.4.0",
                 "symfony/validator": "~6.4.0",
                 "symfony/var-exporter": "~6.4.1",
                 "symfony/yaml": "~6.4.0",
                 "tecnickcom/tcpdf": "^6.6.1",
-                "twig/intl-extra": "^3.4",
-                "twig/string-extra": "^3.4",
-                "twig/twig": "^3.4.3",
+                "twig/intl-extra": "^3.20",
+                "twig/string-extra": "^3.20",
+                "twig/twig": "^3.20",
                 "zircote/swagger-php": "^4.5.1"
             },
             "require-dev": {
@@ -5745,8 +5745,7 @@
             },
             "autoload": {
                 "files": [
-                    "Framework/Adapter/Doctrine/Patch/AbstractAsset.php",
-                    "Framework/Adapter/Twig/functions.php"
+                    "Framework/Adapter/Doctrine/Patch/AbstractAsset.php"
                 ],
                 "psr-4": {
                     "Shopware\\Core\\": ""
@@ -5770,23 +5769,23 @@
                 "docs": "https://developer.shopware.com",
                 "forum": "https://forum.shopware.com",
                 "issues": "https://issues.shopware.com",
-                "source": "https://github.com/shopware/core/tree/v6.5.8.16",
+                "source": "https://github.com/shopware/core/tree/v6.5.8.17",
                 "wiki": "https://developer.shopware.com"
             },
-            "time": "2025-02-07T08:20:31+00:00"
+            "time": "2025-04-08T09:29:06+00:00"
         },
         {
             "name": "shopware/storefront",
-            "version": "v6.5.8.16",
+            "version": "v6.5.8.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shopware/storefront.git",
-                "reference": "0add5a32145a413d4565c531824e01c0252f8824"
+                "reference": "4a5a1f18a685e4b8a7fbbe093a1da7c6b7b73cb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shopware/storefront/zipball/0add5a32145a413d4565c531824e01c0252f8824",
-                "reference": "0add5a32145a413d4565c531824e01c0252f8824",
+                "url": "https://api.github.com/repos/shopware/storefront/zipball/4a5a1f18a685e4b8a7fbbe093a1da7c6b7b73cb1",
+                "reference": "4a5a1f18a685e4b8a7fbbe093a1da7c6b7b73cb1",
                 "shasum": ""
             },
             "require": {
@@ -5796,7 +5795,8 @@
                 "padaliyajay/php-autoprefixer": "^1.4",
                 "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
                 "scssphp/scssphp": "^v1.11.0",
-                "shopware/core": "v6.5.8.16",
+                "shopware/core": "v6.5.8.17",
+                "squirrelphp/twig-php-syntax": "^1.10.0",
                 "symfony/cache": "~6.4.4",
                 "symfony/cache-contracts": "~3.1.0",
                 "symfony/config": "~6.4.0",
@@ -5812,9 +5812,9 @@
                 "symfony/security-core": "~6.4.0",
                 "symfony/service-contracts": "~3.1.0",
                 "symfony/validator": "~6.4.0",
-                "twig/intl-extra": "^3.4",
-                "twig/string-extra": "^3.4",
-                "twig/twig": "^3.4.3"
+                "twig/intl-extra": "^3.20",
+                "twig/string-extra": "^3.20",
+                "twig/twig": "^3.20"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.6",
@@ -5845,35 +5845,42 @@
                 "docs": "https://developer.shopware.com",
                 "forum": "https://forum.shopware.com",
                 "issues": "https://issues.shopware.com",
-                "source": "https://github.com/shopware/storefront/tree/v6.5.8.16",
+                "source": "https://github.com/shopware/storefront/tree/v6.5.8.17",
                 "wiki": "https://developer.shopware.com"
             },
-            "time": "2025-02-07T11:05:29+00:00"
+            "time": "2025-04-08T10:32:37+00:00"
         },
         {
             "name": "squirrelphp/twig-php-syntax",
-            "version": "v1.7",
+            "version": "v1.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squirrelphp/twig-php-syntax.git",
-                "reference": "97738f7533de0fd5ed8f03d052d219bd23398976"
+                "reference": "b71c2b5fee03914fee07499efd4c2d0c706b0903"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squirrelphp/twig-php-syntax/zipball/97738f7533de0fd5ed8f03d052d219bd23398976",
-                "reference": "97738f7533de0fd5ed8f03d052d219bd23398976",
+                "url": "https://api.github.com/repos/squirrelphp/twig-php-syntax/zipball/b71c2b5fee03914fee07499efd4c2d0c706b0903",
+                "reference": "b71c2b5fee03914fee07499efd4c2d0c706b0903",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2.5",
-                "twig/twig": "^3.0"
+                "php": ">=8.0.2",
+                "twig/twig": "^3.19"
             },
             "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.3",
-                "captainhook/plugin-composer": "^5.0",
-                "phpunit/phpunit": "^8.0|^9.0"
+                "captainhook/captainhook-phar": "^5.0",
+                "captainhook/hook-installer": "^1.0",
+                "phpunit/phpunit": "^9.0",
+                "symfony/finder": "^6.0|^7.0",
+                "symfony/process": "^6.0|^7.0"
             },
             "type": "library",
+            "extra": {
+                "captainhook": {
+                    "config": "tools/captainhook.json"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Squirrel\\TwigPhpSyntax\\": "src/"
@@ -5899,9 +5906,9 @@
             ],
             "support": {
                 "issues": "https://github.com/squirrelphp/twig-php-syntax/issues",
-                "source": "https://github.com/squirrelphp/twig-php-syntax/tree/v1.7"
+                "source": "https://github.com/squirrelphp/twig-php-syntax/tree/v1.10"
             },
-            "time": "2021-11-29T23:24:13+00:00"
+            "time": "2025-01-30T09:47:03+00:00"
         },
         {
             "name": "symfony/asset",
@@ -10266,20 +10273,21 @@
         },
         {
             "name": "symfony/twig-bridge",
-            "version": "v6.3.12",
+            "version": "v6.4.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/twig-bridge.git",
-                "reference": "dd34e348a9237d40eb7a791ee14de6efbadd5108"
+                "reference": "bb423dfaa51b6d88b1d64197ae695a0c8ac73778"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/twig-bridge/zipball/dd34e348a9237d40eb7a791ee14de6efbadd5108",
-                "reference": "dd34e348a9237d40eb7a791ee14de6efbadd5108",
+                "url": "https://api.github.com/repos/symfony/twig-bridge/zipball/bb423dfaa51b6d88b1d64197ae695a0c8ac73778",
+                "reference": "bb423dfaa51b6d88b1d64197ae695a0c8ac73778",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1",
+                "symfony/deprecation-contracts": "^2.5|^3",
                 "symfony/translation-contracts": "^2.5|^3",
                 "twig/twig": "^2.13|^3.0.4"
             },
@@ -10289,41 +10297,41 @@
                 "symfony/console": "<5.4",
                 "symfony/form": "<6.3",
                 "symfony/http-foundation": "<5.4",
-                "symfony/http-kernel": "<6.2",
+                "symfony/http-kernel": "<6.4",
                 "symfony/mime": "<6.2",
+                "symfony/serializer": "<6.4",
                 "symfony/translation": "<5.4",
                 "symfony/workflow": "<5.4"
             },
             "require-dev": {
-                "doctrine/annotations": "^1.12|^2",
                 "egulias/email-validator": "^2.1.10|^3|^4",
                 "league/html-to-markdown": "^5.0",
                 "phpdocumentor/reflection-docblock": "^3.0|^4.0|^5.0",
-                "symfony/asset": "^5.4|^6.0",
-                "symfony/asset-mapper": "^6.3",
-                "symfony/console": "^5.4|^6.0",
-                "symfony/dependency-injection": "^5.4|^6.0",
-                "symfony/expression-language": "^5.4|^6.0",
-                "symfony/finder": "^5.4|^6.0",
-                "symfony/form": "^6.3",
-                "symfony/html-sanitizer": "^6.1",
-                "symfony/http-foundation": "^5.4|^6.0",
-                "symfony/http-kernel": "^6.2",
-                "symfony/intl": "^5.4|^6.0",
-                "symfony/mime": "^6.2",
+                "symfony/asset": "^5.4|^6.0|^7.0",
+                "symfony/asset-mapper": "^6.3|^7.0",
+                "symfony/console": "^5.4|^6.0|^7.0",
+                "symfony/dependency-injection": "^5.4|^6.0|^7.0",
+                "symfony/expression-language": "^5.4|^6.0|^7.0",
+                "symfony/finder": "^5.4|^6.0|^7.0",
+                "symfony/form": "^6.4.20|^7.2.5",
+                "symfony/html-sanitizer": "^6.1|^7.0",
+                "symfony/http-foundation": "^5.4|^6.0|^7.0",
+                "symfony/http-kernel": "^6.4|^7.0",
+                "symfony/intl": "^5.4|^6.0|^7.0",
+                "symfony/mime": "^6.2|^7.0",
                 "symfony/polyfill-intl-icu": "~1.0",
-                "symfony/property-info": "^5.4|^6.0",
-                "symfony/routing": "^5.4|^6.0",
+                "symfony/property-info": "^5.4|^6.0|^7.0",
+                "symfony/routing": "^5.4|^6.0|^7.0",
                 "symfony/security-acl": "^2.8|^3.0",
-                "symfony/security-core": "^5.4|^6.0",
-                "symfony/security-csrf": "^5.4|^6.0",
-                "symfony/security-http": "^5.4|^6.0",
-                "symfony/serializer": "~6.3.12|^6.4.3",
-                "symfony/stopwatch": "^5.4|^6.0",
-                "symfony/translation": "^6.1",
-                "symfony/web-link": "^5.4|^6.0",
-                "symfony/workflow": "^5.4|^6.0",
-                "symfony/yaml": "^5.4|^6.0",
+                "symfony/security-core": "^5.4|^6.0|^7.0",
+                "symfony/security-csrf": "^5.4|^6.0|^7.0",
+                "symfony/security-http": "^5.4|^6.0|^7.0",
+                "symfony/serializer": "^6.4.3|^7.0.3",
+                "symfony/stopwatch": "^5.4|^6.0|^7.0",
+                "symfony/translation": "^6.1|^7.0",
+                "symfony/web-link": "^5.4|^6.0|^7.0",
+                "symfony/workflow": "^5.4|^6.0|^7.0",
+                "symfony/yaml": "^5.4|^6.0|^7.0",
                 "twig/cssinliner-extra": "^2.12|^3",
                 "twig/inky-extra": "^2.12|^3",
                 "twig/markdown-extra": "^2.12|^3"
@@ -10354,7 +10362,7 @@
             "description": "Provides integration for Twig with various Symfony components",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/twig-bridge/tree/v6.3.12"
+                "source": "https://github.com/symfony/twig-bridge/tree/v6.4.20"
             },
             "funding": [
                 {
@@ -10370,30 +10378,30 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-30T08:17:33+00:00"
+            "time": "2025-03-28T13:08:36+00:00"
         },
         {
             "name": "symfony/twig-bundle",
-            "version": "v6.3.12",
+            "version": "v6.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/twig-bundle.git",
-                "reference": "820d2a7a2b876b287215a6b93f482dace8057d9b"
+                "reference": "c3beeb5336aba1ea03c37e526968c2fde3ef25c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/twig-bundle/zipball/820d2a7a2b876b287215a6b93f482dace8057d9b",
-                "reference": "820d2a7a2b876b287215a6b93f482dace8057d9b",
+                "url": "https://api.github.com/repos/symfony/twig-bundle/zipball/c3beeb5336aba1ea03c37e526968c2fde3ef25c4",
+                "reference": "c3beeb5336aba1ea03c37e526968c2fde3ef25c4",
                 "shasum": ""
             },
             "require": {
                 "composer-runtime-api": ">=2.1",
                 "php": ">=8.1",
-                "symfony/config": "^6.1",
-                "symfony/dependency-injection": "^6.1",
-                "symfony/http-foundation": "^5.4|^6.0",
+                "symfony/config": "^6.1|^7.0",
+                "symfony/dependency-injection": "^6.1|^7.0",
+                "symfony/http-foundation": "^5.4|^6.0|^7.0",
                 "symfony/http-kernel": "^6.2",
-                "symfony/twig-bridge": "^6.3",
+                "symfony/twig-bridge": "^6.4",
                 "twig/twig": "^2.13|^3.0.4"
             },
             "conflict": {
@@ -10401,17 +10409,16 @@
                 "symfony/translation": "<5.4"
             },
             "require-dev": {
-                "doctrine/annotations": "^1.10.4|^2",
-                "symfony/asset": "^5.4|^6.0",
-                "symfony/expression-language": "^5.4|^6.0",
-                "symfony/finder": "^5.4|^6.0",
-                "symfony/form": "^5.4|^6.0",
-                "symfony/framework-bundle": "^5.4|^6.0",
-                "symfony/routing": "^5.4|^6.0",
-                "symfony/stopwatch": "^5.4|^6.0",
-                "symfony/translation": "^5.4|^6.0",
-                "symfony/web-link": "^5.4|^6.0",
-                "symfony/yaml": "^5.4|^6.0"
+                "symfony/asset": "^5.4|^6.0|^7.0",
+                "symfony/expression-language": "^5.4|^6.0|^7.0",
+                "symfony/finder": "^5.4|^6.0|^7.0",
+                "symfony/form": "^5.4|^6.0|^7.0",
+                "symfony/framework-bundle": "^5.4|^6.0|^7.0",
+                "symfony/routing": "^5.4|^6.0|^7.0",
+                "symfony/stopwatch": "^5.4|^6.0|^7.0",
+                "symfony/translation": "^5.4|^6.0|^7.0",
+                "symfony/web-link": "^5.4|^6.0|^7.0",
+                "symfony/yaml": "^5.4|^6.0|^7.0"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -10439,7 +10446,7 @@
             "description": "Provides a tight integration of Twig into the Symfony full-stack framework",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/twig-bundle/tree/v6.3.12"
+                "source": "https://github.com/symfony/twig-bundle/tree/v6.4.13"
             },
             "funding": [
                 {
@@ -10455,7 +10462,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-23T14:35:58+00:00"
+            "time": "2024-09-25T14:18:03+00:00"
         },
         {
             "name": "symfony/validator",
@@ -11215,12 +11222,12 @@
             "version": "5.25.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/captainhookphp/captainhook.git",
+                "url": "https://github.com/captainhook-git/captainhook.git",
                 "reference": "e096240c130557be6d2059881341db7ebd84f653"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/captainhookphp/captainhook/zipball/e096240c130557be6d2059881341db7ebd84f653",
+                "url": "https://api.github.com/repos/captainhook-git/captainhook/zipball/e096240c130557be6d2059881341db7ebd84f653",
                 "reference": "e096240c130557be6d2059881341db7ebd84f653",
                 "shasum": ""
             },
@@ -11284,7 +11291,7 @@
             ],
             "support": {
                 "issues": "https://github.com/captainhookphp/captainhook/issues",
-                "source": "https://github.com/captainhookphp/captainhook/tree/5.25.2"
+                "source": "https://github.com/captainhook-git/captainhook/tree/5.25.2"
             },
             "funding": [
                 {
@@ -11351,16 +11358,16 @@
         },
         {
             "name": "captainhook/secrets",
-            "version": "0.9.6",
+            "version": "0.9.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/captainhookphp/secrets.git",
-                "reference": "0232c67019e11c4bee4ee9bfec9575b67e0854e5"
+                "url": "https://github.com/captainhook-git/secrets.git",
+                "reference": "d62c97f75f81ac98e22f1c282482bd35fa82f631"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/captainhookphp/secrets/zipball/0232c67019e11c4bee4ee9bfec9575b67e0854e5",
-                "reference": "0232c67019e11c4bee4ee9bfec9575b67e0854e5",
+                "url": "https://api.github.com/repos/captainhook-git/secrets/zipball/d62c97f75f81ac98e22f1c282482bd35fa82f631",
+                "reference": "d62c97f75f81ac98e22f1c282482bd35fa82f631",
                 "shasum": ""
             },
             "require": {
@@ -11394,8 +11401,8 @@
                 "tokens"
             ],
             "support": {
-                "issues": "https://github.com/captainhookphp/secrets/issues",
-                "source": "https://github.com/captainhookphp/secrets/tree/0.9.6"
+                "issues": "https://github.com/captainhook-git/secrets/issues",
+                "source": "https://github.com/captainhook-git/secrets/tree/0.9.7"
             },
             "funding": [
                 {
@@ -11403,7 +11410,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-11-26T09:24:19+00:00"
+            "time": "2025-04-08T07:10:48+00:00"
         },
         {
             "name": "clue/ndjson-react",
@@ -14492,6 +14499,58 @@
                 }
             ],
             "time": "2024-03-03T12:36:25+00:00"
+        },
+        {
+            "name": "zalas/phpunit-globals",
+            "version": "v4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jakzal/phpunit-globals.git",
+                "reference": "4b5fa496f7e5e7a2c8c156e262b19426ea69f131"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jakzal/phpunit-globals/zipball/4b5fa496f7e5e7a2c8c156e262b19426ea69f131",
+                "reference": "4b5fa496f7e5e7a2c8c156e262b19426ea69f131",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
+                "phpunit/phpunit": "^10.0 || ^11.0 || ^12.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zalas\\PHPUnit\\Globals\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Zalas",
+                    "email": "jakub@zalas.pl"
+                }
+            ],
+            "description": "Allows to use attributes to define global variables in PHPUnit test cases.",
+            "support": {
+                "issues": "https://github.com/jakzal/phpunit-globals/issues",
+                "source": "https://github.com/jakzal/phpunit-globals/tree/v4.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/jakzal",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-02-24T17:24:49+00:00"
         }
     ],
     "aliases": [],
