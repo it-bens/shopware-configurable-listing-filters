@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Shopware\Core\DevOps\StaticAnalyze\PHPStan;
 
+use Shopware\Core\Kernel;
 use function define;
 use function defined;
 use function dirname;
@@ -44,7 +45,7 @@ if (class_exists(Dotenv::class) && (file_exists(TEST_PROJECT_DIR . '/.env.local.
     (new Dotenv())->usePutenv()->bootEnv(TEST_PROJECT_DIR . '/.env');
 }
 
-$pluginLoader = new DbalKernelPluginLoader($classLoader, null, \Shopware\Core\Kernel::getConnection());
+$pluginLoader = new DbalKernelPluginLoader($classLoader, null, Kernel::getConnection());
 
 $kernel = new StaticAnalyzeKernel('phpstan_dev', true, $pluginLoader, 'phpstan-test-cache-id');
 $kernel->boot();

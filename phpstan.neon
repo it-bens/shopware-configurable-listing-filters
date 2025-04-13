@@ -1,0 +1,21 @@
+includes:
+    - phpstan-baseline.neon
+    - phar://phpstan.phar/conf/bleedingEdge.neon
+    - ../../../vendor/shopware/core/DevOps/StaticAnalyze/PHPStan/extension.neon
+    - ../../../vendor/shopware/core/DevOps/StaticAnalyze/PHPStan/rules.neon
+
+parameters:
+    level: max
+    tmpDir: /tmp/cache/phpstan
+    reportUnmatchedIgnoredErrors: true
+    inferPrivatePropertyTypeFromConstructor: true
+    treatPhpDocTypesAsCertain: false
+    paths:
+        - src
+        - tests
+    bootstrapFiles:
+        - %currentWorkingDirectory%/phpstan-bootstrap.php
+    excludePaths:
+        - tests/Bootstrap.php
+        - tests/PHPUnit/Integration/EntityDefinitionRegistrationTest.php
+        - tests/PHPUnit/Integration/SubscriberRegistrationTest.php
