@@ -42,6 +42,10 @@ runs:
         install-admin: 'true'
         install-storefront: 'true'
 
+    - name: Remove PHPStan extension installer
+      shell: bash
+      run: composer rem --dev phpstan/extension-installer
+
     - name: Check out the repository
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:

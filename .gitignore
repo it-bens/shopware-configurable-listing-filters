@@ -2,6 +2,7 @@
 /.idea
 /.php-cs-fixer.cache
 /.phpunit.result.cache
+/phpstan.neon
 /coverage/
 /node_modules/
 /src/Resources/app/administration/node_modules/

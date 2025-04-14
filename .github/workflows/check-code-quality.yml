@@ -93,13 +93,10 @@ jobs:
         with:
           shopware-version: ${{ matrix.shopware-version }}
           php-version: ${{ matrix.php-version }}
-          install-phpstan: 'true'
-          install-phpunit: 'true'
 
       - name: Run PHPStan
         working-directory: 'custom/plugins/ITBConfigurableListingFilters'
         run: |
+          rm -rf phpstan-ci.neon
           composer dump-autoload --dev
-          php ${GITHUB_WORKSPACE}/vendor/bin/phpstan analyze -v \
-            --memory-limit=-1 \
-            --configuration ./phpstan.neon
+          composer run static-analysis-ci

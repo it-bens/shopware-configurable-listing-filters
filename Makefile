@@ -3,16 +3,16 @@ DEV_TOOLS_SERVICE = dev-tools
 SHOPWARE_SERVICE = shopware
 
 style-check:
-	composer style-check
+	composer run style-check
 
 style-fix:
-	composer style-fix
+	composer run style-fix
 
 code-upgrade:
-	composer code-upgrade
+	composer run code-upgrade
 
 static-analysis:
-	$(DOCKER_COMPOSE) exec shopware bash -c "cd custom/plugins/ITBConfigurableListingFilters && ../../../vendor/bin/phpstan analyze -c ./phpstan.neon"
+	$(DOCKER_COMPOSE) exec shopware bash -c "cd custom/plugins/ITBConfigurableListingFilters && composer run static-analysis"
 
 build-storefront:
 	$(DOCKER_COMPOSE) exec -u www-data $(SHOPWARE_SERVICE) sed -i 's/npm install --prefer-offline --production/npm install --prefer-offline/g' ./bin/build-storefront.sh

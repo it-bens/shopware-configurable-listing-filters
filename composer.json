@@ -49,11 +49,6 @@
     "supportLink": {
       "de-DE": "dsgsdg",
       "en-GB": "sdgg"
-    },
-    "phpstan": {
-      "includes": [
-        "extension.neon"
-      ]
     }
   },
   "autoload": {
@@ -77,7 +72,17 @@
     "style-check": "php vendor/bin/ecs check --config=ecs.php src tests",
     "style-fix": "php vendor/bin/ecs check --config=ecs.php --fix src tests",
     "code-upgrade": "php vendor/bin/rector process --config=rector.php src tests",
-    "static-analysis": "php vendor/bin/phpstan analyze --configuration=phpstan-local.neon --memory-limit=-1 src tests",
-    "generate-static-analysis-baseline": "php vendor/bin/phpstan analyze --configuration=phpstan-local.neon --memory-limit=-1 src tests --generate-baseline "
+    "static-analysis": [
+      "php bin/phpstan-config-generator-local.php",
+      "../../../vendor/bin/phpstan analyze --configuration phpstan.neon"
+    ],
+    "static-analysis-ci": [
+      "php bin/phpstan-config-generator-ci.php",
+      "../../../vendor/bin/phpstan analyze --configuration phpstan.neon"
+    ],
+    "generate-static-analysis-baseline": [
+      "php bin/phpstan-config-generator-local.php",
+      "../../../vendor/bin/phpstan analyze --generate-baseline"
+    ]
   }
 }
