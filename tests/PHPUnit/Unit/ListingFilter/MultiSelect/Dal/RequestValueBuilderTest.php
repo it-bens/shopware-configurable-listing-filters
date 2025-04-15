@@ -4,69 +4,45 @@ declare(strict_types=1);
 
 namespace ITB\ITBConfigurableListingFilters\Test\PHPUnit\Unit\ListingFilter\MultiSelect\Dal;
 
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\ListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\RequestValueBuilder;
-use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\ValueFromRequestExtractor;
+use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelectValueSplitterInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\ValueFromRequestExtractorInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 
 #[CoversClass(RequestValueBuilder::class)]
 final class RequestValueBuilderTest extends TestCase
 {
-    public static function buildRequestValueProvider(): \Generator
+    public function testBuildRequestValue(): void
     {
-        $requestValueBuilder = new RequestValueBuilder(new ValueFromRequestExtractor());
+        $request = self::createStub(Request::class);
 
-        $configurationEntity = new MultiSelectListingFilterConfigurationEntity();
-        $configurationEntity->setDalField('color');
+        $valueFromRequestExtractor = $this->createMock(ValueFromRequestExtractorInterface::class);
+        $valueFromRequestExtractor->method('extractValueFromRequest')
+            ->willReturnCallback(function (Request $requestArgument) use ($request): string {
+                $this->assertEquals($request, $requestArgument);
 
-        $requestStub = self::createStub(Request::class);
-        $inputBag = new InputBag([
-            'color' => 'color_red|color_blue|color_green',
-        ]);
-        $requestStub->query = $inputBag;
-        $requestStub->request = $inputBag;
-        yield 'request with multiple values' => [$requestValueBuilder, $configurationEntity, $requestStub, ['red', 'blue', 'green']];
+                return 'color_red|color_blue|color_green';
+            });
 
-        $requestStub = self::createStub(Request::class);
-        $inputBag = new InputBag([
-            'color' => 'color_red',
-        ]);
-        $requestStub->query = $inputBag;
-        $requestStub->request = $inputBag;
-        yield 'request with single value' => [$requestValueBuilder, $configurationEntity, $requestStub, ['red']];
+        $configurationEntity = self::createStub(MultiSelectListingFilterConfigurationEntity::class);
 
-        $requestStub = self::createStub(Request::class);
-        $inputBag = new InputBag([
-            'color' => '',
-        ]);
-        $requestStub->query = $inputBag;
-        $requestStub->request = $inputBag;
-        yield 'request with empty string' => [$requestValueBuilder, $configurationEntity, $requestStub, []];
+        $multiSelectValueSplitter = $this->createMock(MultiSelectValueSplitterInterface::class);
+        $multiSelectValueSplitter->method('splitMultiSelectValue')
+            ->willReturnCallback(function (string $valuesAsString, ListingFilterConfigurationEntity $configurationEntityArgument) use (
+                $configurationEntity
+            ): array {
+                $this->assertEquals($configurationEntity, $configurationEntityArgument);
 
-        $requestStub = self::createStub(Request::class);
-        $inputBag = new InputBag([
-            'color' => '|||',
-        ]);
-        $requestStub->query = $inputBag;
-        $requestStub->request = $inputBag;
-        yield 'request with only separators' => [$requestValueBuilder, $configurationEntity, $requestStub, []];
-    }
+                return ['red', 'blue', 'green'];
+            });
 
-    /**
-     * @param array<string> $expectedValues
-     */
-    #[DataProvider('buildRequestValueProvider')]
-    public function testBuildRequestValue(
-        RequestValueBuilder $requestValueBuilder,
-        MultiSelectListingFilterConfigurationEntity $configurationEntity,
-        Request $request,
-        array $expectedValues,
-    ): void {
+        $requestValueBuilder = new RequestValueBuilder($valueFromRequestExtractor, $multiSelectValueSplitter);
+
         $requestValue = $requestValueBuilder->buildRequestValue($configurationEntity, $request);
-        $this->assertEquals($expectedValues, $requestValue->values);
+        $this->assertSame(['red', 'blue', 'green'], $requestValue->values);
     }
 }

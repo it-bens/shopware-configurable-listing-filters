@@ -10,6 +10,8 @@ use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Storefront\RenderDa
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Storefront\RenderDataBuilderInterface as CheckboxRenderDataBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\FilterBuilder as MultiSelectFilterBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\FilterBuilderInterface as MultiSelectFilterBuilderInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\MultiSelectValueSplitter;
+use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\MultiSelectValueSplitterInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\RequestValueBuilder as MultiSelectRequestValueBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\RequestValueBuilderInterface as MultiSelectRequestValueBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\ValueFromRequestExtractor;
@@ -41,11 +43,16 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(CheckboxRequestValueBuilder::class);
     $services->alias(CheckboxRequestValueBuilderInterface::class, CheckboxRequestValueBuilder::class);
 
+    $services->set(MultiSelectValueSplitter::class);
+    $services->alias(MultiSelectValueSplitterInterface::class, MultiSelectValueSplitter::class);
     $services->set(ValueFromRequestExtractor::class);
     $services->alias(ValueFromRequestExtractorInterface::class, ValueFromRequestExtractor::class);
     $services->set(MultiSelectFilterBuilder::class);
     $services->alias(MultiSelectFilterBuilderInterface::class, MultiSelectFilterBuilder::class);
-    $services->set(MultiSelectRequestValueBuilder::class)->args([service(ValueFromRequestExtractorInterface::class)]);
+    $services->set(MultiSelectRequestValueBuilder::class)->args([
+        service(ValueFromRequestExtractorInterface::class),
+        service(MultiSelectValueSplitterInterface::class),
+    ]);
     $services->alias(MultiSelectRequestValueBuilderInterface::class, MultiSelectRequestValueBuilder::class);
 
     $services->set(RangeFilterBuilder::class);
