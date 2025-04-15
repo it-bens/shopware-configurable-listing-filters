@@ -15,6 +15,8 @@ jobs:
   build-archive:
     name: Build Archive
     runs-on: ubuntu-latest
+    outputs:
+      PLUGIN_VERSION: ${{ steps.version.outputs.PLUGIN_VERSION }}
     env:
       PLUGIN_NAME: "ITBConfigurableListingFilters"
     steps:
@@ -26,6 +28,7 @@ jobs:
         run: |
           PLUGIN_VERSION=$(jq -r '.version' "./composer.json")
           echo "PLUGIN_VERSION=$PLUGIN_VERSION" >> $GITHUB_ENV
+          echo "PLUGIN_VERSION=$PLUGIN_VERSION" >> $GITHUB_OUTPUT
           echo "Plugin Version: $PLUGIN_VERSION"
 
       - name: Apply zip blocklist
@@ -68,3 +71,49 @@ jobs:
         with:
           name: "${{ env.PLUGIN_NAME }}_${{ env.PLUGIN_VERSION }}"
           path: "${{ env.PLUGIN_NAME }}_${{ env.PLUGIN_VERSION }}.zip"
+
+  test-installation:
+    name: Test Installation
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: [ '8.1', '8.2', '8.3' ]
+        shopware-version: [ 'v6.5.7.4', 'v6.5.8.16' ]
+    needs: build-archive
+    env:
+      PLUGIN_NAME: "ITBConfigurableListingFilters"
+      PLUGIN_VERSION: ${{ needs.build-archive.outputs.PLUGIN_VERSION }}
+    steps:
+      - name: Setup Shopware
+        uses: shopware/setup-shopware@main
+        with:
+          shopware-version: ${{ inputs.shopware-version }}
+          php-version: ${{ inputs.php-version }}
+          mysql-version: 'builtin'
+          install: 'true'
+          install-admin: 'true'
+          install-storefront: 'true'
+
+      - name: Download artifact
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+        with:
+          name: "${{ env.PLUGIN_NAME }}_${{ env.PLUGIN_VERSION }}"
+
+      - name: Check installation directory
+        shell: bash
+        run: |
+          pwd
+          ls -la ./
+
+      - name: Import Plugin Archive
+        shell: bash
+        run: php bin/console plugin:zip-import "${{ env.PLUGIN_NAME }}_${{ env.PLUGIN_VERSION }}.zip"
+
+      - name: Refresh Plugins
+        shell: bash
+        run: php bin/console plugin:refresh
+
+      - name: Install Plugin
+        shell: bash
+        run: php bin/console plugin:install --activate "${{ env.PLUGIN_NAME }}"
