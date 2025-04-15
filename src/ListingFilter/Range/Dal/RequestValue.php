@@ -8,6 +8,9 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 
 final class RequestValue
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function __construct(
         private readonly ?int $gte,
         private readonly ?int $lte

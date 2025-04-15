@@ -10,6 +10,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class RenderDataBuilder implements RenderDataBuilderInterface
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function __construct(
         private readonly InputValueExtractorInterface $inputValueExtractor,
         private readonly TranslatorInterface $translator

@@ -6,6 +6,9 @@ namespace ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront;
 
 final class RenderData
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function __construct(
         public readonly string $twigTemplate,
         private readonly string $filterName,
