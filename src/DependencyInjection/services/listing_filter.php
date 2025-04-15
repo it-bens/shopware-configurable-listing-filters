@@ -10,16 +10,14 @@ use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Storefront\RenderDa
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Storefront\RenderDataBuilderInterface as CheckboxRenderDataBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\FilterBuilder as MultiSelectFilterBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\FilterBuilderInterface as MultiSelectFilterBuilderInterface;
-use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\MultiSelectValueSplitter;
-use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\MultiSelectValueSplitterInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\RequestValueBuilder as MultiSelectRequestValueBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\RequestValueBuilderInterface as MultiSelectRequestValueBuilderInterface;
-use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\ValueFromRequestExtractor;
-use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\ValueFromRequestExtractorInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\ElementsExtractor;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\ElementsExtractorInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\RenderDataBuilder as MultiSelectRenderDataBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\RenderDataBuilderInterface as MultiSelectRenderDataBuilderInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelectValueSplitter;
+use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelectValueSplitterInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Dal\FilterBuilder as RangeFilterBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Dal\FilterBuilderInterface as RangeFilterBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Dal\RequestValueBuilder as RangeRequestValueBuilder;
@@ -28,6 +26,8 @@ use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\InputValueE
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\InputValueExtractorInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\RenderDataBuilder as RangeRenderDataBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\RenderDataBuilderInterface as RangeRenderDataBuilderInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\ValueFromRequestExtractor;
+use ITB\ITBConfigurableListingFilters\ListingFilter\ValueFromRequestExtractorInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
@@ -37,16 +37,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->autowire()
         ->autoconfigure();
 
+    $services->set(MultiSelectValueSplitter::class);
+    $services->alias(MultiSelectValueSplitterInterface::class, MultiSelectValueSplitter::class);
+    $services->set(ValueFromRequestExtractor::class);
+    $services->alias(ValueFromRequestExtractorInterface::class, ValueFromRequestExtractor::class);
+
     // DAL listing filter services
     $services->set(CheckboxFilterBuilder::class);
     $services->alias(CheckboxFilterBuilderInterface::class, CheckboxFilterBuilder::class);
     $services->set(CheckboxRequestValueBuilder::class);
     $services->alias(CheckboxRequestValueBuilderInterface::class, CheckboxRequestValueBuilder::class);
 
-    $services->set(MultiSelectValueSplitter::class);
-    $services->alias(MultiSelectValueSplitterInterface::class, MultiSelectValueSplitter::class);
-    $services->set(ValueFromRequestExtractor::class);
-    $services->alias(ValueFromRequestExtractorInterface::class, ValueFromRequestExtractor::class);
     $services->set(MultiSelectFilterBuilder::class);
     $services->alias(MultiSelectFilterBuilderInterface::class, MultiSelectFilterBuilder::class);
     $services->set(MultiSelectRequestValueBuilder::class)->args([

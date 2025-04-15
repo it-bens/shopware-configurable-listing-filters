@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ITB\ITBConfigurableListingFilters\Test\PHPUnit\Unit\ListingFilter\MultiSelect\Dal;
+namespace ITB\ITBConfigurableListingFilters\Test\PHPUnit\Unit\ListingFilter;
 
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\ListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationEntity;

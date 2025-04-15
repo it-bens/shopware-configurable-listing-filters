@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ITB\ITBConfigurableListingFilters\Test\PHPUnit\Unit\ListingFilter\MultiSelect\Dal;
+namespace ITB\ITBConfigurableListingFilters\Test\PHPUnit\Unit\ListingFilter;
 
 use ITB\ITBConfigurableListingFilters\ListingFilter\ValueFromRequestExtractor;
 use PHPUnit\Framework\Attributes\CoversClass;

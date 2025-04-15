@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal;
+namespace ITB\ITBConfigurableListingFilters\ListingFilter;
 
 use Symfony\Component\HttpFoundation\Request;
 
