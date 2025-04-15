@@ -86,14 +86,22 @@ jobs:
       PLUGIN_VERSION: ${{ needs.build-archive.outputs.PLUGIN_VERSION }}
     steps:
       - name: Setup Shopware
-        uses: shopware/setup-shopware@main
+        uses: shopware/setup-shopware@ed4df08a7c188f42580aa645707176021afd5794 # v2.0.1
         with:
-          shopware-version: ${{ inputs.shopware-version }}
-          php-version: ${{ inputs.php-version }}
+          shopware-version: ${{ matrix.shopware-version }}
+          php-version: ${{ matrix.php-version }}
           mysql-version: 'builtin'
           install: 'true'
           install-admin: 'true'
           install-storefront: 'true'
+          env: prod
+
+      - name: Rebuild composer.lock
+        shell: bash
+        run: |
+          cat composer.json
+          rm -f composer.lock
+          composer update --no-scripts --no-plugins --prefer-dist --no-dev
 
       - name: Download artifact
         uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
@@ -109,10 +117,6 @@ jobs:
       - name: Import Plugin Archive
         shell: bash
         run: php bin/console plugin:zip-import "${{ env.PLUGIN_NAME }}_${{ env.PLUGIN_VERSION }}.zip"
-
-      - name: Refresh Plugins
-        shell: bash
-        run: php bin/console plugin:refresh
 
       - name: Install Plugin
         shell: bash
