@@ -79,7 +79,7 @@ jobs:
       fail-fast: false
       matrix:
         php-version: [ '8.1', '8.2', '8.3' ]
-        shopware-version: [ 'v6.5.7.4', 'v6.5.8.16' ]
+        shopware-version: [ 'v6.5.7.4', 'v6.5.8.17' ]
     needs: build-archive
     env:
       PLUGIN_NAME: "ITBConfigurableListingFilters"
@@ -94,25 +94,12 @@ jobs:
           install: 'true'
           install-admin: 'true'
           install-storefront: 'true'
-          env: prod
-
-      - name: Rebuild composer.lock
-        shell: bash
-        run: |
-          cat composer.json
-          rm -f composer.lock
-          composer update --no-scripts --no-plugins --prefer-dist --no-dev
+          env: 'prod'
 
       - name: Download artifact
         uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
         with:
           name: "${{ env.PLUGIN_NAME }}_${{ env.PLUGIN_VERSION }}"
-
-      - name: Check installation directory
-        shell: bash
-        run: |
-          pwd
-          ls -la ./
 
       - name: Import Plugin Archive
         shell: bash
