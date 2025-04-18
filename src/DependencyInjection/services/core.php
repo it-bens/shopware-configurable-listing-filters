@@ -73,9 +73,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Entity repositories
     $services->set(ListingFilterConfigurationRepository::class)
         ->args([
-            service('itb_listing_filter_configuration_checkbox.repository'),
-            service('itb_listing_filter_configuration_multi_select.repository'),
-            service('itb_listing_filter_configuration_range.repository'),
+            service(CheckboxListingFilterConfigurationDefinition::ENTITY_NAME . '.repository'),
+            service(MultiSelectListingFilterConfigurationDefinition::ENTITY_NAME . '.repository'),
+            service(RangeListingFilterConfigurationDefinition::ENTITY_NAME . '.repository'),
+            service(RangeIntervalListingFilterConfigurationDefinition::ENTITY_NAME . '.repository'),
         ])
         ->alias(ListingFilterConfigurationRepositoryInterface::class, ListingFilterConfigurationRepository::class);
 
