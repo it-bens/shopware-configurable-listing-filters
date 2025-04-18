@@ -17,6 +17,9 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Mu
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\Aggregate\RangeListingFilterConfigurationTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\RangeIntervalListingFilterConfigurationIntervalDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\RangeIntervalListingFilterConfigurationTranslationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\ProductListingSubscriber;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\FilterCollectionEnricher;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\FilterCollectionEnricherInterface;
@@ -56,6 +59,15 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     ]);
     $services->set(RangeListingFilterConfigurationTranslationDefinition::class)->tag('shopware.entity.definition', [
         'entity' => RangeListingFilterConfigurationTranslationDefinition::ENTITY_NAME,
+    ]);
+    $services->set(RangeIntervalListingFilterConfigurationDefinition::class)->tag('shopware.entity.definition', [
+        'entity' => RangeIntervalListingFilterConfigurationDefinition::ENTITY_NAME,
+    ]);
+    $services->set(RangeIntervalListingFilterConfigurationTranslationDefinition::class)->tag('shopware.entity.definition', [
+        'entity' => RangeIntervalListingFilterConfigurationTranslationDefinition::ENTITY_NAME,
+    ]);
+    $services->set(RangeIntervalListingFilterConfigurationIntervalDefinition::class)->tag('shopware.entity.definition', [
+        'entity' => RangeIntervalListingFilterConfigurationIntervalDefinition::ENTITY_NAME,
     ]);
 
     // Entity repositories
