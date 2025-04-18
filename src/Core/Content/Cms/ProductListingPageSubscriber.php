@@ -36,6 +36,7 @@ final class ProductListingPageSubscriber implements EventSubscriberInterface
             $this->listingFilterConfigurationRepository->getCheckboxListingFilterConfigurations($event->getSalesChannelContext()),
             $this->listingFilterConfigurationRepository->getMultiSelectListingFilterConfigurations($event->getSalesChannelContext()),
             $this->listingFilterConfigurationRepository->getRangeListingFilterConfigurations($event->getSalesChannelContext()),
+            $this->listingFilterConfigurationRepository->getRangeIntervalListingFilterConfigurations($event->getSalesChannelContext()),
         );
 
         $renderDataCollection = $this->renderDataCollectionBuilder->buildRenderDataCollection(

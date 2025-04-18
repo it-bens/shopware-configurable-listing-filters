@@ -9,9 +9,11 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Ch
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\ListingFilterConfigurationCollection;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationEntity;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Storefront\RenderDataBuilderInterface as CheckboxRenderDataBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\RenderDataBuilderInterface as MultiSelectRenderDataBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\RenderDataBuilderInterface as RangeRenderDataBuilder;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\RenderDataBuilderInterface as RangeIntervalRenderDataBuilder;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\AggregationResult\AggregationResultCollection;
 
 final class RenderDataCollectionBuilder implements RenderDataCollectionBuilderInterface
@@ -20,6 +22,7 @@ final class RenderDataCollectionBuilder implements RenderDataCollectionBuilderIn
         private readonly CheckboxRenderDataBuilder $checkboxRenderDataBuilder,
         private readonly MultiSelectRenderDataBuilder $multiSelectRenderDataBuilder,
         private readonly RangeRenderDataBuilder $rangeRenderDataBuilder,
+        private readonly RangeIntervalRenderDataBuilder $rangeIntervalRenderDataBuilder,
     ) {
     }
 
@@ -45,6 +48,11 @@ final class RenderDataCollectionBuilder implements RenderDataCollectionBuilderIn
                 case RangeListingFilterConfigurationEntity::class:
                     $renderDataCollection->add(
                         $this->rangeRenderDataBuilder->buildRenderData($listingFilterConfigurationEntity, $aggregationResults)
+                    );
+                    break;
+                case RangeIntervalListingFilterConfigurationEntity::class:
+                    $renderDataCollection->add(
+                        $this->rangeIntervalRenderDataBuilder->buildRenderData($listingFilterConfigurationEntity, $aggregationResults)
                     );
                     break;
             }

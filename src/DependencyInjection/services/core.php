@@ -32,6 +32,9 @@ use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\Rende
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Dal\FilterBuilderInterface as RangeFilterBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Dal\RequestValueBuilderInterface as RangeRequestValueBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\RenderDataBuilderInterface as RangeRenderDataBuilder;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\FilterBuilderInterface as RangeIntervalFilterBuilderInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\RequestValueBuilderInterface as RangeIntervalRequestValueBuilderInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\RenderDataBuilderInterface as RangeIntervalRenderDataBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
@@ -89,6 +92,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             service(MultiSelectFilterBuilderInterface::class),
             service(RangeRequestValueBuilderInterface::class),
             service(RangeFilterBuilderInterface::class),
+            service(RangeIntervalRequestValueBuilderInterface::class),
+            service(RangeIntervalFilterBuilderInterface::class),
         ]);
     $services->alias(FilterCollectionEnricherInterface::class, FilterCollectionEnricher::class);
     $services->set(ProductListingSubscriber::class)
@@ -111,6 +116,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             service(CheckboxRenderDataBuilder::class),
             service(MultiSelectRenderDataBuilder::class),
             service(RangeRenderDataBuilder::class),
+            service(RangeIntervalRenderDataBuilder::class),
         ]);
     $services->alias(RenderDataCollectionBuilderInterface::class, RenderDataCollectionBuilder::class);
     $services->set(SidebarFilterCmsSlotsExtractor::class);
