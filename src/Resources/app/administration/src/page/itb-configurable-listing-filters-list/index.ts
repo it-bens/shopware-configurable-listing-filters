@@ -1,24 +1,22 @@
 import template from './itb-configurable-listing-filters-list.html.twig';
 
-const { Component, Mixin } = Shopware;
+const { Mixin } = Shopware;
 const { Criteria } = Shopware.Data;
 
-interface ListPageData {
-    isLoading: boolean;
-    checkboxFilters: Array<ITB.CheckboxFilter>;
-    multiSelectFilters: Array<ITB.MultiSelectFilter>;
-    rangeFilters: Array<ITB.RangeFilter>;
-    salesChannels: Array<ITB.SalesChannel>;
-    selectedSalesChannel: string | null;
-    showDeleteModal: boolean;
-    toBeDeletedFilter: ITB.FilterWithType | null;
-    toBeDeletedFilterType: string | null;
-}
-
-interface FilterColumn {
+interface DataGridColumn {
     property: string;
     label: string;
     rawData: boolean;
+}
+
+interface DataGridRecord {
+    type: string,
+    id: string;
+    dalField: string;
+    displayName: string;
+    salesChannel: string;
+    position: string;
+    enabled: boolean;
 }
 
 interface SalesChannelOption {
@@ -26,31 +24,35 @@ interface SalesChannelOption {
     name: string;
 }
 
-const listPage = Component.register('itb-configurable-listing-filters-list', {
+Shopware.Component.register('itb-configurable-listing-filters-list', {
     template,
 
     inject: [
         'repositoryFactory',
-        'acl'
     ],
 
     mixins: [
         Mixin.getByName('notification'),
         Mixin.getByName('listing'),
-        Mixin.getByName('placeholder')
+        Mixin.getByName('placeholder'),
+        Mixin.getByName('itbConfigurableListingFiltersLocator'),
     ],
     
-    data(): ListPageData {
+    data(): {
+        isLoading: boolean;
+        checkboxListingFilterConfigurations: Array<EntitySchema.itb_listing_filter_configuration_checkbox>;
+        multiSelectListingFilterConfigurations: Array<EntitySchema.itb_listing_filter_configuration_multi_select>;
+        rangeListingFilterConfigurations: Array<EntitySchema.itb_listing_filter_configuration_range>;
+        salesChannels: Array<EntitySchema.sales_channel>;
+        selectedSalesChannelForFiltering: string | null;
+    } {
         return {
             isLoading: false,
-            checkboxFilters: [],
-            multiSelectFilters: [],
-            rangeFilters: [],
+            checkboxListingFilterConfigurations: [],
+            multiSelectListingFilterConfigurations: [],
+            rangeListingFilterConfigurations: [],
             salesChannels: [],
-            selectedSalesChannel: null,
-            showDeleteModal: false,
-            toBeDeletedFilter: null,
-            toBeDeletedFilterType: null
+            selectedSalesChannelForFiltering: null,
         };
     },
 
@@ -61,288 +63,221 @@ const listPage = Component.register('itb-configurable-listing-filters-list', {
     },
 
     computed: {
-        checkboxFilterRepository() {
-            return this.repositoryFactory.create('itb_listing_filter_configuration_checkbox');
-        },
-
-        multiSelectFilterRepository() {
-            return this.repositoryFactory.create('itb_listing_filter_configuration_multi_select');
-        },
-
-        rangeFilterRepository() {
-            return this.repositoryFactory.create('itb_listing_filter_configuration_range');
-        },
-
         salesChannelRepository() {
             return this.repositoryFactory.create('sales_channel');
         },
 
-        filterColumns(): Array<FilterColumn> {
+        dataGridColumns(): Array<DataGridColumn> {
             return [
                 {
-                    property: 'filterType',
-                    label: this.$tc('itb-configurable-listing-filters.list.columnFilterType'),
-                    rawData: true
-                },
-                {
                     property: 'dalField',
-                    label: this.$tc('itb-configurable-listing-filters.list.columnDalField'),
+                    label: this.$tc('itb-configurable-listing-filters.list.dataGrid.column.dalField'),
                     rawData: true
                 },
                 {
                     property: 'displayName',
-                    label: this.$tc('itb-configurable-listing-filters.list.columnDisplayName'),
+                    label: this.$tc('itb-configurable-listing-filters.list.dataGrid.column.displayName'),
+                    rawData: true
+                },
+                {
+                    property: 'salesChannel',
+                    label: this.$tc('itb-configurable-listing-filters.list.dataGrid.column.salesChannel'),
                     rawData: true
                 },
                 {
                     property: 'position',
-                    label: this.$tc('itb-configurable-listing-filters.list.columnPosition'),
+                    label: this.$tc('itb-configurable-listing-filters.list.dataGrid.column.position'),
                     rawData: true
                 },
                 {
                     property: 'enabled',
-                    label: this.$tc('itb-configurable-listing-filters.list.columnEnabled'),
+                    label: this.$tc('itb-configurable-listing-filters.list.dataGrid.column.enabled'),
                     rawData: true
                 }
             ];
         },
 
-        salesChannelCriteria() {
+        salesChannelCriteria(): Criteria {
             const criteria = new Criteria();
             criteria.addSorting(Criteria.sort('name', 'ASC'));
+
             return criteria;
         },
 
-        allFilters(): Array<ITB.FilterWithType> {
-            // Combine all filters and add type information
-            const allFilters: Array<ITB.FilterWithType> = [];
-            
-            this.checkboxFilters.forEach(filter => {
-                allFilters.push({
-                    ...filter,
-                    filterType: 'checkbox',
-                    filterTypeLabel: this.$tc('itb-configurable-listing-filters.list.filterTypeCheckbox')
-                });
-            });
-            
-            this.multiSelectFilters.forEach(filter => {
-                allFilters.push({
-                    ...filter,
-                    filterType: 'multiSelect',
-                    filterTypeLabel: this.$tc('itb-configurable-listing-filters.list.filterTypeMultiSelect')
-                });
-            });
-            
-            this.rangeFilters.forEach(filter => {
-                allFilters.push({
-                    ...filter,
-                    filterType: 'range',
-                    filterTypeLabel: this.$tc('itb-configurable-listing-filters.list.filterTypeRange')
+        listingFilterConfigurationCriteria(): Criteria {
+            const criteria = new Criteria();
+            criteria.addAssociation('salesChannel');
+
+            return criteria;
+        },
+
+        listingFilterConfigurations(): Array<ItbConfigurableListingFilters.ListingFilterConfiguration> {
+           return [
+                ...this.checkboxListingFilterConfigurations,
+                ...this.multiSelectListingFilterConfigurations,
+                ...this.rangeListingFilterConfigurations,
+            ];
+        },
+
+        dataGridRecordsForSalesChannel(): Array<DataGridRecord> {
+            const records: Array<DataGridRecord> = [];
+
+            const listingFilterConfigurations = this.listingFilterConfigurationsForSalesChannel(this.selectedSalesChannelForFiltering);
+            listingFilterConfigurations.forEach((listingFilterConfiguration) => {
+                records.push({
+                    type: listingFilterConfiguration.apiAlias.replace('_foreign_keys_extension', ''),
+                    id: listingFilterConfiguration.id,
+                    dalField: listingFilterConfiguration.dalField,
+                    displayName: listingFilterConfiguration.displayName,
+                    salesChannel: this.getSalesChannelName(listingFilterConfiguration.salesChannelId),
+                    position: listingFilterConfiguration.position ? listingFilterConfiguration.position.toString() : '',
+                    enabled: listingFilterConfiguration.enabled
                 });
             });
 
-            // Filter by sales channel if selected
-            let filtered = allFilters;
-            if (this.selectedSalesChannel) {
-                filtered = filtered.filter(filter => filter.salesChannelId === this.selectedSalesChannel || filter.salesChannelId === null);
+            return records;
+        },
+
+        salesChannelFilterOptions(): Array<SalesChannelOption> {
+            const options: Array<SalesChannelOption> = [{
+                id: null,
+                name: this.$tc('itb-configurable-listing-filters.list.allSalesChannels')
+            }];
+            
+            this.salesChannels.forEach(salesChannel => {
+                options.push({
+                    id: salesChannel.id,
+                    name: salesChannel.name
+                });
+            });
+            
+            return options;
+        },
+    },
+
+    async created() {
+        await this.createdComponent();
+    },
+
+    methods: {
+        async createdComponent(): Promise<void> {
+            const promises: Array<Promise<void>> = [];
+            promises.push(this.loadSalesChannels());
+            promises.push(this.loadListingFilterConfigurations());
+
+            await Promise.all(promises);
+        },
+
+        listingFilterConfigurationsForSalesChannel(salesChannelId: string|null): Array<ItbConfigurableListingFilters.ListingFilterConfiguration> {
+            let listingFilterConfigurations = this.listingFilterConfigurations;
+
+            if (typeof salesChannelId === 'string') {
+                listingFilterConfigurations = listingFilterConfigurations.filter(listingFilterConfiguration => listingFilterConfiguration.salesChannelId === salesChannelId || listingFilterConfiguration.salesChannelId === null);
             }
 
-            // Sort by position
-            return filtered.sort((a, b) => {
+            return listingFilterConfigurations.sort((a, b) => {
                 const posA = a.position || 999;
                 const posB = b.position || 999;
                 return posA - posB;
             });
         },
 
-        groupedFilters(): Record<string, Array<ITB.FilterWithType>> {
-            const groups: Record<string, Array<ITB.FilterWithType>> = {};
-            
-            // Group by salesChannelId
-            this.allFilters.forEach(filter => {
-                const key = filter.salesChannelId || 'global';
-                if (!groups[key]) {
-                    groups[key] = [];
-                }
-                groups[key].push(filter);
-            });
-            
-            return groups;
-        },
-
-        salesChannelOptions(): Array<SalesChannelOption> {
-            const options: Array<SalesChannelOption> = [{
-                id: null,
-                name: this.$tc('itb-configurable-listing-filters.list.salesChannelAll')
-            }];
-            
-            this.salesChannels.forEach(channel => {
-                options.push({
-                    id: channel.id,
-                    name: channel.name
-                });
-            });
-            
-            return options;
-        }
-    },
-
-    created() {
-        this.createdComponent();
-    },
-
-    methods: {
-        createdComponent(): void {
-            this.loadSalesChannels();
-            this.loadFilters();
-        },
-        
-        navigateToCreate(filterType: string): void {
-            if (!filterType || !['checkbox', 'multiSelect', 'range'].includes(filterType)) {
-                this.createNotificationError({
-                    title: this.$tc('itb-configurable-listing-filters.general.errorTitle'),
-                    message: this.$tc('itb-configurable-listing-filters.general.invalidFilterType')
-                });
-                return;
-            }
-            
-            this.$router.push({
-                name: 'itb.configurable.listing.filters.create',
-                params: { type: filterType }
+        async loadSalesChannels(): Promise<void> {
+            return this.salesChannelRepository.search(this.salesChannelCriteria).then(result => {
+                result.forEach(salesChannel => {
+                    this.salesChannels.push(salesChannel);
+                })
             });
         },
 
-        loadSalesChannels(): void {
-            this.salesChannelRepository.search(this.salesChannelCriteria).then(result => {
-                this.salesChannels = result;
-            });
-        },
-
-        loadFilters(): void {
+        async loadListingFilterConfigurations(): Promise<void> {
             this.isLoading = true;
+
+            const promises: Array<Promise<void>> = [];
+
+            const checkboxListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_listing_filter_configuration_checkbox', this.repositoryFactory);
+            promises.push(checkboxListingFilterConfigurationRepository.search(this.listingFilterConfigurationCriteria).then(result => {
+                this.checkboxListingFilterConfigurations = [];
+                result.forEach((listingFilterConfiguration) => {
+                    this.checkboxListingFilterConfigurations.push(listingFilterConfiguration);
+                })
+            }));
+
+            const multiSelectListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_listing_filter_configuration_multi_select', this.repositoryFactory);
+            promises.push(multiSelectListingFilterConfigurationRepository.search(this.listingFilterConfigurationCriteria).then(result => {
+                this.multiSelectListingFilterConfigurations = [];
+                result.forEach((listingFilterConfiguration) => {
+                    this.multiSelectListingFilterConfigurations.push(listingFilterConfiguration);
+                })
+            }));
+
+            const rangeListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_listing_filter_configuration_range', this.repositoryFactory);
+            promises.push(rangeListingFilterConfigurationRepository.search(this.listingFilterConfigurationCriteria).then(result => {
+                this.rangeListingFilterConfigurations = [];
+                result.forEach((listingFilterConfiguration) => {
+                    this.rangeListingFilterConfigurations.push(listingFilterConfiguration);
+                })
+            }));
             
-            const criteria = new Criteria();
-            
-            const promises = [
-                this.loadCheckboxFilters(criteria),
-                this.loadMultiSelectFilters(criteria),
-                this.loadRangeFilters(criteria)
-            ];
-            
-            Promise.all(promises).then(() => {
+            return Promise.all(promises).then(() => {
                 this.isLoading = false;
-            });
-        },
-
-        loadCheckboxFilters(criteria: typeof Criteria): Promise<Array<ITB.CheckboxFilter>> {
-            return this.checkboxFilterRepository.search(criteria).then(result => {
-                this.checkboxFilters = result;
-                return result;
-            });
-        },
-
-        loadMultiSelectFilters(criteria: typeof Criteria): Promise<Array<ITB.MultiSelectFilter>> {
-            return this.multiSelectFilterRepository.search(criteria).then(result => {
-                this.multiSelectFilters = result;
-                return result;
-            });
-        },
-
-        loadRangeFilters(criteria: typeof Criteria): Promise<Array<ITB.RangeFilter>> {
-            return this.rangeFilterRepository.search(criteria).then(result => {
-                this.rangeFilters = result;
-                return result;
+            }).catch(error => {
+                console.error('Error loading filters:', error);
+                this.isLoading = false;
             });
         },
 
         getSalesChannelName(id: string | null): string {
             if (!id) {
-                return this.$tc('itb-configurable-listing-filters.list.salesChannelAll');
+                return this.$tc('itb-configurable-listing-filters.list.allSalesChannels');
             }
             
             const channel = this.salesChannels.find(channel => channel.id === id);
             return channel ? channel.name : id;
         },
 
-        onEditFilter(filter: ITB.FilterWithType): void {
-            this.$router.push({
-                name: 'itb.configurable.listing.filters.detail',
+        async onEditListingFilterConfiguration(dataGridRecord: DataGridRecord): Promise<void> {
+            await this.$router.push({
+                name: 'itb.configurable-listing-filters.edit',
                 params: {
-                    id: filter.id,
-                    filterType: filter.filterType
+                    type: this.getFilterTypeByEntityName(dataGridRecord.type),
+                    id: dataGridRecord.id,
                 }
             });
         },
 
-        onDeleteFilter(filter: ITB.FilterWithType, filterType: string): void {
-            this.toBeDeletedFilter = filter;
-            this.toBeDeletedFilterType = filterType;
-            this.showDeleteModal = true;
-        },
+        async onDeleteListingFilterConfiguration(dataGridRecord: DataGridRecord): Promise<void> {
+            const repository = this.getRepositoryByEntityName(dataGridRecord.type, this.repositoryFactory)
 
-        onConfirmDelete(): void {
-            let repository;
-            
-            switch (this.toBeDeletedFilterType) {
-                case 'checkbox':
-                    repository = this.checkboxFilterRepository;
-                    break;
-                case 'multiSelect':
-                    repository = this.multiSelectFilterRepository;
-                    break;
-                case 'range':
-                    repository = this.rangeFilterRepository;
-                    break;
-                default:
-                    this.createNotificationError({
-                        title: this.$tc('itb-configurable-listing-filters.general.errorTitle'),
-                        message: this.$tc('itb-configurable-listing-filters.general.deletionErrorMessage')
-                    });
-                    return;
-            }
-            
-            if (this.toBeDeletedFilter && this.toBeDeletedFilter.id) {
-                repository.delete(this.toBeDeletedFilter.id).then(() => {
-                    this.loadFilters();
-                    this.showDeleteModal = false;
-                    this.createNotificationSuccess({
-                        title: this.$tc('itb-configurable-listing-filters.general.successTitle'),
-                        message: this.$tc('itb-configurable-listing-filters.general.deleteSuccessMessage')
-                    });
-                }).catch(() => {
-                    this.createNotificationError({
-                        title: this.$tc('itb-configurable-listing-filters.general.errorTitle'),
-                        message: this.$tc('itb-configurable-listing-filters.general.deletionErrorMessage')
-                    });
+            this.isLoading = true;
+            await repository.delete(dataGridRecord.id).then(() => {
+                this.loadListingFilterConfigurations();
+                this.createNotificationSuccess({
+                    title: this.$tc('itb-configurable-listing-filters.general.successTitle'),
+                    message: this.$tc('itb-configurable-listing-filters.general.deleteSuccessMessage')
                 });
-            }
+            }).catch((error: Error) => {
+                console.error('Delete operation failed:', error);
+                this.createNotificationError({
+                    title: this.$tc('itb-configurable-listing-filters.general.errorTitle'),
+                    message: this.$tc('itb-configurable-listing-filters.general.deletionErrorMessage')
+                });
+            }).finally(() => {
+                this.isLoading = false;
+            });
         },
 
-        onCloseDeleteModal(): void {
-            this.showDeleteModal = false;
-            this.toBeDeletedFilter = null;
-            this.toBeDeletedFilterType = null;
+        onSalesChannelFilterChange(id: string | null): void {
+            this.selectedSalesChannelForFiltering = id;
         },
 
-        onSalesChannelChange(id: string | null): void {
-            this.selectedSalesChannel = id;
-        },
-
-        onChangeLanguage(languageId: string): void {
+        async onChangeLanguage(languageId: string): Promise<void> {
             Shopware.State.commit('context/setApiLanguageId', languageId);
-            this.loadFilters();
+            await this.loadListingFilterConfigurations();
         },
 
-        saveOnLanguageChange(): Promise<void> {
-            return Promise.resolve();
-        },
+        saveOnLanguageChange(): void {},
 
-        abortOnLanguageChange(): Promise<void> {
-            return Promise.resolve();
-        }
+        abortOnLanguageChange(): void {}
     }
 });
-
-Component.register('itb-configurable-listing-filters-list', listPage);
-
-export default listPage;
