@@ -1,0 +1,16 @@
+<!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+{% block itb_configurable_listing_filter_form_range %}
+<div class="itb-configurable-listing-filter-form-range">
+    <sw-container columns="1fr" gap="0 30px">
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_range_unit %}
+        <sw-text-field
+            v-model="listingFilterConfiguration.unit"
+            :label="$tc('itb-configurable-listing-filters.form.range.labelUnit')"
+            :placeholder="$tc('itb-configurable-listing-filters.form.range.placeholderUnit')"
+            :error="listingFilterConfigurationUnitError">
+        </sw-text-field>
+        {% endblock %}
+    </sw-container>
+</div>
+{% endblock %}

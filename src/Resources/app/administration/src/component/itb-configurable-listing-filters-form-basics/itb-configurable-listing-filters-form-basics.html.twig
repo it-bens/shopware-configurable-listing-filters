@@ -1,0 +1,74 @@
+<!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+{% block itb_configurable_listing_filter_form_basics %}
+<div class="itb-configurable-listing-filter-form-basic">
+    <sw-container columns="1fr 1fr" gap="0 30px">
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_basics_dal_field %}
+        <sw-text-field
+            v-model="listingFilterConfiguration.dalField"
+            :label="$tc('itb-configurable-listing-filters.form.basics.labelDalField')"
+            :placeholder="$tc('itb-configurable-listing-filters.form.basics.placeholderDalField')"
+            :helpText="$tc('itb-configurable-listing-filters.form.basics.helpTextDalField')"
+            :error="listingFilterConfigurationDalFieldError"
+            required>
+        </sw-text-field>
+        {% endblock %}
+
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_basics_display_name %}
+        <sw-text-field
+            v-model="listingFilterConfiguration.displayName"
+            :label="$tc('itb-configurable-listing-filters.form.basics.labelDisplayName')"
+            :placeholder="$tc('itb-configurable-listing-filters.form.basics.placeholderDisplayName')"
+            :error="listingFilterConfigurationDisplayNameError"
+            :required="isDisplayNameRequired">
+        </sw-text-field>
+        {% endblock %}
+    </sw-container>
+
+    <sw-container columns="1fr 1fr" gap="0 30px">
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_basics_position %}
+        <sw-number-field
+                v-model="listingFilterConfiguration.position"
+                :label="$tc('itb-configurable-listing-filters.form.basics.labelPosition')"
+                :placeholder="$tc('itb-configurable-listing-filters.form.basics.placeholderPosition')"
+                :min="0">
+        </sw-number-field>
+        {% endblock %}
+
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_basics_enabled %}
+        <sw-switch-field
+            v-model="listingFilterConfiguration.enabled"
+            :label="$tc('itb-configurable-listing-filters.form.basics.labelEnabled')">
+        </sw-switch-field>
+        {% endblock %}
+    </sw-container>
+
+    <sw-container columns="1fr" gap="0 30px">
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_basics_twig_template %}
+        <sw-text-field
+            v-model="listingFilterConfiguration.twigTemplate"
+            :label="$tc('itb-configurable-listing-filters.form.basics.labelTwigTemplate')"
+            :placeholder="$tc('itb-configurable-listing-filters.form.basics.placeholderTwigTemplate')"
+            :error="listingFilterConfigurationTwigTemplateError"
+            required>
+        </sw-text-field>
+        {% endblock %}
+    </sw-container>
+
+    <sw-container columns="1fr" gap="0 30px">
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_basics_sales_channel %}
+        <sw-entity-single-select
+            v-model="listingFilterConfiguration.salesChannelId"
+            :label="$tc('itb-configurable-listing-filters.form.basics.labelSalesChannel')"
+            :placeholder="$tc('itb-configurable-listing-filters.form.basics.placeholderSalesChannel')"
+            entity="sales_channel">
+        </sw-entity-single-select>
+        {% endblock %}
+    </sw-container>
+</div>
+{% endblock %}

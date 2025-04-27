@@ -1,18 +1,17 @@
+import './component/itb-configurable-listing-filters-form-basics'
+import './component/itb-configurable-listing-filters-form-multi-select'
+import './component/itb-configurable-listing-filters-form-range'
+import './mixin/itb-configurable-listing-filters-locator'
 import deDE from './module/snippet/de-DE.json';
 import enGB from './module/snippet/en-GB.json';
-
-import './page/itb-configurable-listing-filters-list';
-import './page/itb-configurable-listing-filters-create';
-import './page/itb-configurable-listing-filters-detail';
-import './component/itb-checkbox-filter-form';
-import './component/itb-multi-select-filter-form';
-import './component/itb-range-filter-form';
+import './page/itb-configurable-listing-filters-edit'
+import './page/itb-configurable-listing-filters-list'
 
 Shopware.Module.register('itb-configurable-listing-filters', {
     type: 'plugin',
     name: 'ConfigurableListingFilters',
-    title: 'itb-configurable-listing-filters.general.mainMenuItemGeneral',
-    description: 'itb-configurable-listing-filters.general.descriptionTextModule',
+    title: 'itb-configurable-listing-filters.general.moduleTitle',
+    description: 'itb-configurable-listing-filters.general.moduleDescription',
     color: '#9AA8B5',
     icon: 'regular-filter',
 
@@ -21,42 +20,35 @@ Shopware.Module.register('itb-configurable-listing-filters', {
         'en-GB': enGB
     },
 
+    routePrefixName: 'itb.configurable-listing-filters',
+    routePrefixPath: 'itb/configurable-listing-filters',
+
     routes: {
         list: {
             component: 'itb-configurable-listing-filters-list',
             path: 'list',
-            meta: {
-                parentPath: 'sw.catalogue.index',
-                privilege: 'itb_configurable_listing_filters.viewer'
-            }
         },
         create: {
-            component: 'itb-configurable-listing-filters-create',
+            component: 'itb-configurable-listing-filters-edit',
             path: 'create/:type',
             meta: {
-                parentPath: 'itb.configurable.listing.filters.list',
-                privilege: 'itb_configurable_listing_filters.creator'
+                parentPath: 'itb.configurable-listing-filters.list',
             }
         },
-        detail: {
-            component: 'itb-configurable-listing-filters-detail',
-            path: 'detail/:id/:filterType',
+        edit: {
+            component: 'itb-configurable-listing-filters-edit',
+            path: 'edit/:type/:id',
             meta: {
-                parentPath: 'itb.configurable.listing.filters.list',
-                privilege: 'itb_configurable_listing_filters.viewer'
+                parentPath: 'itb.configurable-listing-filters.list',
             }
         }
     },
 
     navigation: [{
+        path: 'itb.configurable-listing-filters.list',
         id: 'itb-configurable-listing-filters',
-        path: 'itb.configurable.listing.filters.list',
         parent: 'sw-catalogue',
         position: 100,
-        label: 'itb-configurable-listing-filters.general.mainMenuItemGeneral',
-        privilege: 'itb_configurable_listing_filters.viewer',
-        beforeNavigate(): boolean {
-            return true;
-        }
+        label: 'itb-configurable-listing-filters.general.moduleTitle'
     }]
 });

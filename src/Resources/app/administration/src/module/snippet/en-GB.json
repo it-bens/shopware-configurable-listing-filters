@@ -1,102 +1,82 @@
 {
     "itb-configurable-listing-filters": {
         "general": {
-            "mainMenuItemGeneral": "Configurable Filters",
-            "descriptionTextModule": "Manage configurable listing filters",
+            "buttonAddText": "Add Filter Configuration",
+            "buttonDeleteText": "Delete",
+            "buttonEditText": "Edit",
+            "buttonSaveText": "Save",
+            "moduleTitle": "Configurable Listing Filters",
+            "moduleDescription": "Manage Configurable Listing Filters",
             "errorTitle": "Error",
             "successTitle": "Success",
-            "addButtonText": "Add filter",
-            "deleteSuccessMessage": "Filter deleted successfully",
-            "deletionErrorMessage": "An error occurred while deleting the filter",
-            "saveSuccessMessage": "Filter saved successfully",
-            "saveErrorMessage": "An error occurred while saving the filter",
-            "createSuccessMessage": "Filter created successfully",
-            "updateSuccessMessage": "Filter updated successfully",
-            "loadingErrorMessage": "An error occurred while loading the filter",
-            "invalidFilterType": "Invalid filter type"
+            "deleteSuccessMessage": "Filter configuration deleted successfully",
+            "deletionErrorMessage": "An error occurred while deleting the filter configuration"
         },
         "list": {
             "title": "Configurable Listing Filters",
-            "columnFilterType": "Filter type",
-            "columnDalField": "Data field",
-            "columnDisplayName": "Display name",
-            "columnPosition": "Position",
-            "columnEnabled": "Enabled",
-            "columnActions": "Actions",
-            "deleteModalTitle": "Delete filter",
-            "deleteModalText": "Do you really want to delete this filter?",
-            "buttonCancel": "Cancel",
-            "buttonDelete": "Delete",
-            "buttonEdit": "Edit",
-            "filterTypeCheckbox": "Checkbox",
-            "filterTypeMultiSelect": "Multi-select",
-            "filterTypeRange": "Range",
-            "createCheckboxFilter": "Create checkbox filter",
-            "createMultiSelectFilter": "Create multi-select filter",
-            "createRangeFilter": "Create range filter",
-            "createFilterButton": "Create filter",
-            "salesChannelAll": "All sales channels",
-            "groupBySalesChannel": "Grouped by sales channels",
-            "infoTitle": "Information",
-            "infoContent": "Select a filter type to create a new filter."
-        },
-        "create": {
-            "titleDefault": "Create new filter",
-            "titleCheckbox": "Create new checkbox filter",
-            "titleMultiSelect": "Create new multi-select filter",
-            "titleRange": "Create new range filter"
-        },
-        "detail": {
-            "titleDefault": "Edit filter",
-            "titleCheckbox": "Edit checkbox filter",
-            "titleMultiSelect": "Edit multi-select filter",
-            "titleRange": "Edit range filter"
-        },
-        "filter": {
-            "modalCreateTitle": "Create new filter",
-            "modalEditTitle": "Edit filter",
-            "buttonCancel": "Cancel",
-            "buttonSave": "Save",
-            "labelDalField": "Data field",
-            "placeholderDalField": "Enter data field...",
-            "labelDisplayName": "Display name",
-            "placeholderDisplayName": "Enter display name...",
-            "labelTwigTemplate": "Twig template",
-            "placeholderTwigTemplate": "Enter template path...",
-            "labelEnabled": "Enabled",
-            "labelPosition": "Position",
-            "placeholderPosition": "Enter sort position...",
+            "dataGrid": {
+                "column": {
+                    "dalField": "DAL field",
+                    "displayName": "Display name",
+                    "salesChannel": "Sales channel",
+                    "position": "Position",
+                    "enabled": "Enabled",
+                    "actions": "Actions"
+                }
+            },
             "labelSalesChannel": "Sales channel",
-            "placeholderSalesChannel": "Select sales channel...",
-            "selectAllSalesChannels": "All sales channels"
+            "allSalesChannels": "All sales channels",
+            "createCheckboxFilterConfigurationButton": "For Checkbox Filter",
+            "createMultiSelectFilterConfigurationButton": "For Multi Select Filter",
+            "createRangeFilterConfigurationButton": "For Range Filter",
+            "createFilterConfigurationButton": "Create Filter Configuration"
         },
-        "checkbox": {
-            "title": "Checkbox filter"
-        },
-        "multiSelect": {
-            "title": "Multi-select filter",
-            "labelSortingOrder": "Sorting order",
-            "sortingOrderAsc": "Ascending",
-            "sortingOrderDesc": "Descending",
-            "labelAllowedElements": "Allowed elements",
-            "placeholderAllowedElements": "Enter allowed elements...",
-            "helpTextAllowedElements": "Only these elements will be displayed. Leave empty to show all.",
-            "labelForbiddenElements": "Forbidden elements",
-            "placeholderForbiddenElements": "Enter forbidden elements...",
-            "helpTextForbiddenElements": "These elements will be hidden.",
-            "labelElementPrefix": "Element prefix",
-            "placeholderElementPrefix": "Enter prefix...",
-            "labelElementSuffix": "Element suffix",
-            "placeholderElementSuffix": "Enter suffix...",
-            "labelExplicitElementSorting": "Explicit element sorting",
-            "placeholderExplicitElementSorting": "Enter elements for sorting..."
-        },
-        "range": {
-            "title": "Range filter",
-            "labelUnit": "Unit",
-            "placeholderUnit": "Enter unit...",
-            "labelUseSlider": "Use slider",
-            "helpTextUseSlider": "Displays the range filter as a slider instead of input fields."
+        "form": {
+            "basics": {
+                "cardTitle": "Filter Settings",
+                "labelDalField": "DAL field",
+                "placeholderDalField": "Enter the DAL field ...",
+                "helpTextDalField": "Path relative to the product entity.",
+                "labelDisplayName": "Display name",
+                "placeholderDisplayName": "Enter the display name ...",
+                "labelTwigTemplate": "TWIG template",
+                "placeholderTwigTemplate": "Enter the TWIG template path ...",
+                "labelEnabled": "Enabled",
+                "labelPosition": "Filter Position",
+                "placeholderPosition": "Enter the filter position ...",
+                "labelSalesChannel": "Sales channel",
+                "placeholderSalesChannel": "Select the sales channel ..."
+            },
+            "checkbox": {
+                "createPageTitle": "Create Checkbox Filter Configuration"
+            },
+            "multiSelect": {
+                "createPageTitle": "Create Multi Select Filter Configuration",
+                "cardTitle": "Multi Select Filter Settings",
+                "labelSortingOrder": "Element Sorting order",
+                "placeholderSortingOrder": "Choose the sorting order ...",
+                "sortingOrderAsc": "Ascending",
+                "sortingOrderDesc": "Descending",
+                "labelAllowedElements": "Allowed Elements",
+                "placeholderAllowedElements": "Enter the allowed elements ...",
+                "helpTextAllowedElements": "Only these elements will be displayed. Leave empty to show all. One element per line.",
+                "labelForbiddenElements": "Forbidden elements",
+                "placeholderForbiddenElements": "Enter the forbidden elements ...",
+                "helpTextForbiddenElements": "These elements will be hidden. One element per line",
+                "labelElementPrefix": "Element prefix",
+                "placeholderElementPrefix": "Enter the prefix ...",
+                "labelElementSuffix": "Element suffix",
+                "placeholderElementSuffix": "Enter the suffix ...",
+                "labelExplicitElementSorting": "Explicit element sorting",
+                "placeholderExplicitElementSorting": "Enter the elements that should be explicitly sorted ...",
+                "helpTextExplicitElementSorting": "The elements will appear on top of the list in the given order. One element per line."
+            },
+            "range": {
+                "createPageTitle": "Create Range Filter Configuration",
+                "cardTitle": "Range Filter Settings",
+                "labelUnit": "Unit",
+                "placeholderUnit": "Enter the unit ..."
+            }
         }
     }
 }

@@ -1,0 +1,82 @@
+<!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+{% block itb_configurable_listing_filter_form_multi_select %}
+<div class="itb-configurable-listing-filter-form-multi-select">
+    <sw-container columns="1fr 1fr" gap="0 30px">
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_multi_select_sorting_order %}
+        <sw-select-field
+            v-model="listingFilterConfiguration.sortingOrder"
+            :options="sortingOptions"
+            :label="$tc('itb-configurable-listing-filters.form.multiSelect.labelSortingOrder')"
+            :placeholder="$tc('itb-configurable-listing-filters.form.multiSelect.placeholderSortingOrder')"
+            :error="listingFilterConfigurationSortingOrderError"
+            required>
+        </sw-select-field>
+        {% endblock %}
+    </sw-container>
+
+    <sw-container columns="1fr" gap="0 30px">
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_multi_select_allowed_elements %}
+        <sw-textarea-field
+            v-model="listingFilterConfigurationAllowedElements"
+            @input="updateListingFilterConfigurationAllowedElements"
+            :label="$tc('itb-configurable-listing-filters.form.multiSelect.labelAllowedElements')"
+            :placeholder="$tc('itb-configurable-listing-filters.form.multiSelect.placeholderAllowedElements')"
+            :helpText="$tc('itb-configurable-listing-filters.form.multiSelect.helpTextAllowedElements')"
+            :error="listingFilterConfigurationAllowedElementsError">
+        </sw-textarea-field>
+        {% endblock %}
+    </sw-container>
+
+    <sw-container columns="1fr" gap="0 30px">
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_multi_select_forbidden_elements %}
+        <sw-textarea-field
+            v-model="listingFilterConfigurationForbiddenElements"
+            @input="updateListingFilterConfigurationForbiddenElements"
+            :label="$tc('itb-configurable-listing-filters.form.multiSelect.labelForbiddenElements')"
+            :placeholder="$tc('itb-configurable-listing-filters.form.multiSelect.placeholderForbiddenElements')"
+            :helpText="$tc('itb-configurable-listing-filters.form.multiSelect.helpTextForbiddenElements')"
+            :error="listingFilterConfigurationForbiddenElementsError">
+        </sw-textarea-field>
+        {% endblock %}
+    </sw-container>
+
+    <sw-container columns="1fr 1fr" gap="0 30px">
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_multi_select_element_prefix %}
+        <sw-text-field
+            v-model="listingFilterConfiguration.elementPrefix"
+            :label="$tc('itb-configurable-listing-filters.form.multiSelect.labelElementPrefix')"
+            :placeholder="$tc('itb-configurable-listing-filters.form.multiSelect.placeholderElementPrefix')"
+            :error="listingFilterConfigurationElementPrefixError">
+        </sw-text-field>
+        {% endblock %}
+
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_multi_select_element_suffix %}
+        <sw-text-field
+            v-model="listingFilterConfiguration.elementSuffix"
+            :label="$tc('itb-configurable-listing-filters.form.multiSelect.labelElementSuffix')"
+            :placeholder="$tc('itb-configurable-listing-filters.form.multiSelect.placeholderElementSuffix')"
+            :error="listingFilterConfigurationElementSuffixError">
+        </sw-text-field>
+        {% endblock %}
+    </sw-container>
+
+    <sw-container columns="1fr" gap="0 30px">
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_multi_select_explicit_element_sorting %}
+        <sw-textarea-field
+            v-model="listingFilterConfigurationExplicitElementSorting"
+            @input="updateListingFilterConfigurationExplicitElementSorting"
+            :label="$tc('itb-configurable-listing-filters.form.multiSelect.labelExplicitElementSorting')"
+            :placeholder="$tc('itb-configurable-listing-filters.form.multiSelect.placeholderExplicitElementSorting')"
+            :helpText="$tc('itb-configurable-listing-filters.form.multiSelect.helpTextExplicitElementSorting')"
+            :error="listingFilterConfigurationExplicitElementSortingError">
+        </sw-textarea-field>
+        {% endblock %}
+    </sw-container>
+</div>
+{% endblock %}

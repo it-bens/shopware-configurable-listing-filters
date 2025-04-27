@@ -1,0 +1,95 @@
+{% block itb_configurable_listing_filters_edit %}
+<sw-page class="itb-configurable-listing-filters-create">
+    <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+    {% block itb_configurable_listing_filters_edit_header %}
+    <template #smart-bar-header>
+        <h2 v-if="$route.params.id">
+            {{ isLoading ? 'Loading ...' : (listingFilterConfiguration.displayName ) }}
+        </h2>
+        <h2 v-else>
+            {{ createPageTitle }}
+        </h2>
+    </template>
+    {% endblock %}
+
+    <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+    {% block itb_configurable_listing_filters_edit_actions %}
+    <template #smart-bar-actions>
+        <sw-button-process
+                class="itb-configurable-listing-filters-create__save-action"
+                :is-loading="isLoading"
+                :disabled="isLoading"
+                :process-success="isSaveSuccessful"
+                variant="primary"
+                @process-finish="saveFinish"
+                @click.prevent="onSave"
+        >
+            {{ $tc('itb-configurable-listing-filters.general.buttonSaveText') }}
+        </sw-button-process>
+    </template>
+    {% endblock %}
+
+    <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+    {% block itb_configurable_listing_filters_edit_language_switch %}
+    <template #language-switch>
+        <sw-language-switch
+            :saveChangesFunction="onLanguageChangeSave"
+            :abortChangeFunction="onLanguageChangeAbort"
+            :disabled="!$route.params.id"
+            @on-change="onLanguageChange"
+        ></sw-language-switch>
+    </template>
+    {% endblock %}
+
+    {% block itb_configurable_listing_filters_edit_content %}
+    <template #content>
+        <sw-card-view>
+            <template v-if="isLoading">
+                <sw-skeleton variant="detail-bold" />
+                <sw-skeleton />
+            </template>
+
+            <template v-else>
+                <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+                {% block itb_configurable_listing_filters_edit_form_basics %}
+                <sw-card
+                    :title="$tc('itb-configurable-listing-filters.form.basics.cardTitle')"
+                    position-identifier="sw-customer-create-base-form"
+                >
+                    <itb-configurable-listing-filters-form-basics
+                        :listingFilterConfiguration="listingFilterConfiguration">
+                    </itb-configurable-listing-filters-form-basics>
+                </sw-card>
+                {% endblock %}
+
+                <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+                {% block itb_configurable_listing_filters_edit_form_multi_select %}
+                <sw-card
+                    :title="$tc('itb-configurable-listing-filters.form.multiSelect.cardTitle')"
+                    position-identifier="sw-customer-create-base-form"
+                    v-if="$route.params.type === 'multi-select'"
+                >
+                    <itb-configurable-listing-filters-form-multi-select
+                        :listingFilterConfiguration="listingFilterConfiguration">
+                    </itb-configurable-listing-filters-form-multi-select>
+                </sw-card>
+                {% endblock %}
+
+                <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+                {% block itb_configurable_listing_filters_edit_form_range %}
+                <sw-card
+                    :title="$tc('itb-configurable-listing-filters.form.range.cardTitle')"
+                    position-identifier="sw-customer-create-base-form"
+                    v-if="$route.params.type === 'range'"
+                >
+                    <itb-configurable-listing-filters-form-range
+                        :listingFilterConfiguration="listingFilterConfiguration">
+                    </itb-configurable-listing-filters-form-range>
+                </sw-card>
+                {% endblock %}
+            </template>
+        </sw-card-view>
+    </template>
+    {% endblock %}
+</sw-page>
+{% endblock %}
