@@ -20,6 +20,7 @@ parameters:
         - tests
 
     excludePaths:
+        - src/Resources/app/administration/node_modules
         - tests/Bootstrap.php
         - tests/PHPUnit/Integration/EntityDefinitionRegistrationTest.php
         - tests/PHPUnit/Integration/SubscriberRegistrationTest.php

@@ -12,6 +12,7 @@ use Rector\ValueObject\PhpVersion;
 
 return RectorConfig::configure()
     ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
+    ->withSkipPath('src/Resources/app/administration/node_modules')
 
     ->withPhpVersion(PhpVersion::PHP_81)
 

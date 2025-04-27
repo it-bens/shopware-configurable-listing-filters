@@ -12,6 +12,7 @@ use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
 return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->paths([__DIR__ . '/src', __DIR__ . '/tests']);
+    $ecsConfig->skip(['src/Resources/app/administration/node_modules']);
 
     $ecsConfig->import(SetList::COMMON);
     $ecsConfig->import(SetList::CLEAN_CODE);

@@ -6,6 +6,7 @@
 /coverage/
 /node_modules/
 /src/Resources/app/administration/node_modules/
+!/src/Resources/app/administration/node_modules/.gitkeep
 /src/Resources/app/storefront/dist/
 /src/Resources/app/storefront/node_modules/
 /src/Resources/public/administration/*.hot-update.js
