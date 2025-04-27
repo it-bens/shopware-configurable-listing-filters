@@ -1,9 +1,8 @@
-import { defineComponent } from 'vue';
 import type RepositoryFactory from "src/core/data/repository-factory.data";
 
-const { Mixin } = Shopware;
+const { Component, Mixin } = Shopware;
 
-export default Mixin.register('itbConfigurableListingFiltersLocator', defineComponent({
+export default Mixin.register('itbConfigurableListingFiltersLocator', Component.wrapComponentConfig({
     methods: {
         getRepositoryByFilterType: function (listingFilterConfigurationType: string, repositoryFactory: RepositoryFactory) {
             switch (listingFilterConfigurationType) {
