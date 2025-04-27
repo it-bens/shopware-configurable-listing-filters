@@ -23,5 +23,6 @@ build-administration:
 	$(DOCKER_COMPOSE) exec -u www-data $(SHOPWARE_SERVICE) bin/build-administration.sh
 
 watch-administration:
+	$(DOCKER_COMPOSE) exec -u www-data $(SHOPWARE_SERVICE) sed -i 's/npm install --prefer-offline --production/npm install --prefer-offline/g' ./bin/build-administration.sh
 	$(DOCKER_COMPOSE) exec -u www-data $(SHOPWARE_SERVICE) sed -i 's/npm install --prefer-offline --production/npm install --prefer-offline/g' ./bin/watch-administration.sh
-	$(DOCKER_COMPOSE) exec -u www-data $(SHOPWARE_SERVICE) bin/watch-administration.sh
+	$(DOCKER_COMPOSE) exec -u www-data $(SHOPWARE_SERVICE) sh -c "cd /var/www && make watch-admin"
