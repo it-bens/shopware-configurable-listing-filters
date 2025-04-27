@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ITB\ITBConfigurableListingFilters\Test\PHPUnit\Unit\ListingFilter\MultiSelect\Storefront;
 
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\Element;
+use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\ElementCollection;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\RenderData;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -18,12 +19,19 @@ final class RenderDataTest extends TestCase
         $elements = [new Element('red', 'Red'), new Element('blue', 'Blue')];
 
         yield 'with elements' => [
-            new RenderData('template', 'name', 'displayName', 'pluginSelector', $elements, 'disabledFilterTooltip'),
+            new RenderData(
+                'template',
+                'name',
+                'displayName',
+                'pluginSelector',
+                new ElementCollection($elements, []),
+                'disabledFilterTooltip'
+            ),
             true,
         ];
 
         yield 'without elements' => [
-            new RenderData('template', 'name', 'displayName', 'pluginSelector', [], 'disabledFilterTooltip'),
+            new RenderData('template', 'name', 'displayName', 'pluginSelector', new ElementCollection([], []), 'disabledFilterTooltip'),
             false,
         ];
     }
@@ -51,7 +59,14 @@ final class RenderDataTest extends TestCase
         $elements = [new Element('red', 'Red'), new Element('blue', 'Blue')];
 
         yield [
-            new RenderData('template', 'name', 'displayName', 'pluginSelector', $elements, 'disabledFilterTooltip'),
+            new RenderData(
+                'template',
+                'name',
+                'displayName',
+                'pluginSelector',
+                new ElementCollection($elements, []),
+                'disabledFilterTooltip'
+            ),
             [
                 'name' => 'name',
                 'displayName' => 'displayName',

@@ -8,15 +8,13 @@ final class RenderData
 {
     /**
      * @codeCoverageIgnore
-     *
-     * @param array<Element> $elements
      */
     public function __construct(
         public readonly string $twigTemplate,
         private readonly string $name,
         private readonly string $displayName,
         private readonly string $pluginSelector,
-        private readonly array $elements,
+        private readonly ElementCollection $elements,
         private readonly string $disabledFilterTooltip
     ) {
     }
@@ -26,7 +24,7 @@ final class RenderData
      */
     public function shouldBeRendered(): bool
     {
-        return $this->elements !== [];
+        return $this->elements->isEmpty() === false;
     }
 
     /**
@@ -59,7 +57,7 @@ final class RenderData
                     'disabledFilterText' => $this->disabledFilterTooltip,
                 ],
             ],
-            'elements' => $this->elements,
+            'elements' => $this->elements->getElements(),
         ];
     }
 }

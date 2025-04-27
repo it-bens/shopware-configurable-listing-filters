@@ -22,12 +22,17 @@ final class RenderDataBuilder implements RenderDataBuilderInterface
         MultiSelectListingFilterConfigurationEntity $configurationEntity,
         AggregationResultCollection $aggregationResults
     ): RenderData {
+        $elements = new ElementCollection(
+            $this->elementsExtractor->extractElementsFromAggregations($configurationEntity, $aggregationResults),
+            $configurationEntity->getExplicitElementSorting()
+        );
+
         return new RenderData(
             $configurationEntity->getTwigTemplate(),
             $configurationEntity->getFilterName(),
             $configurationEntity->getDisplayName(),
             self::JS_PLUGIN_SELECTOR,
-            $this->elementsExtractor->extractElementsFromAggregations($configurationEntity, $aggregationResults),
+            $elements,
             $this->translator->trans('listing.disabledFilterTooltip')
         );
     }

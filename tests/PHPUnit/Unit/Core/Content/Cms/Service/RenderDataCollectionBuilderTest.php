@@ -14,6 +14,7 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Ra
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Storefront\RenderData as CheckboxRenderData;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Storefront\RenderDataBuilderInterface as CheckboxRenderDataBuilder;
+use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\ElementCollection;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\RenderData as MultiSelectRenderData;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\RenderDataBuilderInterface as MultiSelectRenderDataBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\RenderData as RangeRenderData;
@@ -46,7 +47,14 @@ final class RenderDataCollectionBuilderTest extends TestCase
         $multiSelectListingFilterConfigurationCollection = new MultiSelectListingFilterConfigurationCollection([
             $multiSelectListingFilterConfiguration,
         ]);
-        $multiSelectRenderData = new MultiSelectRenderData('template', 'multi-select', 'label', 'pluginSelector', [], 'tooltip');
+        $multiSelectRenderData = new MultiSelectRenderData(
+            'template',
+            'multi-select',
+            'label',
+            'pluginSelector',
+            new ElementCollection([], []),
+            'tooltip'
+        );
 
         $rangeListingFilterConfiguration = new RangeListingFilterConfigurationEntity();
         $rangeListingFilterConfiguration->setUniqueIdentifier('range');

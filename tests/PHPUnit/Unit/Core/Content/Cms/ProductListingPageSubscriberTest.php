@@ -14,6 +14,7 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Li
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationCollection;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationCollection;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Storefront\RenderData as CheckboxRenderData;
+use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\ElementCollection;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\RenderData as MultiSelectRenderData;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\RenderData as RangeRenderData;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -32,7 +33,14 @@ final class ProductListingPageSubscriberTest extends TestCase
     public static function addStorefrontFiltersProvider(): \Generator
     {
         $checkboxRenderData = new CheckboxRenderData('template', 'checkbox', 'label', 'tooltip');
-        $multiSelectRenderData = new MultiSelectRenderData('template', 'multi-select', 'label', 'pluginSelector', [], 'tooltip');
+        $multiSelectRenderData = new MultiSelectRenderData(
+            'template',
+            'multi-select',
+            'label',
+            'pluginSelector',
+            new ElementCollection([], []),
+            'tooltip'
+        );
         $rangeRenderData = new RangeRenderData('template', 'range', 'label', 'parameter', 'parameter', null, null, null, 'tooltip');
 
         yield [$checkboxRenderData, $multiSelectRenderData, $rangeRenderData];
