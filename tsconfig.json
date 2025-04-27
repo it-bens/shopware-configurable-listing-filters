@@ -29,7 +29,7 @@
     "./src/Resources/app/administration/src/**/*.tsx",
     "./src/Resources/app/administration/src/**/*.vue",
     "./vendor/shopware/administration/Resources/app/administration/src/**/*.d.ts",
-    "vendor/shopware/administration/Resources/app/administration/src/global.types.ts"
+    "./vendor/shopware/administration/Resources/app/administration/src/global.types.ts"
   ],
   "exclude": [
     "node_modules", 

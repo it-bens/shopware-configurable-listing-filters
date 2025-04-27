@@ -1,24 +1,45 @@
 {
-  "name": "administration",
-  "private": true,
+  "name": "itb-configurable-listing-filters",
   "version": "0.1.0",
   "author": "IT Martin Bens",
-  "dependencies": {
-    "@babel/core": "^7.26.10",
-    "@babel/preset-typescript": "^7.27.0",
-    "vue": "^2.7.16"
-  },
+  "main": "index.js",
   "scripts": {
-    "setup": "node build/create-symlinks.js",
-    "build": "npm run setup && webpack"
+    "lint": "eslint --ext .js,.ts,.vue src",
+    "lint-fix": "eslint --ext .js,.ts,.vue src --fix",
+    "lint-ci": "npm run lint -- --format junit --output-file eslint.junit.xml"
+  },
+  "dependencies": {
+    "@shopware-ag/admin-extension-sdk": "^3.0.15",
+    "@shopware-ag/entity-schema-types": "^5.8.17",
+    "vue": "2.7.14",
+    "vue-i18n": "8.28.2",
+    "vue-i18n_v3": "npm:vue-i18n@^9.2.2",
+    "vue-router": "3.6.5",
+    "vue-router_v3": "npm:vue-router@^4.2.2",
+    "vue-template-compiler": "^2.7.14",
+    "vue3": "npm:vue@^3.3.4",
+    "vuex": "3.6.2",
+    "vuex_v3": "npm:vuex@^4.1.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.30",
-    "@vue/tsconfig": "^0.5.1",
-    "typescript": "^5.4.4",
-    "vue-template-compiler": "^2.7.16",
-    "webpack": "^5.98.0",
-    "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.1"
+    "@babel/eslint-parser": "^7.27.0",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-transform-runtime": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@shopware-ag/administration": "file:../../../../vendor/shopware/administration/Resources/app/administration",
+    "@shopware-ag/eslint-config-base": "^2.0.0",
+    "@shopware-ag/jest-preset-sw6-admin": "^6.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.31.0",
+    "@vue/compat": "^3.5.13",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/test-utils_v3": "npm:@vue/test-utils@^2.3.2",
+    "eslint-import-resolver-webpack": "^0.13.10",
+    "eslint-plugin-jest": "^28.11.0",
+    "eslint-plugin-vue": "^10.0.0",
+    "flush-promises": "^1.0.2",
+    "vuex": "3.6.2"
+  },
+  "overrides": {
+    "vue": "2.7.14"
   }
 }
