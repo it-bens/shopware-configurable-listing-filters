@@ -74,6 +74,12 @@ jobs:
       - name: Run Rector
         run: ./vendor/bin/rector --config=rector.php process --dry-run
 
+      - name: Checkout GitHub action code to be correctly deleted in the post step
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          sparse-checkout: '.github/actions/setup-plugin'
+          sparse-checkout-cone-mode: false
+
   static-analysis:
     name: Static analysis (PHPStan)
     runs-on: ubuntu-latest
@@ -83,13 +89,14 @@ jobs:
         php-version: [ '8.1', '8.2', '8.3' ]
         shopware-version: [ 'v6.5.7.4', 'v6.5.8.17' ]
     steps:
-      - name: Check out the repository
+      - name: Checkout GitHub action code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          path: 'custom/plugins/ITBConfigurableListingFilters'
+          sparse-checkout: '.github/actions/setup-plugin'
+          sparse-checkout-cone-mode: false
 
       - name: Setup Shopware and Plugin
-        uses: ./custom/plugins/ITBConfigurableListingFilters/.github/actions/setup-plugin
+        uses: ./.github/actions/setup-plugin
         with:
           shopware-version: ${{ matrix.shopware-version }}
           php-version: ${{ matrix.php-version }}
@@ -100,3 +107,9 @@ jobs:
           rm -rf phpstan-ci.neon
           composer dump-autoload --dev
           composer run static-analysis-ci
+
+      - name: Checkout GitHub action code to be correctly deleted in the post step
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          sparse-checkout: '.github/actions/setup-plugin'
+          sparse-checkout-cone-mode: false

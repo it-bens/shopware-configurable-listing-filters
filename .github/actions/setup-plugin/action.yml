@@ -63,6 +63,11 @@ runs:
       shell: bash
       run: php bin/console plugin:install --activate ITBConfigurableListingFilters
 
+    - name: Install NPM administration dependencies
+      shell: bash
+      working-directory: 'custom/plugins/ITBConfigurableListingFilters/src/Resources/app/administration'
+      run: npm i --no-audit --no-fund --prefer-offline
+
     - name: Install PHPStan
       if: ${{ inputs.install-phpstan }}
       shell: bash
