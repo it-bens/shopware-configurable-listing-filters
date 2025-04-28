@@ -16,7 +16,7 @@ final class RangeListingFilterConfigurationTranslationCollectionTest extends Tes
     {
         $collection = new RangeListingFilterConfigurationTranslationCollection();
 
-        $this->assertSame('itb_listing_filter_configuration_translation_collection_range', $collection->getApiAlias());
+        $this->assertSame('itb_lfc_translation_collection_range', $collection->getApiAlias());
     }
 
     public function testGetExpectedClass(): void

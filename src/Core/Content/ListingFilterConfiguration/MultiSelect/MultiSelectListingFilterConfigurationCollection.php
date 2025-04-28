@@ -16,7 +16,7 @@ class MultiSelectListingFilterConfigurationCollection extends EntityCollection
      */
     public function getApiAlias(): string
     {
-        return 'itb_listing_filter_configuration_collection_multi_select';
+        return 'itb_lfc_collection_multi_select';
     }
 
     /**

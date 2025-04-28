@@ -16,7 +16,7 @@ final class CheckboxListingFilterConfigurationTranslationCollectionTest extends 
     {
         $collection = new CheckboxListingFilterConfigurationTranslationCollection();
 
-        $this->assertSame('itb_listing_filter_configuration_translation_collection_checkbox', $collection->getApiAlias());
+        $this->assertSame('itb_lfc_translation_collection_checkbox', $collection->getApiAlias());
     }
 
     public function testGetExpectedClass(): void

@@ -16,7 +16,7 @@ final class RangeIntervalListingFilterConfigurationTranslationCollectionTest ext
     {
         $collection = new RangeIntervalListingFilterConfigurationTranslationCollection();
 
-        $this->assertSame('itb_listing_filter_configuration_translation_collection_range_interval', $collection->getApiAlias());
+        $this->assertSame('itb_lfc_translation_collection_range_interval', $collection->getApiAlias());
     }
 
     public function testGetExpectedClass(): void

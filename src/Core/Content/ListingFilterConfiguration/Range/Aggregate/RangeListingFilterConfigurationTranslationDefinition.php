@@ -13,7 +13,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class RangeListingFilterConfigurationTranslationDefinition extends ListingFilterConfigurationTranslationDefinition
 {
-    public const ENTITY_NAME = 'itb_listing_filter_configuration_range_translation';
+    public const ENTITY_NAME = 'itb_lfc_range_translation';
 
     public function getCollectionClass(): string
     {

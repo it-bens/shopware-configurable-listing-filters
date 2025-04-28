@@ -16,7 +16,7 @@ final class CheckboxListingFilterConfigurationCollectionTest extends TestCase
     {
         $collection = new CheckboxListingFilterConfigurationCollection();
 
-        $this->assertSame('itb_listing_filter_configuration_collection_checkbox', $collection->getApiAlias());
+        $this->assertSame('itb_lfc_collection_checkbox', $collection->getApiAlias());
     }
 
     public function testGetExpectedClass(): void

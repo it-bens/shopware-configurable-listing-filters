@@ -16,7 +16,7 @@ final class MultiSelectListingFilterConfigurationCollectionTest extends TestCase
     {
         $collection = new MultiSelectListingFilterConfigurationCollection();
 
-        $this->assertSame('itb_listing_filter_configuration_collection_multi_select', $collection->getApiAlias());
+        $this->assertSame('itb_lfc_collection_multi_select', $collection->getApiAlias());
     }
 
     public function testGetExpectedClass(): void

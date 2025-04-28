@@ -14,7 +14,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class CheckboxListingFilterConfigurationDefinition extends ListingFilterConfigurationDefinition
 {
-    public const ENTITY_NAME = 'itb_listing_filter_configuration_checkbox';
+    public const ENTITY_NAME = 'itb_lfc_checkbox';
 
     public function getCollectionClass(): string
     {

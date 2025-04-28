@@ -16,7 +16,7 @@ class CheckboxListingFilterConfigurationTranslationCollection extends EntityColl
      */
     public function getApiAlias(): string
     {
-        return 'itb_listing_filter_configuration_translation_collection_checkbox';
+        return 'itb_lfc_translation_collection_checkbox';
     }
 
     /**

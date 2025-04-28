@@ -16,7 +16,7 @@ class MultiSelectListingFilterConfigurationTranslationCollection extends EntityC
      */
     public function getApiAlias(): string
     {
-        return 'itb_listing_filter_configuration_translation_collection_multi_select';
+        return 'itb_lfc_translation_collection_multi_select';
     }
 
     /**

@@ -8,7 +8,7 @@ Shopware.Component.register('itb-configurable-listing-filters-form-range', {
 
     props: {
         listingFilterConfiguration: {
-            type: Object as () => EntitySchema.itb_listing_filter_configuration_range,
+            type: Object as () => EntitySchema.itb_lfc_range,
             required: false,
             default: null
         }

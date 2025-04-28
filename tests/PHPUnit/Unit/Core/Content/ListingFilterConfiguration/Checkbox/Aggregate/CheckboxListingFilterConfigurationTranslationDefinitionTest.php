@@ -46,7 +46,7 @@ final class CheckboxListingFilterConfigurationTranslationDefinitionTest extends 
 
     public function testGetEntityName(): void
     {
-        $this->assertSame('itb_listing_filter_configuration_checkbox_translation', $this->definition->getEntityName());
+        $this->assertSame('itb_lfc_checkbox_translation', $this->definition->getEntityName());
         $this->assertSame(CheckboxListingFilterConfigurationTranslationDefinition::ENTITY_NAME, $this->definition->getEntityName());
     }
 

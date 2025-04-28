@@ -78,7 +78,7 @@ final class MultiSelectListingFilterConfigurationTranslationDefinitionTest exten
 
     public function testGetEntityName(): void
     {
-        $this->assertSame('itb_listing_filter_configuration_multi_select_translation', $this->definition->getEntityName());
+        $this->assertSame('itb_lfc_multi_select_translation', $this->definition->getEntityName());
         $this->assertSame(MultiSelectListingFilterConfigurationTranslationDefinition::ENTITY_NAME, $this->definition->getEntityName());
     }
 

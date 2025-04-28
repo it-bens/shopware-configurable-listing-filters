@@ -22,10 +22,10 @@ Shopware.Component.register('itb-configurable-listing-filters-edit', {
         isSaving: boolean;
         isSaveSuccessful: boolean;
         listingFilterConfiguration: (
-            EntitySchema.itb_listing_filter_configuration_checkbox |
-            EntitySchema.itb_listing_filter_configuration_multi_select |
-            EntitySchema.itb_listing_filter_configuration_range |
-            EntitySchema.itb_listing_filter_configuration_range_interval
+            EntitySchema.itb_lfc_checkbox |
+            EntitySchema.itb_lfc_multi_select |
+            EntitySchema.itb_lfc_range |
+            EntitySchema.itb_lfc_range_interval
             ) & Entity<any> | null;
         salesChannels: Array<EntitySchema.sales_channel>;
         languageId: string | null;

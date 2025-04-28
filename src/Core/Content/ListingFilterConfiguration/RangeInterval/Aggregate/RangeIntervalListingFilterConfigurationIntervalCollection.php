@@ -16,7 +16,7 @@ class RangeIntervalListingFilterConfigurationIntervalCollection extends EntityCo
      */
     public function getApiAlias(): string
     {
-        return 'itb_listing_filter_configuration_collection_range_interval_interval';
+        return 'itb_lfc_collection_range_interval_interval';
     }
 
     /**

@@ -16,7 +16,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class MultiSelectListingFilterConfigurationDefinition extends ListingFilterConfigurationDefinition
 {
-    public const ENTITY_NAME = 'itb_listing_filter_configuration_multi_select';
+    public const ENTITY_NAME = 'itb_lfc_multi_select';
 
     public function getCollectionClass(): string
     {

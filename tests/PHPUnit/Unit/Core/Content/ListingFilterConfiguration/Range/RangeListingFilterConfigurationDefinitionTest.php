@@ -57,7 +57,7 @@ final class RangeListingFilterConfigurationDefinitionTest extends TestCase
 
     public function testGetEntityName(): void
     {
-        $this->assertSame('itb_listing_filter_configuration_range', $this->definition->getEntityName());
+        $this->assertSame('itb_lfc_range', $this->definition->getEntityName());
         $this->assertSame(RangeListingFilterConfigurationDefinition::ENTITY_NAME, $this->definition->getEntityName());
     }
 }

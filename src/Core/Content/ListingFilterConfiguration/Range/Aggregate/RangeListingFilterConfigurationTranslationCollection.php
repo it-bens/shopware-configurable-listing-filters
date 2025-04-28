@@ -16,7 +16,7 @@ class RangeListingFilterConfigurationTranslationCollection extends EntityCollect
      */
     public function getApiAlias(): string
     {
-        return 'itb_listing_filter_configuration_translation_collection_range';
+        return 'itb_lfc_translation_collection_range';
     }
 
     /**

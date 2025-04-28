@@ -51,7 +51,7 @@ final class CheckboxListingFilterConfigurationDefinitionTest extends TestCase
 
     public function testGetEntityName(): void
     {
-        $this->assertSame('itb_listing_filter_configuration_checkbox', $this->definition->getEntityName());
+        $this->assertSame('itb_lfc_checkbox', $this->definition->getEntityName());
         $this->assertSame(CheckboxListingFilterConfigurationDefinition::ENTITY_NAME, $this->definition->getEntityName());
     }
 }

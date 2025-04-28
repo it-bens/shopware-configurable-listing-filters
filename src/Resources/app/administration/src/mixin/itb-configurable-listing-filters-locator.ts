@@ -8,13 +8,13 @@ export default Mixin.register('itbConfigurableListingFiltersLocator', Component.
         getRepositoryByFilterType: function (listingFilterConfigurationType: string, repositoryFactory: RepositoryFactory) {
             switch (listingFilterConfigurationType) {
                 case 'checkbox':
-                    return repositoryFactory.create('itb_listing_filter_configuration_checkbox');
+                    return repositoryFactory.create('itb_lfc_checkbox');
                 case 'multi-select':
-                    return repositoryFactory.create('itb_listing_filter_configuration_multi_select');
+                    return repositoryFactory.create('itb_lfc_multi_select');
                 case 'range':
-                    return repositoryFactory.create('itb_listing_filter_configuration_range');
+                    return repositoryFactory.create('itb_lfc_range');
                 case 'range-interval':
-                    return repositoryFactory.create('itb_listing_filter_configuration_range_interval');
+                    return repositoryFactory.create('itb_lfc_range_interval');
                 default:
                     throw new Error(`Invalid listing filter configuration type: ${listingFilterConfigurationType}`);
             }
@@ -22,14 +22,14 @@ export default Mixin.register('itbConfigurableListingFiltersLocator', Component.
 
         getRepositoryByEntityName: function (listingFilterConfigurationType: string, repositoryFactory: RepositoryFactory) {
             switch (listingFilterConfigurationType) {
-                case 'itb_listing_filter_configuration_checkbox':
-                    return repositoryFactory.create('itb_listing_filter_configuration_checkbox');
-                case 'itb_listing_filter_configuration_multi_select':
-                    return repositoryFactory.create('itb_listing_filter_configuration_multi_select');
-                case 'itb_listing_filter_configuration_range':
-                    return repositoryFactory.create('itb_listing_filter_configuration_range');
-                case 'itb_listing_filter_configuration_range_interval':
-                    return repositoryFactory.create('itb_listing_filter_configuration_range_interval');
+                case 'itb_lfc_checkbox':
+                    return repositoryFactory.create('itb_lfc_checkbox');
+                case 'itb_lfc_multi_select':
+                    return repositoryFactory.create('itb_lfc_multi_select');
+                case 'itb_lfc_range':
+                    return repositoryFactory.create('itb_lfc_range');
+                case 'itb_lfc_range_interval':
+                    return repositoryFactory.create('itb_lfc_range_interval');
                 default:
                     throw new Error(`Invalid entity name: ${listingFilterConfigurationType}`);
             }
@@ -67,13 +67,13 @@ export default Mixin.register('itbConfigurableListingFiltersLocator', Component.
 
         getFilterTypeByEntityName: function (entityName: string) {
             switch (entityName) {
-                case 'itb_listing_filter_configuration_checkbox':
+                case 'itb_lfc_checkbox':
                     return 'checkbox';
-                case 'itb_listing_filter_configuration_multi_select':
+                case 'itb_lfc_multi_select':
                     return 'multi-select';
-                case 'itb_listing_filter_configuration_range':
+                case 'itb_lfc_range':
                     return 'range';
-                case 'itb_listing_filter_configuration_range_interval':
+                case 'itb_lfc_range_interval':
                     return 'range-interval';
                 default:
                     throw new Error(`Invalid entity name: ${entityName}`);
@@ -104,13 +104,13 @@ export default Mixin.register('itbConfigurableListingFiltersLocator', Component.
             criteria.addAssociation('salesChannel');
 
             switch (listingFilterConfigurationType) {
-                case 'itb_listing_filter_configuration_checkbox':
+                case 'itb_lfc_checkbox':
                     return criteria;
-                case 'itb_listing_filter_configuration_multi_select':
+                case 'itb_lfc_multi_select':
                     return criteria;
-                case 'itb_listing_filter_configuration_range':
+                case 'itb_lfc_range':
                     return criteria;
-                case 'itb_listing_filter_configuration_range_interval':
+                case 'itb_lfc_range_interval':
                     criteria.addAssociation('intervals');
                     criteria.addAssociation('intervals.rangeIntervalListingFilterConfiguration');
                     return criteria;

@@ -10,7 +10,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 
 class CheckboxListingFilterConfigurationTranslationDefinition extends ListingFilterConfigurationTranslationDefinition
 {
-    public const ENTITY_NAME = 'itb_listing_filter_configuration_checkbox_translation';
+    public const ENTITY_NAME = 'itb_lfc_checkbox_translation';
 
     public function getCollectionClass(): string
     {

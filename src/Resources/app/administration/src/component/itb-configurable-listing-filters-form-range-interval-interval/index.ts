@@ -26,7 +26,7 @@ Shopware.Component.register('itb-configurable-listing-filters-form-range-interva
 
     props: {
         listingFilterConfiguration: {
-            type: Object as () => EntitySchema.itb_listing_filter_configuration_range_interval,
+            type: Object as () => EntitySchema.itb_lfc_range_interval,
             required: false,
             default: null
         }
@@ -79,7 +79,7 @@ Shopware.Component.register('itb-configurable-listing-filters-form-range-interva
         },
 
         intervalRepository() {
-            return this.repositoryFactory.create('itb_listing_filter_configuration_range_interval_interval');
+            return this.repositoryFactory.create('itb_lfc_range_interval_interval');
         },
     },
 
@@ -97,7 +97,7 @@ Shopware.Component.register('itb-configurable-listing-filters-form-range-interva
         },
 
         onIntervalAdd(): void {
-            const interval: EntitySchema.itb_listing_filter_configuration_range_interval_interval = this.intervalRepository.create();
+            const interval: EntitySchema.itb_lfc_range_interval_interval = this.intervalRepository.create();
 
             let highestPosition = 0;
             if (this.listingFilterConfiguration.intervals && this.listingFilterConfiguration.intervals.length > 0) {

@@ -84,11 +84,8 @@ final class RangeIntervalListingFilterConfigurationIntervalDefinitionTest extend
 
     public function testEntityName(): void
     {
-        $this->assertSame('itb_listing_filter_configuration_range_interval_interval', $this->definition->getEntityName());
-        $this->assertSame(
-            'itb_listing_filter_configuration_range_interval_interval',
-            RangeIntervalListingFilterConfigurationIntervalDefinition::ENTITY_NAME
-        );
+        $this->assertSame('itb_lfc_range_interval_interval', $this->definition->getEntityName());
+        $this->assertSame('itb_lfc_range_interval_interval', RangeIntervalListingFilterConfigurationIntervalDefinition::ENTITY_NAME);
     }
 
     public function testGetCollectionClass(): void

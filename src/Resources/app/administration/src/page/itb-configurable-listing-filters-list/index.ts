@@ -40,10 +40,10 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
     
     data(): {
         isLoading: boolean;
-        checkboxListingFilterConfigurations: Array<EntitySchema.itb_listing_filter_configuration_checkbox>;
-        multiSelectListingFilterConfigurations: Array<EntitySchema.itb_listing_filter_configuration_multi_select>;
-        rangeListingFilterConfigurations: Array<EntitySchema.itb_listing_filter_configuration_range>;
-        rangeIntervalListingFilterConfigurations: Array<EntitySchema.itb_listing_filter_configuration_range_interval>;
+        checkboxListingFilterConfigurations: Array<EntitySchema.itb_lfc_checkbox>;
+        multiSelectListingFilterConfigurations: Array<EntitySchema.itb_lfc_multi_select>;
+        rangeListingFilterConfigurations: Array<EntitySchema.itb_lfc_range>;
+        rangeIntervalListingFilterConfigurations: Array<EntitySchema.itb_lfc_range_interval>;
         salesChannels: Array<EntitySchema.sales_channel>;
         selectedSalesChannelForFiltering: string | null;
     } {
@@ -191,8 +191,8 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
 
             const promises: Array<Promise<void>> = [];
 
-            const checkboxListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_listing_filter_configuration_checkbox', this.repositoryFactory);
-            const checkboxListingFilterConfigurationCriteria = this.getCriteriaByEntityName('itb_listing_filter_configuration_checkbox');
+            const checkboxListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_lfc_checkbox', this.repositoryFactory);
+            const checkboxListingFilterConfigurationCriteria = this.getCriteriaByEntityName('itb_lfc_checkbox');
             promises.push(checkboxListingFilterConfigurationRepository.search(checkboxListingFilterConfigurationCriteria).then(result => {
                 this.checkboxListingFilterConfigurations = [];
                 result.forEach((listingFilterConfiguration) => {
@@ -200,8 +200,8 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
                 })
             }));
 
-            const multiSelectListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_listing_filter_configuration_multi_select', this.repositoryFactory);
-            const multiSelectListingFilterConfigurationCriteria = this.getCriteriaByEntityName('itb_listing_filter_configuration_multi_select');
+            const multiSelectListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_lfc_multi_select', this.repositoryFactory);
+            const multiSelectListingFilterConfigurationCriteria = this.getCriteriaByEntityName('itb_lfc_multi_select');
             promises.push(multiSelectListingFilterConfigurationRepository.search(multiSelectListingFilterConfigurationCriteria).then(result => {
                 this.multiSelectListingFilterConfigurations = [];
                 result.forEach((listingFilterConfiguration) => {
@@ -209,8 +209,8 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
                 })
             }));
 
-            const rangeListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_listing_filter_configuration_range', this.repositoryFactory);
-            const rangeListingFilterConfigurationCriteria = this.getCriteriaByEntityName('itb_listing_filter_configuration_range');
+            const rangeListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_lfc_range', this.repositoryFactory);
+            const rangeListingFilterConfigurationCriteria = this.getCriteriaByEntityName('itb_lfc_range');
             promises.push(rangeListingFilterConfigurationRepository.search(rangeListingFilterConfigurationCriteria).then(result => {
                 this.rangeListingFilterConfigurations = [];
                 result.forEach((listingFilterConfiguration) => {
@@ -218,8 +218,8 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
                 })
             }));
 
-            const rangeIntervalListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_listing_filter_configuration_range_interval', this.repositoryFactory);
-            const rangeIntervalListingFilterConfigurationCriteria = this.getCriteriaByEntityName('itb_listing_filter_configuration_range_interval');
+            const rangeIntervalListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_lfc_range_interval', this.repositoryFactory);
+            const rangeIntervalListingFilterConfigurationCriteria = this.getCriteriaByEntityName('itb_lfc_range_interval');
             promises.push(rangeIntervalListingFilterConfigurationRepository.search(rangeIntervalListingFilterConfigurationCriteria).then(result => {
                 this.rangeIntervalListingFilterConfigurations = [];
                 result.forEach((listingFilterConfiguration) => {

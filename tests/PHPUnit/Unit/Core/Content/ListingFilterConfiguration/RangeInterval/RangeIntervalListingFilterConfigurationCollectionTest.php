@@ -16,7 +16,7 @@ final class RangeIntervalListingFilterConfigurationCollectionTest extends TestCa
     {
         $collection = new RangeIntervalListingFilterConfigurationCollection();
 
-        $this->assertSame('itb_listing_filter_configuration_collection_range_interval', $collection->getApiAlias());
+        $this->assertSame('itb_lfc_collection_range_interval', $collection->getApiAlias());
     }
 
     public function testGetExpectedClass(): void

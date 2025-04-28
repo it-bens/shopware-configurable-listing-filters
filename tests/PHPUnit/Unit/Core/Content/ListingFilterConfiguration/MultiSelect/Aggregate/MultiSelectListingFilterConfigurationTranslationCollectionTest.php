@@ -16,7 +16,7 @@ final class MultiSelectListingFilterConfigurationTranslationCollectionTest exten
     {
         $collection = new MultiSelectListingFilterConfigurationTranslationCollection();
 
-        $this->assertSame('itb_listing_filter_configuration_translation_collection_multi_select', $collection->getApiAlias());
+        $this->assertSame('itb_lfc_translation_collection_multi_select', $collection->getApiAlias());
     }
 
     public function testGetExpectedClass(): void

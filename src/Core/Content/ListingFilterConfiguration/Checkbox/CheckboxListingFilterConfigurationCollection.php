@@ -16,7 +16,7 @@ class CheckboxListingFilterConfigurationCollection extends EntityCollection
      */
     public function getApiAlias(): string
     {
-        return 'itb_listing_filter_configuration_collection_checkbox';
+        return 'itb_lfc_collection_checkbox';
     }
 
     /**

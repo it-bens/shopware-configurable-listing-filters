@@ -16,7 +16,7 @@ final class RangeIntervalListingFilterConfigurationIntervalCollectionTest extend
     {
         $collection = new RangeIntervalListingFilterConfigurationIntervalCollection();
 
-        $this->assertSame('itb_listing_filter_configuration_collection_range_interval_interval', $collection->getApiAlias());
+        $this->assertSame('itb_lfc_collection_range_interval_interval', $collection->getApiAlias());
     }
 
     public function testGetElementsSortedByPosition(): void

@@ -14,7 +14,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class MultiSelectListingFilterConfigurationTranslationDefinition extends ListingFilterConfigurationTranslationDefinition
 {
-    public const ENTITY_NAME = 'itb_listing_filter_configuration_multi_select_translation';
+    public const ENTITY_NAME = 'itb_lfc_multi_select_translation';
 
     public function getCollectionClass(): string
     {

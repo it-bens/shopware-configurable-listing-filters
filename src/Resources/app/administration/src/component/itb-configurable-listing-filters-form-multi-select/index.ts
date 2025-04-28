@@ -13,7 +13,7 @@ Shopware.Component.register('itb-configurable-listing-filters-form-multi-select'
 
     props: {
         listingFilterConfiguration: {
-            type: Object as () => EntitySchema.itb_listing_filter_configuration_multi_select,
+            type: Object as () => EntitySchema.itb_lfc_multi_select,
             required: false,
             default: null
         }

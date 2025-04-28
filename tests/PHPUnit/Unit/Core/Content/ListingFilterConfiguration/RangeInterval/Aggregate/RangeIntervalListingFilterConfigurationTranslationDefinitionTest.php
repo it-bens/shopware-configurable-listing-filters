@@ -46,9 +46,9 @@ final class RangeIntervalListingFilterConfigurationTranslationDefinitionTest ext
 
     public function testEntityName(): void
     {
-        $this->assertSame('itb_listing_filter_configuration_range_interval_translation', $this->definition->getEntityName());
+        $this->assertSame('itb_lfc_range_interval_translation', $this->definition->getEntityName());
         $this->assertSame(
-            'itb_listing_filter_configuration_range_interval_translation',
+            'itb_lfc_range_interval_translation',
             RangeIntervalListingFilterConfigurationTranslationDefinition::ENTITY_NAME
         );
     }

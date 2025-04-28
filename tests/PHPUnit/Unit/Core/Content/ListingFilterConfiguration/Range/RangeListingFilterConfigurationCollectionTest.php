@@ -16,7 +16,7 @@ final class RangeListingFilterConfigurationCollectionTest extends TestCase
     {
         $collection = new RangeListingFilterConfigurationCollection();
 
-        $this->assertSame('itb_listing_filter_configuration_collection_range', $collection->getApiAlias());
+        $this->assertSame('itb_lfc_collection_range', $collection->getApiAlias());
     }
 
     public function testGetExpectedClass(): void

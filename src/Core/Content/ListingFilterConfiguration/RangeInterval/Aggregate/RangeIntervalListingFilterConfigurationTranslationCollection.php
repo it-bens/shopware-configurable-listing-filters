@@ -16,7 +16,7 @@ class RangeIntervalListingFilterConfigurationTranslationCollection extends Entit
      */
     public function getApiAlias(): string
     {
-        return 'itb_listing_filter_configuration_translation_collection_range_interval';
+        return 'itb_lfc_translation_collection_range_interval';
     }
 
     /**

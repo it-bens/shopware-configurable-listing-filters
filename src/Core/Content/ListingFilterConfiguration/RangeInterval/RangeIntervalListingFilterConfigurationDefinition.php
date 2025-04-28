@@ -17,7 +17,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class RangeIntervalListingFilterConfigurationDefinition extends ListingFilterConfigurationDefinition
 {
-    public const ENTITY_NAME = 'itb_listing_filter_configuration_range_interval';
+    public const ENTITY_NAME = 'itb_lfc_range_interval';
 
     public function getCollectionClass(): string
     {
