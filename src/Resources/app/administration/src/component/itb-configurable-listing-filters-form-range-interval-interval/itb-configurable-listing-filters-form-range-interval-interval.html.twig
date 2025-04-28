@@ -1,0 +1,63 @@
+<!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+{% block itb_configurable_listing_filter_form_range_interval_interval %}
+<div class="itb-configurable-listing-filter-form-range-interval-interval">
+    <sw-container columns="1fr" gap="0 30px">
+        <sw-data-grid
+            v-if="listingFilterConfiguration.intervals && listingFilterConfiguration.intervals.length > 0"
+            :dataSource="dataGridRecords"
+            :columns="dataGridColumns"
+            :showSelection="false"
+            :showActions="true"
+            :allowInlineEdit="true"
+            :allowColumnEdit="false"
+            @inline-edit-save="onInlineEditFinish"
+            identifier="itb-configurable-listing-filter-form-range-interval-interval-grid">
+
+            <template #actions="{ item }">
+                <sw-context-menu-item variant="danger" @click="onIntervalDelete(item)">
+                    {{ $tc('itb-configurable-listing-filters.form.rangeInterval.interval.buttonDeleteInterval') }}
+                </sw-context-menu-item>
+            </template>
+
+            <template #column-min="{ item, column, isInlineEdit }">
+                <template v-if="isInlineEdit">
+                    <sw-number-field
+                        :allow-empty="true"
+                        :numberType="'int'"
+                        v-model="item.min">
+                    </sw-number-field>
+                </template>
+                <template v-else>
+                    {{ item.min !== null ? item.min : '-∞' }}
+                </template>
+            </template>
+
+            <template #column-max="{ item, column, isInlineEdit }">
+                <template v-if="isInlineEdit">
+                    <sw-number-field
+                        :allow-empty="true"
+                        :numberType="'int'"
+                        v-model="item.max">
+                    </sw-number-field>
+                </template>
+                <template v-else>
+                    {{ item.max !== null ? item.max : '∞' }}
+                </template>
+            </template>
+
+            <template #column-position="{ item, column, isInlineEdit }">
+                <template v-if="isInlineEdit">
+                    <sw-number-field v-model="item.position" :min="0"></sw-number-field>
+                </template>
+                <template v-else>
+                    {{ item.position }}
+                </template>
+            </template>
+        </sw-data-grid>
+
+        <sw-button class="sw-button-margin-top" @click="onIntervalAdd">
+            {{ $tc('itb-configurable-listing-filters.form.rangeInterval.interval.buttonAddInterval') }}
+        </sw-button>
+    </sw-container>
+</div>
+{% endblock %}

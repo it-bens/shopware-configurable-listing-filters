@@ -29,6 +29,7 @@
             "createCheckboxFilterConfigurationButton": "For Checkbox Filter",
             "createMultiSelectFilterConfigurationButton": "For Multi Select Filter",
             "createRangeFilterConfigurationButton": "For Range Filter",
+            "createRangeIntervalFilterConfigurationButton": "For Range Interval Filter",
             "createFilterConfigurationButton": "Create Filter Configuration"
         },
         "form": {
@@ -76,6 +77,22 @@
                 "cardTitle": "Range Filter Settings",
                 "labelUnit": "Unit",
                 "placeholderUnit": "Enter the unit ..."
+            },
+            "rangeInterval": {
+                "createPageTitle": "Create Range Interval Filter Configuration",
+                "cardTitle": "Range Interval Filter Settings",
+                "labelElementPrefix": "Element prefix",
+                "placeholderElementPrefix": "Enter the prefix ...",
+                "labelElementSuffix": "Element suffix",
+                "placeholderElementSuffix": "Enter the suffix ...",
+                "interval": {
+                    "cardTitle": "Intervals",
+                    "buttonAddInterval": "Add interval",
+                    "buttonDeleteInterval": "Delete interval",
+                    "labelMin": "Minimum value",
+                    "labelMax": "Maximum value",
+                    "labelPosition": "Position"
+                }
             }
         }
     }

@@ -28,6 +28,10 @@
                         <sw-context-menu-item @click="$router.push({name: 'itb.configurable-listing-filters.create', params: { type: 'range' }})">
                             {{ $tc('itb-configurable-listing-filters.list.createRangeFilterConfigurationButton') }}
                         </sw-context-menu-item>
+
+                        <sw-context-menu-item @click="$router.push({name: 'itb.configurable-listing-filters.create', params: { type: 'range-interval' }})">
+                            {{ $tc('itb-configurable-listing-filters.list.createRangeIntervalFilterConfigurationButton') }}
+                        </sw-context-menu-item>
                     </sw-context-button>
                 </sw-button-group>
             </template>

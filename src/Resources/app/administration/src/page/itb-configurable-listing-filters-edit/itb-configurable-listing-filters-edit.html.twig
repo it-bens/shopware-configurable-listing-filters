@@ -87,6 +87,32 @@
                     </itb-configurable-listing-filters-form-range>
                 </sw-card>
                 {% endblock %}
+
+                <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+                {% block itb_configurable_listing_filters_edit_form_range_interval %}
+                <sw-card
+                    :title="$tc('itb-configurable-listing-filters.form.rangeInterval.cardTitle')"
+                    position-identifier="sw-customer-create-base-form"
+                    v-if="$route.params.type === 'range-interval'"
+                >
+                    <itb-configurable-listing-filters-form-range-interval
+                        :listingFilterConfiguration="listingFilterConfiguration">
+                    </itb-configurable-listing-filters-form-range-interval>
+                </sw-card>
+                {% endblock %}
+
+                <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+                {% block itb_configurable_listing_filters_edit_form_range_interval_interval %}
+                <sw-card
+                    :title="$tc('itb-configurable-listing-filters.form.rangeInterval.interval.cardTitle')"
+                    position-identifier="sw-customer-create-base-form2"
+                    v-if="$route.params.type === 'range-interval'"
+                >
+                    <itb-configurable-listing-filters-form-range-interval-interval
+                        :listingFilterConfiguration="listingFilterConfiguration">
+                    </itb-configurable-listing-filters-form-range-interval-interval>
+                </sw-card>
+                {% endblock %}
             </template>
         </sw-card-view>
     </template>

@@ -24,7 +24,8 @@ Shopware.Component.register('itb-configurable-listing-filters-edit', {
         listingFilterConfiguration: (
             EntitySchema.itb_listing_filter_configuration_checkbox |
             EntitySchema.itb_listing_filter_configuration_multi_select |
-            EntitySchema.itb_listing_filter_configuration_range
+            EntitySchema.itb_listing_filter_configuration_range |
+            EntitySchema.itb_listing_filter_configuration_range_interval
             ) & Entity<any> | null;
         salesChannels: Array<EntitySchema.sales_channel>;
         languageId: string | null;
@@ -99,7 +100,11 @@ Shopware.Component.register('itb-configurable-listing-filters-edit', {
         },
 
         async loadListingFilterConfiguration(): Promise<void> {
-            return this.listingFilterConfigurationRepository.get(this.$route.params.id).then(result => {
+            return this.listingFilterConfigurationRepository.get(
+                this.$route.params.id,
+                undefined,
+                this.getCriteriaByFilterType(this.$route.params.type),
+            ).then(result => {
                 this.listingFilterConfiguration = result;
             })
         },
