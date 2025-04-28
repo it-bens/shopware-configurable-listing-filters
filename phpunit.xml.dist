@@ -33,7 +33,6 @@
             <directory>./src</directory>
         </include>
         <exclude>
-            <file>./src/ITBConfigurableListingFilters.php</file>
             <directory>./src/DependencyInjection</directory>
             <directory>./src/Migration</directory>
         </exclude>
