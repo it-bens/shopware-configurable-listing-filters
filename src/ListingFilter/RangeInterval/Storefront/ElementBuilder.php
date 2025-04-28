@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront;
 
-use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\RangeIntervalListingFilterConfigurationIntervalEntity;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\Interval\RangeIntervalListingFilterConfigurationIntervalEntity;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\Element;
 
 final class ElementBuilder implements ElementBuilderInterface
