@@ -59,6 +59,7 @@ final class ListingFilterConfigurationRepository implements ListingFilterConfigu
         $criteria = $this->buildCriteria($context->getSalesChannelId(), $loadSalesChannel);
 
         $criteria->addAssociation('intervals');
+        $criteria->addAssociation('intervals.rangeIntervalListingFilterConfiguration');
 
         $intervalsAssociation = $criteria->getAssociation('intervals');
         $intervalsAssociation->addAssociation('rangeIntervalListingFilterConfiguration');
