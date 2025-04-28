@@ -116,7 +116,7 @@ jobs:
       PLUGIN_VERSION: ${{ needs.build-archive.outputs.PLUGIN_VERSION }}
     steps:
       - name: Setup Shopware
-        uses: shopware/setup-shopware@ed4df08a7c188f42580aa645707176021afd5794 # v2.0.1
+        uses: shopware/setup-shopware@0f9fb21530181706f9b1f02da96307c564b8fe5f # v2.0.2
         with:
           shopware-version: ${{ matrix.shopware-version }}
           php-version: ${{ matrix.php-version }}
@@ -127,7 +127,7 @@ jobs:
           env: 'prod'
 
       - name: Download artifact
-        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: "${{ env.PLUGIN_NAME }}_${{ env.PLUGIN_VERSION }}_${{ matrix.shopware-version }}"
 

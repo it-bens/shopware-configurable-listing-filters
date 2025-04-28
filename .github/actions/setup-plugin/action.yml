@@ -33,7 +33,7 @@ runs:
   using: composite
   steps:
     - name: Setup Shopware
-      uses: shopware/setup-shopware@ed4df08a7c188f42580aa645707176021afd5794 # v2.0.1
+      uses: shopware/setup-shopware@0f9fb21530181706f9b1f02da96307c564b8fe5f # v2.0.2
       with:
         shopware-version: ${{ inputs.shopware-version }}
         php-version: ${{ inputs.php-version }}
