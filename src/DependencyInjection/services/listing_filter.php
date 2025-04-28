@@ -33,6 +33,8 @@ use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\RequestVal
 use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\RequestValueBuilderInterface as RangeIntervalRequestValueBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\RangeAggregationCompatibilityChecker;
 use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\RangeAggregationCompatibilityCheckerInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\ElementBuilder;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\ElementBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\ElementsExtractor as RangeIntervalElementsExtractor;
 use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\ElementsExtractorForNonCompatibleFields as RangeIntervalElementsExtractorForNonCompatibleFields;
 use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\ElementsExtractorInterface as RangeIntervalElementsExtractorInterface;
@@ -109,10 +111,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RangeRenderDataBuilder::class)->args([service(InputValueExtractorInterface::class), service('translator')]);
     $services->alias(RangeRenderDataBuilderInterface::class, RangeRenderDataBuilder::class);
 
-    $services->set(RangeIntervalElementsExtractorForNonCompatibleFields::class);
+    $services->set(ElementBuilder::class);
+    $services->alias(ElementBuilderInterface::class, ElementBuilder::class);
+    $services->set(RangeIntervalElementsExtractorForNonCompatibleFields::class)->args([service(ElementBuilderInterface::class)]);
     $services->set(RangeIntervalElementsExtractor::class)->args([
         service(RangeAggregationCompatibilityCheckerInterface::class),
         service(RangeIntervalElementsExtractorForNonCompatibleFields::class),
+        service(ElementBuilderInterface::class),
     ]);
     $services->alias(RangeIntervalElementsExtractorInterface::class, RangeIntervalElementsExtractor::class);
     $services->set(RangeIntervalRenderDataBuilder::class)->args(

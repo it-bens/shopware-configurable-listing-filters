@@ -11,10 +11,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\AggregationResult\Aggreg
 interface ElementsExtractorInterface
 {
     /**
-     * @return \Traversable<Element>
+     * @return array<Element>
      */
     public function extractElementsFromAggregations(
         RangeIntervalListingFilterConfigurationEntity $configurationEntity,
         AggregationResultCollection $aggregationResults
-    ): iterable;
+    ): array;
 }

@@ -6,7 +6,6 @@ namespace ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefro
 
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\RangeIntervalListingFilterConfigurationIntervalCollection;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationEntity;
-use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\Element;
 use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\RangeAggregationCompatibilityCheckerInterface;
 use RuntimeException;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\AggregationResult\AggregationResult;
@@ -18,13 +17,14 @@ final class ElementsExtractor implements ElementsExtractorInterface
     public function __construct(
         private readonly RangeAggregationCompatibilityCheckerInterface $rangeAggregationCompatibilityChecker,
         private readonly ElementsExtractorInterface $elementsExtractorForNonCompatibleFields,
+        private readonly ElementBuilderInterface $elementBuilder,
     ) {
     }
 
     public function extractElementsFromAggregations(
         RangeIntervalListingFilterConfigurationEntity $configurationEntity,
         AggregationResultCollection $aggregationResults
-    ): iterable {
+    ): array {
         if (! $this->rangeAggregationCompatibilityChecker->isDalFieldRangeAggregationCompatible($configurationEntity->getDalField())) {
             return $this->elementsExtractorForNonCompatibleFields->extractElementsFromAggregations(
                 $configurationEntity,
@@ -52,11 +52,11 @@ final class ElementsExtractor implements ElementsExtractorInterface
         }
 
         $intervalCollection = new RangeIntervalListingFilterConfigurationIntervalCollection($intervals);
+        $intervals = [];
         foreach ($intervalCollection as $intervalEntity) {
-            $minText = $intervalEntity->getMin() !== null ? (string) $intervalEntity->getMin() : 'test';
-            $maxText = $intervalEntity->getMax() !== null ? (string) $intervalEntity->getMax() : 'test';
-
-            yield new Element($intervalEntity->getId(), $minText . ' - ' . $maxText);
+            $intervals[] = $this->elementBuilder->buildElement($intervalEntity);
         }
+
+        return $intervals;
     }
 }
