@@ -1,6 +1,8 @@
 import './component/itb-configurable-listing-filters-form-basics'
 import './component/itb-configurable-listing-filters-form-multi-select'
 import './component/itb-configurable-listing-filters-form-range'
+import './component/itb-configurable-listing-filters-form-range-interval'
+import './component/itb-configurable-listing-filters-form-range-interval-interval'
 import './mixin/itb-configurable-listing-filters-locator'
 import deDE from './module/snippet/de-DE.json';
 import enGB from './module/snippet/en-GB.json';

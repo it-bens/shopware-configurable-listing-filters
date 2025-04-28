@@ -19,6 +19,8 @@ declare namespace EntitySchema {
         itb_listing_filter_configuration_checkbox: itb_listing_filter_configuration_checkbox,
         itb_listing_filter_configuration_multi_select: itb_listing_filter_configuration_multi_select,
         itb_listing_filter_configuration_range: itb_listing_filter_configuration_range,
+        itb_listing_filter_configuration_range_interval: itb_listing_filter_configuration_range_interval,
+        itb_listing_filter_configuration_range_interval_interval: itb_listing_filter_configuration_range_interval_interval,
     }
 
     interface itb_listing_filter_configuration_checkbox extends ItbConfigurableListingFilters.ListingFilterConfiguration {
@@ -41,5 +43,19 @@ declare namespace EntitySchema {
         minLabel: string | null;
         maxLabel: string | null;
         unit: string;
+    }
+
+    interface itb_listing_filter_configuration_range_interval extends ItbConfigurableListingFilters.ListingFilterConfiguration {
+        elementPrefix: string | null;
+        elementSuffix: string | null;
+        intervals: Array<itb_listing_filter_configuration_range_interval_interval>;
+    }
+
+    interface itb_listing_filter_configuration_range_interval_interval {
+        id: string;
+        min: number | null;
+        max: number | null;
+        position: number;
+        rangeIntervalListingFilterConfigurationId: string;
     }
 }

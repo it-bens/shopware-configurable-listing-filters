@@ -7,6 +7,7 @@ namespace ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfigurat
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Checkbox\CheckboxListingFilterConfigurationCollection;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationCollection;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationCollection;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
@@ -19,11 +20,13 @@ final class ListingFilterConfigurationRepository implements ListingFilterConfigu
      * @param EntityRepository<CheckboxListingFilterConfigurationCollection> $checkboxListingFilterConfigurationRepository
      * @param EntityRepository<MultiSelectListingFilterConfigurationCollection> $multiSelectListingFilterConfigurationRepository
      * @param EntityRepository<RangeListingFilterConfigurationCollection> $rangeListingFilterConfigurationRepository
+     * @param EntityRepository<RangeIntervalListingFilterConfigurationCollection> $rangeIntervalListingFilterConfigurationRepository
      */
     public function __construct(
         private readonly EntityRepository $checkboxListingFilterConfigurationRepository,
         private readonly EntityRepository $multiSelectListingFilterConfigurationRepository,
         private readonly EntityRepository $rangeListingFilterConfigurationRepository,
+        private readonly EntityRepository $rangeIntervalListingFilterConfigurationRepository
     ) {
     }
 
@@ -46,6 +49,22 @@ final class ListingFilterConfigurationRepository implements ListingFilterConfigu
             $this->buildCriteria($context->getSalesChannelId(), $loadSalesChannel),
             $context->getContext()
         )
+            ->getEntities();
+    }
+
+    public function getRangeIntervalListingFilterConfigurations(
+        SalesChannelContext $context,
+        bool $loadSalesChannel = false
+    ): RangeIntervalListingFilterConfigurationCollection {
+        $criteria = $this->buildCriteria($context->getSalesChannelId(), $loadSalesChannel);
+
+        $criteria->addAssociation('intervals');
+        $criteria->addAssociation('intervals.rangeIntervalListingFilterConfiguration');
+
+        $intervalsAssociation = $criteria->getAssociation('intervals');
+        $intervalsAssociation->addAssociation('rangeIntervalListingFilterConfiguration');
+
+        return $this->rangeIntervalListingFilterConfigurationRepository->search($criteria, $context->getContext())
             ->getEntities();
     }
 

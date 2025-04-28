@@ -29,6 +29,7 @@
       "createCheckboxFilterConfigurationButton": "Für Checkbox-Filter",
       "createMultiSelectFilterConfigurationButton": "Für Multi-Select-Filter",
       "createRangeFilterConfigurationButton": "Für Range Filter",
+      "createRangeIntervalFilterConfigurationButton": "Für Range-Intervall-Filter",
       "createFilterConfigurationButton": "Filterkonfiguration erstellen"
     },
     "form": {
@@ -76,6 +77,22 @@
         "cardTitle": "Einstellungen für Range-Filter",
         "labelUnit": "Einheit",
         "placeholderUnit": "Geben Sie die Einheit ein ..."
+      },
+      "rangeInterval": {
+        "createPageTitle": "Range-Intervall-Filterkonfiguration erstellen",
+        "cardTitle": "Einstellungen für Range-Intervall-Filter",
+        "labelElementPrefix": "Element-Präfix",
+        "placeholderElementPrefix": "Geben Sie das Präfix ein ...",
+        "labelElementSuffix": "Element-Suffix",
+        "placeholderElementSuffix": "Geben Sie das Suffix ein ...",
+        "interval": {
+          "cardTitle": "Intervalle",
+          "buttonAddInterval": "Intervall hinzufügen",
+          "buttonDeleteInterval": "Intervall löschen",
+          "labelMin": "Mindestwert",
+          "labelMax": "Maximalwert",
+          "labelPosition": "Position"
+        }
       }
     }
   }

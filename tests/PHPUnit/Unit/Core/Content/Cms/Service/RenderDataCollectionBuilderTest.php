@@ -12,6 +12,8 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Mu
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationCollection;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationEntity;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationCollection;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Storefront\RenderData as CheckboxRenderData;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Storefront\RenderDataBuilderInterface as CheckboxRenderDataBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\ElementCollection;
@@ -19,6 +21,7 @@ use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\Rende
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\RenderDataBuilderInterface as MultiSelectRenderDataBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\RenderData as RangeRenderData;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\RenderDataBuilderInterface as RangeRenderDataBuilder;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\RenderDataBuilderInterface as RangeIntervalRenderDataBuilder;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -64,10 +67,28 @@ final class RenderDataCollectionBuilderTest extends TestCase
         $rangeListingFilterConfigurationCollection = new RangeListingFilterConfigurationCollection([$rangeListingFilterConfiguration]);
         $rangeRenderData = new RangeRenderData('template', 'range', 'label', 'paramenter', 'paramenter', null, null, null, 'tooltip');
 
+        $rangeIntervalListingFilterConfiguration = new RangeIntervalListingFilterConfigurationEntity();
+        $rangeIntervalListingFilterConfiguration->setUniqueIdentifier('range-interval');
+        $rangeIntervalListingFilterConfiguration->setDalField('range-interval');
+        $rangeIntervalListingFilterConfiguration->setEnabled(true);
+
+        $rangeIntervalListingFilterConfigurationCollection = new RangeIntervalListingFilterConfigurationCollection([
+            $rangeIntervalListingFilterConfiguration,
+        ]);
+        $rangeIntervalRenderData = new MultiSelectRenderData(
+            'template',
+            'range-interval',
+            'label',
+            'parameter',
+            new ElementCollection([], []),
+            'tooltip'
+        );
+
         $listingFilterConfigurationCollection = new ListingFilterConfigurationCollection(
             $checkboxListingFilterConfigurationCollection,
             $multiSelectListingFilterConfigurationCollection,
             $rangeListingFilterConfigurationCollection,
+            $rangeIntervalListingFilterConfigurationCollection,
         );
 
         yield 'with enabled configurations' => [
@@ -76,7 +97,8 @@ final class RenderDataCollectionBuilderTest extends TestCase
             $checkboxRenderData,
             $multiSelectRenderData,
             $rangeRenderData,
-            [$checkboxRenderData, $multiSelectRenderData, $rangeRenderData],
+            $rangeIntervalRenderData,
+            [$checkboxRenderData, $multiSelectRenderData, $rangeRenderData, $rangeIntervalRenderData],
         ];
 
         $checkboxListingFilterConfiguration = new CheckboxListingFilterConfigurationEntity();
@@ -104,10 +126,20 @@ final class RenderDataCollectionBuilderTest extends TestCase
 
         $rangeListingFilterConfigurationCollection = new RangeListingFilterConfigurationCollection([$rangeListingFilterConfiguration]);
 
+        $rangeIntervalListingFilterConfiguration = new RangeIntervalListingFilterConfigurationEntity();
+        $rangeIntervalListingFilterConfiguration->setUniqueIdentifier('range-interval');
+        $rangeIntervalListingFilterConfiguration->setDalField('range-interval');
+        $rangeIntervalListingFilterConfiguration->setEnabled(false);
+
+        $rangeIntervalListingFilterConfigurationCollection = new RangeIntervalListingFilterConfigurationCollection([
+            $rangeIntervalListingFilterConfiguration,
+        ]);
+
         $listingFilterConfigurationCollection = new ListingFilterConfigurationCollection(
             $checkboxListingFilterConfigurationCollection,
             $multiSelectListingFilterConfigurationCollection,
             $rangeListingFilterConfigurationCollection,
+            $rangeIntervalListingFilterConfigurationCollection,
         );
 
         yield 'with disabled configurations' => [
@@ -116,6 +148,7 @@ final class RenderDataCollectionBuilderTest extends TestCase
             $checkboxRenderData,
             $multiSelectRenderData,
             $rangeRenderData,
+            $rangeIntervalRenderData,
             [],
         ];
     }
@@ -130,6 +163,7 @@ final class RenderDataCollectionBuilderTest extends TestCase
         CheckboxRenderData $checkboxRenderData,
         MultiSelectRenderData $multiSelectRenderData,
         RangeRenderData $rangeRenderData,
+        MultiSelectRenderData $rangeIntervalSelectRenderData,
         array $expectedRenderDatasets,
     ): void {
         $checkboxRenderDataBuilder = $this->createMock(CheckboxRenderDataBuilder::class);
@@ -141,11 +175,15 @@ final class RenderDataCollectionBuilderTest extends TestCase
         $rangeRenderDataBuilder = $this->createMock(RangeRenderDataBuilder::class);
         $rangeRenderDataBuilder->method('buildRenderData')
             ->willReturn($rangeRenderData);
+        $rangeIntervalRenderDataBuilder = $this->createMock(RangeIntervalRenderDataBuilder::class);
+        $rangeIntervalRenderDataBuilder->method('buildRenderData')
+            ->willReturn($rangeIntervalSelectRenderData);
 
         $renderDataCollectionBuilder = new RenderDataCollectionBuilder(
             $checkboxRenderDataBuilder,
             $multiSelectRenderDataBuilder,
-            $rangeRenderDataBuilder
+            $rangeRenderDataBuilder,
+            $rangeIntervalRenderDataBuilder
         );
 
         $renderDataCollection = $renderDataCollectionBuilder->buildRenderDataCollection(

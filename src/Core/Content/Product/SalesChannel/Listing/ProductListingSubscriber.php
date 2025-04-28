@@ -23,7 +23,8 @@ final class ProductListingSubscriber implements EventSubscriberInterface
         $listingFilterConfigurationCollection = new ListingFilterConfigurationCollection(
             $this->listingFilterConfigurationRepository->getCheckboxListingFilterConfigurations($event->getSalesChannelContext()),
             $this->listingFilterConfigurationRepository->getMultiSelectListingFilterConfigurations($event->getSalesChannelContext()),
-            $this->listingFilterConfigurationRepository->getRangeListingFilterConfigurations($event->getSalesChannelContext())
+            $this->listingFilterConfigurationRepository->getRangeListingFilterConfigurations($event->getSalesChannelContext()),
+            $this->listingFilterConfigurationRepository->getRangeIntervalListingFilterConfigurations($event->getSalesChannelContext()),
         );
 
         $this->filterCollectionEnricher->enrichFilterCollection(

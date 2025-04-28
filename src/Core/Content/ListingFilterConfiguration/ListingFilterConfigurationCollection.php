@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration;
 
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Checkbox\CheckboxListingFilterConfigurationCollection;
-use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Checkbox\CheckboxListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationCollection;
-use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationCollection;
-use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationEntity;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationCollection;
 use Traversable;
 
 /**
- * @implements \IteratorAggregate<CheckboxListingFilterConfigurationEntity|MultiSelectListingFilterConfigurationEntity|RangeListingFilterConfigurationEntity>
+ * @implements \IteratorAggregate<ListingFilterConfigurationEntity>
  */
 final class ListingFilterConfigurationCollection implements \IteratorAggregate
 {
@@ -21,6 +19,7 @@ final class ListingFilterConfigurationCollection implements \IteratorAggregate
         private readonly CheckboxListingFilterConfigurationCollection $checkboxListingFilterConfigurationCollection,
         private readonly MultiSelectListingFilterConfigurationCollection $multiSelectListingFilterConfigurationCollection,
         private readonly RangeListingFilterConfigurationCollection $rangeListingFilterConfigurationCollection,
+        private readonly RangeIntervalListingFilterConfigurationCollection $rangeIntervalListingFilterConfigurationCollection,
     ) {
     }
 
@@ -30,37 +29,37 @@ final class ListingFilterConfigurationCollection implements \IteratorAggregate
     }
 
     /**
-     * @return array<CheckboxListingFilterConfigurationEntity|MultiSelectListingFilterConfigurationEntity|RangeListingFilterConfigurationEntity>
+     * @return array<ListingFilterConfigurationEntity>
      */
     public function getListingFilterConfigurations(): array
     {
         return $this->sortFilterConfigurations(
             $this->checkboxListingFilterConfigurationCollection,
             $this->multiSelectListingFilterConfigurationCollection,
-            $this->rangeListingFilterConfigurationCollection
+            $this->rangeListingFilterConfigurationCollection,
+            $this->rangeIntervalListingFilterConfigurationCollection
         );
     }
 
     /**
-     * @return array<CheckboxListingFilterConfigurationEntity|MultiSelectListingFilterConfigurationEntity|RangeListingFilterConfigurationEntity>
+     * @return array<ListingFilterConfigurationEntity>
      */
     private function sortFilterConfigurations(
         CheckboxListingFilterConfigurationCollection $checkboxListingFilterConfigurationCollection,
         MultiSelectListingFilterConfigurationCollection $multiSelectListingFilterConfigurationCollection,
         RangeListingFilterConfigurationCollection $rangeListingFilterConfigurationCollection,
+        RangeIntervalListingFilterConfigurationCollection $rangeIntervalListingFilterConfigurationCollection
     ): array {
         $allConfigurations = array_merge(
             $checkboxListingFilterConfigurationCollection->getElements(),
             $multiSelectListingFilterConfigurationCollection->getElements(),
-            $rangeListingFilterConfigurationCollection->getElements()
+            $rangeListingFilterConfigurationCollection->getElements(),
+            $rangeIntervalListingFilterConfigurationCollection->getElements()
         );
 
         usort(
             $allConfigurations,
-            function (
-                CheckboxListingFilterConfigurationEntity|MultiSelectListingFilterConfigurationEntity|RangeListingFilterConfigurationEntity $a,
-                CheckboxListingFilterConfigurationEntity|MultiSelectListingFilterConfigurationEntity|RangeListingFilterConfigurationEntity $b
-            ): int {
+            function (ListingFilterConfigurationEntity $a, ListingFilterConfigurationEntity $b): int {
                 $positionA = $a->getPosition();
                 $positionB = $b->getPosition();
 

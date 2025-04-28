@@ -12,8 +12,8 @@ use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\FilterBuilde
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\FilterBuilderInterface as MultiSelectFilterBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\RequestValueBuilder as MultiSelectRequestValueBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\RequestValueBuilderInterface as MultiSelectRequestValueBuilderInterface;
-use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\ElementsExtractor;
-use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\ElementsExtractorInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\ElementsExtractor as MultiSelectElementsExtractor;
+use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\ElementsExtractorInterface as MultiSelectElementsExtractorInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\RenderDataBuilder as MultiSelectRenderDataBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\RenderDataBuilderInterface as MultiSelectRenderDataBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelectValueSplitter;
@@ -26,8 +26,24 @@ use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\InputValueE
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\InputValueExtractorInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\RenderDataBuilder as RangeRenderDataBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\RenderDataBuilderInterface as RangeRenderDataBuilderInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\FilterBuilder as RangeIntervalFilterBuilder;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\FilterBuilderForNonCompatibleFields as RangeIntervalFilterBuilderForNonCompatibleFields;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\FilterBuilderInterface as RangeIntervalFilterBuilderInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\RequestValueBuilder as RangeIntervalRequestValueBuilder;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\RequestValueBuilderInterface as RangeIntervalRequestValueBuilderInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\RangeAggregationCompatibilityChecker;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\RangeAggregationCompatibilityCheckerInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\ElementBuilder;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\ElementBuilderInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\ElementsExtractor as RangeIntervalElementsExtractor;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\ElementsExtractorForNonCompatibleFields as RangeIntervalElementsExtractorForNonCompatibleFields;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\ElementsExtractorInterface as RangeIntervalElementsExtractorInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\RenderDataBuilder as RangeIntervalRenderDataBuilder;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\RenderDataBuilderInterface as RangeIntervalRenderDataBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\ValueFromRequestExtractor;
 use ITB\ITBConfigurableListingFilters\ListingFilter\ValueFromRequestExtractorInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
+use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
@@ -41,6 +57,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->alias(MultiSelectValueSplitterInterface::class, MultiSelectValueSplitter::class);
     $services->set(ValueFromRequestExtractor::class);
     $services->alias(ValueFromRequestExtractorInterface::class, ValueFromRequestExtractor::class);
+
+    $services->set(RangeAggregationCompatibilityChecker::class)->args([
+        service(EntityDefinitionQueryHelper::class),
+        service(DefinitionInstanceRegistry::class),
+    ]);
+    $services->alias(RangeAggregationCompatibilityCheckerInterface::class, RangeAggregationCompatibilityChecker::class);
 
     // DAL listing filter services
     $services->set(CheckboxFilterBuilder::class);
@@ -61,17 +83,45 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RangeRequestValueBuilder::class);
     $services->alias(RangeRequestValueBuilderInterface::class, RangeRequestValueBuilder::class);
 
+    $services->set(RangeIntervalFilterBuilderForNonCompatibleFields::class);
+    $services->set(RangeIntervalFilterBuilder::class)->args([
+        service(RangeAggregationCompatibilityCheckerInterface::class),
+        service(RangeIntervalFilterBuilderForNonCompatibleFields::class),
+    ]);
+    $services->alias(RangeIntervalFilterBuilderInterface::class, RangeIntervalFilterBuilder::class);
+    $services->set(RangeIntervalRequestValueBuilder::class)->args([
+        service(ValueFromRequestExtractorInterface::class),
+        service(MultiSelectValueSplitterInterface::class),
+    ]);
+    $services->alias(RangeIntervalRequestValueBuilderInterface::class, RangeIntervalRequestValueBuilder::class);
+
     // Storefront listing filter services
     $services->set(CheckboxRenderDataBuilder::class)->args([service('translator')]);
     $services->alias(CheckboxRenderDataBuilderInterface::class, CheckboxRenderDataBuilder::class);
 
-    $services->set(ElementsExtractor::class);
-    $services->alias(ElementsExtractorInterface::class, ElementsExtractor::class);
-    $services->set(MultiSelectRenderDataBuilder::class)->args([service(ElementsExtractorInterface::class), service('translator')]);
+    $services->set(MultiSelectElementsExtractor::class);
+    $services->alias(MultiSelectElementsExtractorInterface::class, MultiSelectElementsExtractor::class);
+    $services->set(MultiSelectRenderDataBuilder::class)->args(
+        [service(MultiSelectElementsExtractorInterface::class), service('translator')]
+    );
     $services->alias(MultiSelectRenderDataBuilderInterface::class, MultiSelectRenderDataBuilder::class);
 
     $services->set(InputValueExtractor::class);
     $services->alias(InputValueExtractorInterface::class, InputValueExtractor::class);
     $services->set(RangeRenderDataBuilder::class)->args([service(InputValueExtractorInterface::class), service('translator')]);
     $services->alias(RangeRenderDataBuilderInterface::class, RangeRenderDataBuilder::class);
+
+    $services->set(ElementBuilder::class);
+    $services->alias(ElementBuilderInterface::class, ElementBuilder::class);
+    $services->set(RangeIntervalElementsExtractorForNonCompatibleFields::class)->args([service(ElementBuilderInterface::class)]);
+    $services->set(RangeIntervalElementsExtractor::class)->args([
+        service(RangeAggregationCompatibilityCheckerInterface::class),
+        service(RangeIntervalElementsExtractorForNonCompatibleFields::class),
+        service(ElementBuilderInterface::class),
+    ]);
+    $services->alias(RangeIntervalElementsExtractorInterface::class, RangeIntervalElementsExtractor::class);
+    $services->set(RangeIntervalRenderDataBuilder::class)->args(
+        [service(RangeIntervalElementsExtractorInterface::class), service('translator')]
+    );
+    $services->alias(RangeIntervalRenderDataBuilderInterface::class, RangeIntervalRenderDataBuilder::class);
 };

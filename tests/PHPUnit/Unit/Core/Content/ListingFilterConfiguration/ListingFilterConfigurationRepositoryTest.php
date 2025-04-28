@@ -11,6 +11,7 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Mu
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationCollection;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationCollection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -97,7 +98,8 @@ final class ListingFilterConfigurationRepositoryTest extends TestCase
         $listingFilterConfigurationRepository = new ListingFilterConfigurationRepository(
             $checkboxListingFilterConfigurationRepository,
             $this->createStub(EntityRepository::class),
-            $this->createStub(EntityRepository::class)
+            $this->createStub(EntityRepository::class),
+            $this->createStub(EntityRepository::class),
         );
 
         $listingFilterConfigurationRepository->getCheckboxListingFilterConfigurations($salesChannelContext, $loadSalesChannel);
@@ -168,10 +170,83 @@ final class ListingFilterConfigurationRepositoryTest extends TestCase
         $listingFilterConfigurationRepository = new ListingFilterConfigurationRepository(
             $this->createStub(EntityRepository::class),
             $multiSelectListingFilterConfigurationRepository,
+            $this->createStub(EntityRepository::class),
             $this->createStub(EntityRepository::class)
         );
 
         $listingFilterConfigurationRepository->getMultiSelectListingFilterConfigurations($salesChannelContext, $loadSalesChannel);
+    }
+
+    #[DataProvider('getFilterConfigurationsProvider')]
+    public function testGetRangeIntervalListingFilterConfigurations(string $salesChannelId, bool $loadSalesChannel): void
+    {
+        $context = $this->createStub(Context::class);
+        $rangeIntervalListingFilterConfigurationCollection = $this->createMock(RangeIntervalListingFilterConfigurationCollection::class);
+
+        $rangeIntervalListingFilterConfigurationRepository = $this->createMock(EntityRepository::class);
+        $rangeIntervalListingFilterConfigurationRepository->method('search')
+            ->willReturnCallback(function (Criteria $criteriaArgument, Context $contextArgument) use (
+                $salesChannelId,
+                $loadSalesChannel,
+                $context,
+                $rangeIntervalListingFilterConfigurationCollection
+            ): EntitySearchResult {
+                $criteriaArgumentFilters = $criteriaArgument->getFilters();
+                $this->assertCount(1, $criteriaArgumentFilters);
+
+                $salesChannelIdOrNullFilter = array_values($criteriaArgumentFilters)[0];
+                $this->assertInstanceOf(MultiFilter::class, $salesChannelIdOrNullFilter);
+                /** @var MultiFilter $salesChannelIdOrNullFilter */
+                $this->assertSame(MultiFilter::CONNECTION_OR, $salesChannelIdOrNullFilter->getOperator());
+
+                $salesChannelIdFilterQueries = $salesChannelIdOrNullFilter->getQueries();
+                $this->assertCount(2, $salesChannelIdFilterQueries);
+
+                $salesChannelIdNullFilter = array_values($salesChannelIdFilterQueries)[0];
+                $this->assertInstanceOf(EqualsFilter::class, $salesChannelIdNullFilter);
+                /** @var EqualsFilter $salesChannelIdNullFilter */
+                $this->assertSame('salesChannelId', $salesChannelIdNullFilter->getField());
+                $this->assertNull($salesChannelIdNullFilter->getValue());
+
+                $salesChannelIdFilter = array_values($salesChannelIdFilterQueries)[1];
+                $this->assertInstanceOf(EqualsFilter::class, $salesChannelIdFilter);
+                /** @var EqualsFilter $salesChannelIdFilter */
+                $this->assertSame('salesChannelId', $salesChannelIdFilter->getField());
+                $this->assertSame($salesChannelId, $salesChannelIdFilter->getValue());
+
+                if ($loadSalesChannel) {
+                    $this->assertCount(2, $criteriaArgument->getAssociations());
+                    $this->assertTrue($criteriaArgument->hasAssociation('salesChannel'));
+                } else {
+                    $this->assertCount(1, $criteriaArgument->getAssociations());
+                }
+
+                $this->assertEquals($context, $contextArgument);
+
+                return new EntitySearchResult(
+                    RangeListingFilterConfigurationDefinition::ENTITY_NAME,
+                    0,
+                    $rangeIntervalListingFilterConfigurationCollection,
+                    null,
+                    $criteriaArgument,
+                    $contextArgument
+                );
+            });
+
+        $salesChannelContext = $this->createStub(SalesChannelContext::class);
+        $salesChannelContext->method('getSalesChannelId')
+            ->willReturn($salesChannelId);
+        $salesChannelContext->method('getContext')
+            ->willReturn($context);
+
+        $listingFilterConfigurationRepository = new ListingFilterConfigurationRepository(
+            $this->createStub(EntityRepository::class),
+            $this->createStub(EntityRepository::class),
+            $this->createStub(EntityRepository::class),
+            $rangeIntervalListingFilterConfigurationRepository
+        );
+
+        $listingFilterConfigurationRepository->getRangeIntervalListingFilterConfigurations($salesChannelContext, $loadSalesChannel);
     }
 
     #[DataProvider('getFilterConfigurationsProvider')]
@@ -239,7 +314,8 @@ final class ListingFilterConfigurationRepositoryTest extends TestCase
         $listingFilterConfigurationRepository = new ListingFilterConfigurationRepository(
             $this->createStub(EntityRepository::class),
             $this->createStub(EntityRepository::class),
-            $rangeListingFilterConfigurationRepository
+            $rangeListingFilterConfigurationRepository,
+            $this->createStub(EntityRepository::class)
         );
 
         $listingFilterConfigurationRepository->getRangeListingFilterConfigurations($salesChannelContext, $loadSalesChannel);

@@ -17,6 +17,9 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Mu
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\Aggregate\RangeListingFilterConfigurationTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\RangeIntervalListingFilterConfigurationIntervalDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\RangeIntervalListingFilterConfigurationTranslationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\ProductListingSubscriber;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\FilterCollectionEnricher;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\FilterCollectionEnricherInterface;
@@ -29,6 +32,9 @@ use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Storefront\Rende
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Dal\FilterBuilderInterface as RangeFilterBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Dal\RequestValueBuilderInterface as RangeRequestValueBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\RenderDataBuilderInterface as RangeRenderDataBuilder;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\FilterBuilderInterface as RangeIntervalFilterBuilderInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\RequestValueBuilderInterface as RangeIntervalRequestValueBuilderInterface;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\RenderDataBuilderInterface as RangeIntervalRenderDataBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
@@ -57,13 +63,23 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RangeListingFilterConfigurationTranslationDefinition::class)->tag('shopware.entity.definition', [
         'entity' => RangeListingFilterConfigurationTranslationDefinition::ENTITY_NAME,
     ]);
+    $services->set(RangeIntervalListingFilterConfigurationDefinition::class)->tag('shopware.entity.definition', [
+        'entity' => RangeIntervalListingFilterConfigurationDefinition::ENTITY_NAME,
+    ]);
+    $services->set(RangeIntervalListingFilterConfigurationTranslationDefinition::class)->tag('shopware.entity.definition', [
+        'entity' => RangeIntervalListingFilterConfigurationTranslationDefinition::ENTITY_NAME,
+    ]);
+    $services->set(RangeIntervalListingFilterConfigurationIntervalDefinition::class)->tag('shopware.entity.definition', [
+        'entity' => RangeIntervalListingFilterConfigurationIntervalDefinition::ENTITY_NAME,
+    ]);
 
     // Entity repositories
     $services->set(ListingFilterConfigurationRepository::class)
         ->args([
-            service('itb_listing_filter_configuration_checkbox.repository'),
-            service('itb_listing_filter_configuration_multi_select.repository'),
-            service('itb_listing_filter_configuration_range.repository'),
+            service(CheckboxListingFilterConfigurationDefinition::ENTITY_NAME . '.repository'),
+            service(MultiSelectListingFilterConfigurationDefinition::ENTITY_NAME . '.repository'),
+            service(RangeListingFilterConfigurationDefinition::ENTITY_NAME . '.repository'),
+            service(RangeIntervalListingFilterConfigurationDefinition::ENTITY_NAME . '.repository'),
         ])
         ->alias(ListingFilterConfigurationRepositoryInterface::class, ListingFilterConfigurationRepository::class);
 
@@ -76,6 +92,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             service(MultiSelectFilterBuilderInterface::class),
             service(RangeRequestValueBuilderInterface::class),
             service(RangeFilterBuilderInterface::class),
+            service(RangeIntervalRequestValueBuilderInterface::class),
+            service(RangeIntervalFilterBuilderInterface::class),
         ]);
     $services->alias(FilterCollectionEnricherInterface::class, FilterCollectionEnricher::class);
     $services->set(ProductListingSubscriber::class)
@@ -98,6 +116,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             service(CheckboxRenderDataBuilder::class),
             service(MultiSelectRenderDataBuilder::class),
             service(RangeRenderDataBuilder::class),
+            service(RangeIntervalRenderDataBuilder::class),
         ]);
     $services->alias(RenderDataCollectionBuilderInterface::class, RenderDataCollectionBuilder::class);
     $services->set(SidebarFilterCmsSlotsExtractor::class);

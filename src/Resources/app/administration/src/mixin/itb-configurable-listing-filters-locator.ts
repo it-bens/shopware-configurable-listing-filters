@@ -1,4 +1,5 @@
 import type RepositoryFactory from "src/core/data/repository-factory.data";
+import Criteria from "@shopware-ag/admin-extension-sdk/es/data/Criteria";
 
 const { Component, Mixin } = Shopware;
 
@@ -12,6 +13,8 @@ export default Mixin.register('itbConfigurableListingFiltersLocator', Component.
                     return repositoryFactory.create('itb_listing_filter_configuration_multi_select');
                 case 'range':
                     return repositoryFactory.create('itb_listing_filter_configuration_range');
+                case 'range-interval':
+                    return repositoryFactory.create('itb_listing_filter_configuration_range_interval');
                 default:
                     throw new Error(`Invalid listing filter configuration type: ${listingFilterConfigurationType}`);
             }
@@ -25,8 +28,10 @@ export default Mixin.register('itbConfigurableListingFiltersLocator', Component.
                     return repositoryFactory.create('itb_listing_filter_configuration_multi_select');
                 case 'itb_listing_filter_configuration_range':
                     return repositoryFactory.create('itb_listing_filter_configuration_range');
+                case 'itb_listing_filter_configuration_range_interval':
+                    return repositoryFactory.create('itb_listing_filter_configuration_range_interval');
                 default:
-                    throw new Error(`Invalid listing filter configuration type: ${listingFilterConfigurationType}`);
+                    throw new Error(`Invalid entity name: ${listingFilterConfigurationType}`);
             }
         },
 
@@ -38,6 +43,8 @@ export default Mixin.register('itbConfigurableListingFiltersLocator', Component.
                     return '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig';
                 case 'range':
                     return '@Storefront/storefront/component/listing/filter/filter-range.html.twig';
+                case 'range-interval':
+                    return '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig';
                 default:
                     throw new Error(`Invalid listing filter configuration type: ${listingFilterConfigurationType}`);
             }
@@ -51,6 +58,8 @@ export default Mixin.register('itbConfigurableListingFiltersLocator', Component.
                     return 'itb-configurable-listing-filters.form.multiSelect.createPageTitle';
                 case 'range':
                     return 'itb-configurable-listing-filters.form.range.createPageTitle';
+                case 'range-interval':
+                    return 'itb-configurable-listing-filters.form.rangeInterval.createPageTitle';
                 default:
                     throw new Error(`Invalid listing filter configuration type: ${listingFilterConfigurationType}`);
             }
@@ -64,8 +73,49 @@ export default Mixin.register('itbConfigurableListingFiltersLocator', Component.
                     return 'multi-select';
                 case 'itb_listing_filter_configuration_range':
                     return 'range';
+                case 'itb_listing_filter_configuration_range_interval':
+                    return 'range-interval';
                 default:
                     throw new Error(`Invalid entity name: ${entityName}`);
+            }
+        },
+
+        getCriteriaByFilterType: function (listingFilterConfigurationType: string) {
+            const criteria = new Criteria();
+            criteria.addAssociation('salesChannel');
+
+            switch (listingFilterConfigurationType) {
+                case 'checkbox':
+                    return criteria;
+                case 'multi-select':
+                    return criteria;
+                case 'range':
+                    return criteria;
+                case 'range-interval':
+                    criteria.addAssociation('intervals');
+                    return criteria;
+                default:
+                    throw new Error(`Invalid listing filter configuration type: ${listingFilterConfigurationType}`);
+            }
+        },
+
+        getCriteriaByEntityName: function (listingFilterConfigurationType: string) {
+            const criteria = new Criteria();
+            criteria.addAssociation('salesChannel');
+
+            switch (listingFilterConfigurationType) {
+                case 'itb_listing_filter_configuration_checkbox':
+                    return criteria;
+                case 'itb_listing_filter_configuration_multi_select':
+                    return criteria;
+                case 'itb_listing_filter_configuration_range':
+                    return criteria;
+                case 'itb_listing_filter_configuration_range_interval':
+                    criteria.addAssociation('intervals');
+                    criteria.addAssociation('intervals.rangeIntervalListingFilterConfiguration');
+                    return criteria;
+                default:
+                    throw new Error(`Invalid entity name: ${listingFilterConfigurationType}`);
             }
         }
     }

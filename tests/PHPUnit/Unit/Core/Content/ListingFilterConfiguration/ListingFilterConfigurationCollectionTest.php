@@ -11,6 +11,8 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Mu
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationCollection;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationEntity;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationCollection;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationEntity;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -22,8 +24,14 @@ final class ListingFilterConfigurationCollectionTest extends TestCase
         $checkboxCollection = new CheckboxListingFilterConfigurationCollection();
         $multiSelectCollection = new MultiSelectListingFilterConfigurationCollection();
         $rangeCollection = new RangeListingFilterConfigurationCollection();
+        $rangeIntervalCollection = new RangeIntervalListingFilterConfigurationCollection();
 
-        $collection = new ListingFilterConfigurationCollection($checkboxCollection, $multiSelectCollection, $rangeCollection);
+        $collection = new ListingFilterConfigurationCollection(
+            $checkboxCollection,
+            $multiSelectCollection,
+            $rangeCollection,
+            $rangeIntervalCollection
+        );
 
         $iterator = $collection->getIterator();
         $this->assertInstanceOf(\ArrayIterator::class, $iterator);
@@ -35,6 +43,7 @@ final class ListingFilterConfigurationCollectionTest extends TestCase
         $checkboxCollection = new CheckboxListingFilterConfigurationCollection();
         $multiSelectCollection = new MultiSelectListingFilterConfigurationCollection();
         $rangeCollection = new RangeListingFilterConfigurationCollection();
+        $rangeIntervalCollection = new RangeIntervalListingFilterConfigurationCollection();
 
         $checkboxEntity = new CheckboxListingFilterConfigurationEntity();
         $checkboxEntity->setUniqueIdentifier('checkbox');
@@ -51,15 +60,26 @@ final class ListingFilterConfigurationCollectionTest extends TestCase
         $rangeEntity->setDalField('rangeField');
         $rangeEntity->setPosition(3);
 
+        $rangeIntervalEntity = new RangeIntervalListingFilterConfigurationEntity();
+        $rangeIntervalEntity->setUniqueIdentifier('rangeInterval');
+        $rangeIntervalEntity->setDalField('rangeIntervalField');
+        $rangeIntervalEntity->setPosition(4);
+
         $checkboxCollection->add($checkboxEntity);
         $multiSelectCollection->add($multiSelectEntity);
         $rangeCollection->add($rangeEntity);
+        $rangeIntervalCollection->add($rangeIntervalEntity);
 
-        $collection = new ListingFilterConfigurationCollection($checkboxCollection, $multiSelectCollection, $rangeCollection);
+        $collection = new ListingFilterConfigurationCollection(
+            $checkboxCollection,
+            $multiSelectCollection,
+            $rangeCollection,
+            $rangeIntervalCollection
+        );
 
         $result = $collection->getListingFilterConfigurations();
 
-        $this->assertCount(3, $result);
+        $this->assertCount(4, $result);
         $this->assertEquals($multiSelectEntity, $result[0]);
         $this->assertEquals($checkboxEntity, $result[1]);
         $this->assertEquals($rangeEntity, $result[2]);
@@ -70,6 +90,7 @@ final class ListingFilterConfigurationCollectionTest extends TestCase
         $checkboxCollection = new CheckboxListingFilterConfigurationCollection();
         $multiSelectCollection = new MultiSelectListingFilterConfigurationCollection();
         $rangeCollection = new RangeListingFilterConfigurationCollection();
+        $rangeIntervalCollection = new RangeIntervalListingFilterConfigurationCollection();
 
         $checkboxEntity = new CheckboxListingFilterConfigurationEntity();
         $checkboxEntity->setUniqueIdentifier('bField');
@@ -84,7 +105,12 @@ final class ListingFilterConfigurationCollectionTest extends TestCase
         $checkboxCollection->add($checkboxEntity);
         $multiSelectCollection->add($multiSelectEntity);
 
-        $collection = new ListingFilterConfigurationCollection($checkboxCollection, $multiSelectCollection, $rangeCollection);
+        $collection = new ListingFilterConfigurationCollection(
+            $checkboxCollection,
+            $multiSelectCollection,
+            $rangeCollection,
+            $rangeIntervalCollection
+        );
 
         $result = $collection->getListingFilterConfigurations();
 
@@ -98,6 +124,7 @@ final class ListingFilterConfigurationCollectionTest extends TestCase
         $checkboxCollection = new CheckboxListingFilterConfigurationCollection();
         $multiSelectCollection = new MultiSelectListingFilterConfigurationCollection();
         $rangeCollection = new RangeListingFilterConfigurationCollection();
+        $rangeIntervalCollection = new RangeIntervalListingFilterConfigurationCollection();
 
         $checkboxEntity = new CheckboxListingFilterConfigurationEntity();
         $checkboxEntity->setUniqueIdentifier('checkboxField');
@@ -114,15 +141,26 @@ final class ListingFilterConfigurationCollectionTest extends TestCase
         $rangeEntity->setDalField('rangeField');
         $rangeEntity->setPosition(null);
 
+        $rangeIntervalEntity = new RangeIntervalListingFilterConfigurationEntity();
+        $rangeIntervalEntity->setUniqueIdentifier('rangeIntervalField');
+        $rangeIntervalEntity->setDalField('rangeIntervalField');
+        $rangeIntervalEntity->setPosition(2);
+
         $checkboxCollection->add($checkboxEntity);
         $multiSelectCollection->add($multiSelectEntity);
         $rangeCollection->add($rangeEntity);
+        $rangeIntervalCollection->add($rangeIntervalEntity);
 
-        $collection = new ListingFilterConfigurationCollection($checkboxCollection, $multiSelectCollection, $rangeCollection);
+        $collection = new ListingFilterConfigurationCollection(
+            $checkboxCollection,
+            $multiSelectCollection,
+            $rangeCollection,
+            $rangeIntervalCollection
+        );
 
         $result = $collection->getListingFilterConfigurations();
 
-        $this->assertCount(3, $result);
+        $this->assertCount(4, $result);
         $this->assertEquals($multiSelectEntity, $result[0]);
     }
 }

@@ -11,6 +11,8 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Mu
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationCollection;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationEntity;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationCollection;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\FilterCollectionEnricher;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Dal\FilterBuilderInterface as CheckboxFilterBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Dal\RequestValue as CheckboxRequestValue;
@@ -21,6 +23,9 @@ use ITB\ITBConfigurableListingFilters\ListingFilter\MultiSelect\Dal\RequestValue
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Dal\FilterBuilderInterface as RangeFilterBuilder;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Dal\RequestValue as RangeRequestValue;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Dal\RequestValueBuilderInterface as RangeRequestValueBuilder;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\FilterBuilderInterface as RangeIntervalFilterBuilder;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\RequestValue as RangeIntervalRequestValue;
+use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\RequestValueBuilderInterface as RangeIntervalRequestValueBuilder;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -57,6 +62,14 @@ final class FilterCollectionEnricherTest extends TestCase
 
         $rangeFilter = self::createStub(Filter::class);
 
+        $rangeIntervalListingFilterConfigurationEntity = new RangeIntervalListingFilterConfigurationEntity();
+        $rangeIntervalListingFilterConfigurationEntity->setUniqueIdentifier('rangeInterval');
+        $rangeIntervalListingFilterConfigurationEntity->setDalField('rangeIntervalField');
+        $rangeIntervalListingFilterConfigurationEntity->setPosition(4);
+        $rangeIntervalListingFilterConfigurationEntity->setEnabled(true);
+
+        $rangeIntervalFilter = self::createStub(Filter::class);
+
         yield [
             $checkboxListingFilterConfigurationEntity,
             $checkboxFilter,
@@ -64,6 +77,8 @@ final class FilterCollectionEnricherTest extends TestCase
             $multiSelectFilter,
             $rangeListingFilterConfigurationEntity,
             $rangeFilter,
+            $rangeIntervalListingFilterConfigurationEntity,
+            $rangeIntervalFilter,
         ];
     }
 
@@ -102,13 +117,15 @@ final class FilterCollectionEnricherTest extends TestCase
         Filter $multiSelectFilter,
         RangeListingFilterConfigurationEntity $rangeListingFilterConfigurationEntity,
         Filter $rangeFilter,
+        RangeIntervalListingFilterConfigurationEntity $rangeIntervalListingFilterConfigurationEntity,
+        Filter $rangeIntervalFilter,
     ): void {
         $request = $this->createStub(Request::class);
 
         $filterCollectionAddCall = 0;
-        $expectedFilterCollectionAddCallArgs = [$checkboxFilter, $multiSelectFilter, $rangeFilter];
+        $expectedFilterCollectionAddCallArgs = [$checkboxFilter, $multiSelectFilter, $rangeFilter, $rangeIntervalFilter];
         $filterCollection = $this->createMock(FilterCollection::class);
-        $filterCollection->expects($this->exactly(3))
+        $filterCollection->expects($this->exactly(4))
             ->method('add')
             ->willReturnCallback(function (Filter $filter) use (&$filterCollectionAddCall, $expectedFilterCollectionAddCallArgs): void {
                 $this->assertSame($expectedFilterCollectionAddCallArgs[$filterCollectionAddCall], $filter);
@@ -201,6 +218,36 @@ final class FilterCollectionEnricherTest extends TestCase
                 }
             );
 
+        $rangeIntervalRequestValue = new RangeIntervalRequestValue([]);
+        $rangeIntervalRequestValueBuilder = $this->createMock(RangeIntervalRequestValueBuilder::class);
+        $rangeIntervalRequestValueBuilder->method('buildRequestValue')
+            ->willReturnCallback(
+                function (RangeIntervalListingFilterConfigurationEntity $configurationEntityArgument, Request $requestArgument) use (
+                    $rangeIntervalListingFilterConfigurationEntity,
+                    $request,
+                    $rangeIntervalRequestValue
+                ): RangeIntervalRequestValue {
+                    $this->assertSame($rangeIntervalListingFilterConfigurationEntity, $configurationEntityArgument);
+                    $this->assertSame($request, $requestArgument);
+
+                    return $rangeIntervalRequestValue;
+                }
+            );
+
+        $rangeIntervalFilterBuilder = $this->createMock(RangeIntervalFilterBuilder::class);
+        $rangeIntervalFilterBuilder->method('buildFilter')
+            ->willReturnCallback(
+                function (
+                    RangeIntervalListingFilterConfigurationEntity $filterConfigurationEntityArgument,
+                    RangeIntervalRequestValue $requestIntervalIntervalValueArgument
+                ) use ($rangeIntervalListingFilterConfigurationEntity, $rangeIntervalRequestValue, $rangeIntervalFilter): Filter {
+                    $this->assertSame($rangeIntervalListingFilterConfigurationEntity, $filterConfigurationEntityArgument);
+                    $this->assertSame($rangeIntervalRequestValue, $requestIntervalIntervalValueArgument);
+
+                    return $rangeIntervalFilter;
+                }
+            );
+
         $filterCollectionEnricher = new FilterCollectionEnricher(
             $checkboxRequestValueBuilder,
             $checkboxFilterBuilder,
@@ -208,12 +255,15 @@ final class FilterCollectionEnricherTest extends TestCase
             $multiSelectFilterBuilder,
             $rangeRequestValueBuilder,
             $rangeFilterBuilder,
+            $rangeIntervalRequestValueBuilder,
+            $rangeIntervalFilterBuilder
         );
 
         $listingFilterConfigurationCollection = new ListingFilterConfigurationCollection(
             new CheckboxListingFilterConfigurationCollection([$checkboxListingFilterConfigurationEntity]),
             new MultiSelectListingFilterConfigurationCollection([$multiSelectListingFilterConfigurationEntity]),
-            new RangeListingFilterConfigurationCollection([$rangeListingFilterConfigurationEntity])
+            new RangeListingFilterConfigurationCollection([$rangeListingFilterConfigurationEntity]),
+            new RangeIntervalListingFilterConfigurationCollection([$rangeIntervalListingFilterConfigurationEntity])
         );
 
         $filterCollectionEnricher->enrichFilterCollection($listingFilterConfigurationCollection, $request, $filterCollection);
@@ -246,6 +296,13 @@ final class FilterCollectionEnricherTest extends TestCase
         $rangeFilterBuilder->expects($this->never())
             ->method('buildFilter');
 
+        $rangeIntervalRequestValueBuilder = $this->createMock(RangeIntervalRequestValueBuilder::class);
+        $rangeIntervalRequestValueBuilder->expects($this->never())
+            ->method('buildRequestValue');
+        $rangeIntervalFilterBuilder = $this->createMock(RangeIntervalFilterBuilder::class);
+        $rangeIntervalFilterBuilder->expects($this->never())
+            ->method('buildFilter');
+
         $filterCollection = $this->createMock(FilterCollection::class);
         $filterCollection->expects($this->never())
             ->method('add');
@@ -257,12 +314,15 @@ final class FilterCollectionEnricherTest extends TestCase
             $multiSelectFilterBuilder,
             $rangeRequestValueBuilder,
             $rangeFilterBuilder,
+            $rangeIntervalRequestValueBuilder,
+            $rangeIntervalFilterBuilder
         );
 
         $listingFilterConfigurationCollection = new ListingFilterConfigurationCollection(
             new CheckboxListingFilterConfigurationCollection([$checkboxListingFilterConfigurationEntity]),
             new MultiSelectListingFilterConfigurationCollection([$multiSelectListingFilterConfigurationEntity]),
-            new RangeListingFilterConfigurationCollection([$rangeListingFilterConfigurationEntity])
+            new RangeListingFilterConfigurationCollection([$rangeListingFilterConfigurationEntity]),
+            new RangeIntervalListingFilterConfigurationCollection([])
         );
 
         $filterCollectionEnricher->enrichFilterCollection(

@@ -1,0 +1,26 @@
+<!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+{% block itb_configurable_listing_filter_form_range_interval %}
+<div class="itb-configurable-listing-filter-form-range-interval">
+    <sw-container columns="1fr 1fr" gap="0 30px">
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_range_interval_element_prefix %}
+        <sw-text-field
+            v-model="listingFilterConfiguration.elementPrefix"
+            :label="$tc('itb-configurable-listing-filters.form.rangeInterval.labelElementPrefix')"
+            :placeholder="$tc('itb-configurable-listing-filters.form.rangeInterval.placeholderElementPrefix')"
+            :error="listingFilterConfigurationElementPrefixError">
+        </sw-text-field>
+        {% endblock %}
+
+        <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+        {% block itb_configurable_listing_filter_form_range_interval_element_suffix %}
+        <sw-text-field
+            v-model="listingFilterConfiguration.elementSuffix"
+            :label="$tc('itb-configurable-listing-filters.form.rangeInterval.labelElementSuffix')"
+            :placeholder="$tc('itb-configurable-listing-filters.form.rangeInterval.placeholderElementSuffix')"
+            :error="listingFilterConfigurationElementSuffixError">
+        </sw-text-field>
+        {% endblock %}
+    </sw-container>
+</div>
+{% endblock %}

@@ -6,8 +6,12 @@ namespace ITB\ITBConfigurableListingFilters\Test\PHPUnit\Integration;
 
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Checkbox\Aggregate\CheckboxListingFilterConfigurationTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Checkbox\CheckboxListingFilterConfigurationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\Aggregate\MultiSelectListingFilterConfigurationTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\Aggregate\RangeListingFilterConfigurationTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\RangeIntervalListingFilterConfigurationTranslationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationDefinition;
 use ITB\ITBConfigurableListingFilters\Test\PHPUnit\Integration\TestKernel\TestKernel;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\Test\TestCaseBase\KernelLifecycleManager;
@@ -57,22 +61,40 @@ final class EntityDefinitionRegistrationTest extends AbstractIntegrationTestCase
         $this->assertCount(18, $multiselectListingFilterConfigurationDefinition->getFields());
 
         $multiselectListingFilterConfigurationTranslationDefinition = $registry->getByEntityName(
-            MultiSelectListingFilterConfigurationDefinition::ENTITY_NAME
+            MultiSelectListingFilterConfigurationTranslationDefinition::ENTITY_NAME
         );
         $this->assertInstanceOf(
-            MultiSelectListingFilterConfigurationDefinition::class,
+            MultiSelectListingFilterConfigurationTranslationDefinition::class,
             $multiselectListingFilterConfigurationTranslationDefinition
         );
-        $this->assertCount(18, $multiselectListingFilterConfigurationTranslationDefinition->getFields());
+        $this->assertCount(12, $multiselectListingFilterConfigurationTranslationDefinition->getFields());
 
         $rangeListingFilterConfigurationDefinition = $registry->getByEntityName(RangeListingFilterConfigurationDefinition::ENTITY_NAME);
         $this->assertInstanceOf(RangeListingFilterConfigurationDefinition::class, $rangeListingFilterConfigurationDefinition);
         $this->assertCount(13, $rangeListingFilterConfigurationDefinition->getFields());
 
         $rangeListingFilterConfigurationTranslationDefinition = $registry->getByEntityName(
-            RangeListingFilterConfigurationDefinition::ENTITY_NAME
+            RangeListingFilterConfigurationTranslationDefinition::ENTITY_NAME
         );
-        $this->assertInstanceOf(RangeListingFilterConfigurationDefinition::class, $rangeListingFilterConfigurationTranslationDefinition);
-        $this->assertCount(13, $rangeListingFilterConfigurationTranslationDefinition->getFields());
+        $this->assertInstanceOf(
+            RangeListingFilterConfigurationTranslationDefinition::class,
+            $rangeListingFilterConfigurationTranslationDefinition
+        );
+        $this->assertCount(8, $rangeListingFilterConfigurationTranslationDefinition->getFields());
+
+        $rangeListingFilterConfigurationDefinition = $registry->getByEntityName(
+            RangeIntervalListingFilterConfigurationDefinition::ENTITY_NAME
+        );
+        $this->assertInstanceOf(RangeIntervalListingFilterConfigurationDefinition::class, $rangeListingFilterConfigurationDefinition);
+        $this->assertCount(15, $rangeListingFilterConfigurationDefinition->getFields());
+
+        $rangeIntervalListingFilterConfigurationTranslationDefinition = $registry->getByEntityName(
+            RangeIntervalListingFilterConfigurationTranslationDefinition::ENTITY_NAME
+        );
+        $this->assertInstanceOf(
+            RangeIntervalListingFilterConfigurationTranslationDefinition::class,
+            $rangeIntervalListingFilterConfigurationTranslationDefinition
+        );
+        $this->assertCount(9, $rangeIntervalListingFilterConfigurationTranslationDefinition->getFields());
     }
 }
