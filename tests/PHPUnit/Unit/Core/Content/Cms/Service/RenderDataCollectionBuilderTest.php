@@ -75,7 +75,14 @@ final class RenderDataCollectionBuilderTest extends TestCase
         $rangeIntervalListingFilterConfigurationCollection = new RangeIntervalListingFilterConfigurationCollection([
             $rangeIntervalListingFilterConfiguration,
         ]);
-        $rangeIntervalRenderData = new MultiSelectRenderData('template', 'range-interval', 'label', 'paramenter', [], 'tooltip');
+        $rangeIntervalRenderData = new MultiSelectRenderData(
+            'template',
+            'range-interval',
+            'label',
+            'parameter',
+            new ElementCollection([], []),
+            'tooltip'
+        );
 
         $listingFilterConfigurationCollection = new ListingFilterConfigurationCollection(
             $checkboxListingFilterConfigurationCollection,

@@ -10,6 +10,8 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 final class RequestValue
 {
     /**
+     * @codeCoverageIgnore
+     *
      * @param array<RangeIntervalListingFilterConfigurationIntervalEntity> $intervals
      */
     public function __construct(
