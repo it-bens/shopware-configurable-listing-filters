@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\Interval;
 
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\Interval\Aggregate\RangeIntervalListingFilterConfigurationIntervalTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
@@ -14,6 +15,8 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IntField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class RangeIntervalListingFilterConfigurationIntervalDefinition extends EntityDefinition
@@ -45,7 +48,13 @@ class RangeIntervalListingFilterConfigurationIntervalDefinition extends EntityDe
 
             (new IntField('min', 'min'))->addFlags(new ApiAware()),
             (new IntField('max', 'max'))->addFlags(new ApiAware()),
+            (new TranslatedField('title'))->addFlags(new ApiAware()),
             (new IntField('position', 'position'))->addFlags(new ApiAware()),
+
+            (new TranslationsAssociationField(
+                RangeIntervalListingFilterConfigurationIntervalTranslationDefinition::class,
+                self::ENTITY_NAME . '_id'
+            ))->addFlags(new ApiAware(), new Required()),
 
             (new FkField(
                 RangeIntervalListingFilterConfigurationDefinition::ENTITY_NAME . '_id',

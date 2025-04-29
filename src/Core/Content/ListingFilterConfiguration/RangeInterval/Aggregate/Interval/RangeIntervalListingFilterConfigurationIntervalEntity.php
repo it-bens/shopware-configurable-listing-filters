@@ -23,6 +23,8 @@ class RangeIntervalListingFilterConfigurationIntervalEntity extends Entity
 
     protected string $rangeIntervalListingFilterConfigurationId;
 
+    protected ?string $title = null;
+
     public function getCountAggregationName(): string
     {
         return $this->rangeIntervalListingFilterConfiguration->getAggregationName() . '_' . $this->getId();
@@ -95,6 +97,11 @@ class RangeIntervalListingFilterConfigurationIntervalEntity extends Entity
         return $this->rangeIntervalListingFilterConfigurationId;
     }
 
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
     /**
      * @api
      */
@@ -134,5 +141,10 @@ class RangeIntervalListingFilterConfigurationIntervalEntity extends Entity
     public function setRangeIntervalListingFilterConfigurationId(string $rangeIntervalListingFilterConfigurationId): void
     {
         $this->rangeIntervalListingFilterConfigurationId = $rangeIntervalListingFilterConfigurationId;
+    }
+
+    public function setTitle(?string $title): void
+    {
+        $this->title = $title;
     }
 }

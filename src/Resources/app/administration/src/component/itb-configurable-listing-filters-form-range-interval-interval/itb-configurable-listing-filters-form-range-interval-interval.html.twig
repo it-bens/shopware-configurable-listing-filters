@@ -45,6 +45,15 @@
                 </template>
             </template>
 
+            <template #column-title="{ item, column, isInlineEdit }">
+                <template v-if="isInlineEdit">
+                    <sw-text-field v-model="item.title"></sw-text-field>
+                </template>
+                <template v-else>
+                    {{ item.title }}
+                </template>
+            </template>
+
             <template #column-position="{ item, column, isInlineEdit }">
                 <template v-if="isInlineEdit">
                     <sw-number-field v-model="item.position" :min="0"></sw-number-field>

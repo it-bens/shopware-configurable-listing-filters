@@ -13,6 +13,7 @@ interface DataGridRecord {
     id: string;
     min: number | null;
     max: number | null;
+    title: string | null;
     position: number;
 }
 
@@ -43,19 +44,25 @@ Shopware.Component.register('itb-configurable-listing-filters-form-range-interva
                     property: 'min',
                     label: this.$tc('itb-configurable-listing-filters.form.rangeInterval.interval.labelMin'),
                     inlineEdit: 'number',
-                    width: '150px'
+                    width: '110px'
                 },
                 {
                     property: 'max',
                     label: this.$tc('itb-configurable-listing-filters.form.rangeInterval.interval.labelMax'),
                     inlineEdit: 'number',
-                    width: '150px'
+                    width: '110px'
+                },
+                {
+                    property: 'title',
+                    label: this.$tc('itb-configurable-listing-filters.form.rangeInterval.interval.labelTitle'),
+                    inlineEdit: 'string',
+                    width: '110px'
                 },
                 {
                     property: 'position',
                     label: this.$tc('itb-configurable-listing-filters.form.rangeInterval.interval.labelPosition'),
                     inlineEdit: 'number',
-                    width: '150px'
+                    width: '110px'
                 }
             ];
         },
@@ -71,6 +78,7 @@ Shopware.Component.register('itb-configurable-listing-filters-form-range-interva
                     id: interval.id,
                     min: interval.min,
                     max: interval.max,
+                    title: interval.title,
                     position: interval.position
                 });
             });
@@ -90,6 +98,7 @@ Shopware.Component.register('itb-configurable-listing-filters-form-range-interva
                     if (item.id === existingInterval.id) {
                         existingInterval.min = item.min;
                         existingInterval.max = item.max;
+                        existingInterval.title = item.title;
                         existingInterval.position = item.position;
                     }
                 });
@@ -110,6 +119,7 @@ Shopware.Component.register('itb-configurable-listing-filters-form-range-interva
 
             interval.min = null;
             interval.max = null;
+            interval.title = null;
             interval.position = highestPosition + 1;
 
             this.listingFilterConfiguration.intervals.push(interval);

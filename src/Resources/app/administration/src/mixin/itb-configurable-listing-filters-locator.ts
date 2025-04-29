@@ -93,6 +93,8 @@ export default Mixin.register('itbConfigurableListingFiltersLocator', Component.
                     return criteria;
                 case 'range-interval':
                     criteria.addAssociation('intervals');
+                    criteria.getAssociation('intervals.rangeIntervalListingFilterConfiguration');
+
                     return criteria;
                 default:
                     throw new Error(`Invalid listing filter configuration type: ${listingFilterConfigurationType}`);
@@ -112,7 +114,8 @@ export default Mixin.register('itbConfigurableListingFiltersLocator', Component.
                     return criteria;
                 case 'itb_lfc_range_interval':
                     criteria.addAssociation('intervals');
-                    criteria.addAssociation('intervals.rangeIntervalListingFilterConfiguration');
+                    criteria.getAssociation('intervals.rangeIntervalListingFilterConfiguration');
+
                     return criteria;
                 default:
                     throw new Error(`Invalid entity name: ${listingFilterConfigurationType}`);

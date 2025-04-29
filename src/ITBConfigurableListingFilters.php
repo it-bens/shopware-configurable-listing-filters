@@ -11,6 +11,7 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Mu
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\Aggregate\RangeListingFilterConfigurationTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\Interval\Aggregate\RangeIntervalListingFilterConfigurationIntervalTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\Interval\RangeIntervalListingFilterConfigurationIntervalDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\Translation\RangeIntervalListingFilterConfigurationTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationDefinition;
@@ -53,8 +54,9 @@ final class ITBConfigurableListingFilters extends Plugin
             MultiSelectListingFilterConfigurationDefinition::ENTITY_NAME,
             RangeListingFilterConfigurationTranslationDefinition::ENTITY_NAME,
             RangeListingFilterConfigurationDefinition::ENTITY_NAME,
-            RangeIntervalListingFilterConfigurationTranslationDefinition::ENTITY_NAME,
+            RangeIntervalListingFilterConfigurationIntervalTranslationDefinition::ENTITY_NAME,
             RangeIntervalListingFilterConfigurationIntervalDefinition::ENTITY_NAME,
+            RangeIntervalListingFilterConfigurationTranslationDefinition::ENTITY_NAME,
             RangeIntervalListingFilterConfigurationDefinition::ENTITY_NAME,
         ];
 

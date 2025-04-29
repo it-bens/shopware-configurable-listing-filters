@@ -92,8 +92,66 @@ final class ElementBuilderTest extends TestCase
         ];
     }
 
+    public function testBuildElementThrowsExceptionWhenMinAndMaxAreNullAndNoTitle(): void
+    {
+        $configMock = $this->createMock(RangeIntervalListingFilterConfigurationEntity::class);
+        $configMock->method('getElementPrefix')
+            ->willReturn(null);
+        $configMock->method('getElementSuffix')
+            ->willReturn(null);
+
+        $intervalMock = $this->createMock(RangeIntervalListingFilterConfigurationIntervalEntity::class);
+        $intervalMock->method('getId')
+            ->willReturn(Uuid::randomHex());
+        $intervalMock->method('getTitle')
+            ->willReturn(null);
+        $intervalMock->method('getMin')
+            ->willReturn(null);
+        $intervalMock->method('getMax')
+            ->willReturn(null);
+        $intervalMock->method('getRangeIntervalListingFilterConfiguration')
+            ->willReturn($configMock);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'The title is null and both min and max are null. This should be prevented by the pre-persistence validation.'
+        );
+
+        $this->elementBuilder->buildElement($intervalMock);
+    }
+
+    public function testBuildElementUsesTitleWhenSet(): void
+    {
+        $intervalId = Uuid::randomHex();
+        $expectedTitle = 'Custom Interval Title';
+
+        $configMock = $this->createMock(RangeIntervalListingFilterConfigurationEntity::class);
+        $configMock->expects($this->never())
+            ->method('getElementPrefix');
+        $configMock->expects($this->never())
+            ->method('getElementSuffix');
+
+        $intervalMock = $this->createMock(RangeIntervalListingFilterConfigurationIntervalEntity::class);
+        $intervalMock->method('getId')
+            ->willReturn($intervalId);
+        $intervalMock->method('getTitle')
+            ->willReturn($expectedTitle);
+        $intervalMock->expects($this->never())
+            ->method('getMin');
+        $intervalMock->expects($this->never())
+            ->method('getMax');
+        $intervalMock->expects($this->never())
+            ->method('getRangeIntervalListingFilterConfiguration');
+
+        $element = $this->elementBuilder->buildElement($intervalMock);
+
+        $this->assertInstanceOf(Element::class, $element);
+        $this->assertSame($intervalId, $element->name);
+        $this->assertSame($expectedTitle, $element->text);
+    }
+
     #[DataProvider('elementDataProvider')]
-    public function testBuildElement(?int $min, ?int $max, ?string $prefix, ?string $suffix, string $expectedText): void
+    public function testBuildElementWithoutTitle(?int $min, ?int $max, ?string $prefix, ?string $suffix, string $expectedText): void
     {
         $intervalId = Uuid::randomHex();
 
@@ -106,6 +164,8 @@ final class ElementBuilderTest extends TestCase
         $intervalMock = $this->createMock(RangeIntervalListingFilterConfigurationIntervalEntity::class);
         $intervalMock->method('getId')
             ->willReturn($intervalId);
+        $intervalMock->method('getTitle')
+            ->willReturn(null);
         $intervalMock->method('getMin')
             ->willReturn($min);
         $intervalMock->method('getMax')
@@ -118,29 +178,5 @@ final class ElementBuilderTest extends TestCase
         $this->assertInstanceOf(Element::class, $element);
         $this->assertSame($intervalId, $element->name);
         $this->assertSame($expectedText, $element->text);
-    }
-
-    public function testBuildElementThrowsExceptionWhenMinAndMaxAreNull(): void
-    {
-        $configMock = $this->createMock(RangeIntervalListingFilterConfigurationEntity::class);
-        $configMock->method('getElementPrefix')
-            ->willReturn(null);
-        $configMock->method('getElementSuffix')
-            ->willReturn(null);
-
-        $intervalMock = $this->createMock(RangeIntervalListingFilterConfigurationIntervalEntity::class);
-        $intervalMock->method('getId')
-            ->willReturn(Uuid::randomHex());
-        $intervalMock->method('getMin')
-            ->willReturn(null);
-        $intervalMock->method('getMax')
-            ->willReturn(null);
-        $intervalMock->method('getRangeIntervalListingFilterConfiguration')
-            ->willReturn($configMock);
-
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Both min and max are null. This should be prevented by the pre-persistence validation.');
-
-        $this->elementBuilder->buildElement($intervalMock);
     }
 }

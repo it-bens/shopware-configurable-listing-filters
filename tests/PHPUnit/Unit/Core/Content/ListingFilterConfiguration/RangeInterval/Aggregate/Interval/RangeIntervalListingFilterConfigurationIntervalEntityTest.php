@@ -115,16 +115,19 @@ final class RangeIntervalListingFilterConfigurationIntervalEntityTest extends Te
 
         $min = 100;
         $max = 200;
+        $title = 'Test Title';
         $position = 5;
         $configId = 'test-config-id';
 
         $entity->setMin($min);
         $entity->setMax($max);
+        $entity->setTitle($title);
         $entity->setPosition($position);
         $entity->setRangeIntervalListingFilterConfigurationId($configId);
 
         $this->assertSame($min, $entity->getMin());
         $this->assertSame($max, $entity->getMax());
+        $this->assertSame($title, $entity->getTitle());
         $this->assertSame($position, $entity->getPosition());
         $this->assertSame($configId, $entity->getRangeIntervalListingFilterConfigurationId());
     }

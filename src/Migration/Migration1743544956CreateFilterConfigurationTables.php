@@ -172,6 +172,22 @@ CREATE TABLE IF NOT EXISTS `itb_lfc_range_interval_interval` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 SQL;
         $connection->executeStatement($sql);
+
+        $sql = <<<SQL
+CREATE TABLE IF NOT EXISTS `itb_lfc_range_interval_interval_translation` (
+    `itb_lfc_range_interval_interval_id` BINARY(16) NOT NULL,
+    `language_id` BINARY(16) NOT NULL,
+    `title` VARCHAR(255) NULL,
+    `created_at` DATETIME(3) NOT NULL,
+    `updated_at` DATETIME(3) NULL,
+    PRIMARY KEY (`itb_lfc_range_interval_interval_id`, `language_id`),
+    CONSTRAINT `fk.itb_lfc_translation_range_i_i.entity_id` FOREIGN KEY (`itb_lfc_range_interval_interval_id`)
+        REFERENCES `itb_lfc_range_interval_interval` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `fk.itb_lfc_translation_range_i_i.language_id` FOREIGN KEY (`language_id`)
+        REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+SQL;
+        $connection->executeStatement($sql);
     }
 
     public function updateDestructive(Connection $connection): void

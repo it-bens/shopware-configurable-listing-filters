@@ -55,6 +55,7 @@ declare namespace EntitySchema {
         id: string;
         min: number | null;
         max: number | null;
+        title: string | null;
         position: number;
         rangeIntervalListingFilterConfigurationId: string;
     }

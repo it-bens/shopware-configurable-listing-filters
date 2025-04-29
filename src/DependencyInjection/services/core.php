@@ -17,6 +17,7 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Mu
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\Aggregate\RangeListingFilterConfigurationTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\Interval\Aggregate\RangeIntervalListingFilterConfigurationIntervalTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\Interval\RangeIntervalListingFilterConfigurationIntervalDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\Translation\RangeIntervalListingFilterConfigurationTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationDefinition;
@@ -71,6 +72,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     ]);
     $services->set(RangeIntervalListingFilterConfigurationIntervalDefinition::class)->tag('shopware.entity.definition', [
         'entity' => RangeIntervalListingFilterConfigurationIntervalDefinition::ENTITY_NAME,
+    ]);
+    $services->set(RangeIntervalListingFilterConfigurationIntervalTranslationDefinition::class)->tag('shopware.entity.definition', [
+        'entity' => RangeIntervalListingFilterConfigurationIntervalTranslationDefinition::ENTITY_NAME,
     ]);
 
     // Entity repositories
