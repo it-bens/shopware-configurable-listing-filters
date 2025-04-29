@@ -34,6 +34,10 @@
                         </sw-context-menu-item>
                     </sw-context-button>
                 </sw-button-group>
+
+                <itb-configurable-listing-filters-presets-button-group
+                    @itb-listing-filter-configuration-added="loadListingFilterConfigurations">
+                </itb-configurable-listing-filters-presets-button-group>
             </template>
         {% endblock %}
         

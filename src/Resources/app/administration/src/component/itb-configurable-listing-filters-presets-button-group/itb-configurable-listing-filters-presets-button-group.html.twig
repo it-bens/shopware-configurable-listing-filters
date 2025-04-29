@@ -1,0 +1,29 @@
+<!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+{% block itb_configurable_listing_filter_form_range %}
+<sw-button-group>
+    <sw-context-button>
+        <template #button>
+            <sw-button variant="primary">
+                {{ $tc('itb-configurable-listing-filters.preset.addFilterConfigurationFromPreset') }}
+                <sw-icon name="regular-chevron-down-xs" decorative size="12"></sw-icon>
+            </sw-button>
+        </template>
+
+        <sw-context-menu-item @click="createListingFilterConfigurationForManufacturer">
+            {{ $tc('itb-configurable-listing-filters.preset.createFilterConfigurationForManufacturerButton') }}
+        </sw-context-menu-item>
+
+        <sw-context-menu-item @click="createListingFilterConfigurationForPrice">
+            {{ $tc('itb-configurable-listing-filters.preset.createFilterConfigurationForPriceButton') }}
+        </sw-context-menu-item>
+
+        <sw-context-menu-item @click="createListingFilterConfigurationForRating">
+            {{ $tc('itb-configurable-listing-filters.preset.createFilterConfigurationForRatingButton') }}
+        </sw-context-menu-item>
+
+        <sw-context-menu-item @click="createListingFilterConfigurationForShippingFree">
+            {{ $tc('itb-configurable-listing-filters.preset.createFilterConfigurationForShippingFreeButton') }}
+        </sw-context-menu-item>
+    </sw-context-button>
+</sw-button-group>
+{% endblock %}

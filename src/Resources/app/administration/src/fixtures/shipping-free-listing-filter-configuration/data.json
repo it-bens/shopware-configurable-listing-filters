@@ -1,0 +1,8 @@
+{
+  "dalField": "shippingFree",
+  "displayName": "Shipping Free",
+  "position": null,
+  "enabled": true,
+  "twigTemplate": "@Storefront/storefront/component/listing/filter/filter-boolean.html.twig",
+  "salesChannelId": null
+}

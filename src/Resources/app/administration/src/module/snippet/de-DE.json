@@ -32,6 +32,13 @@
       "createRangeIntervalFilterConfigurationButton": "Für Range-Intervall-Filter",
       "createFilterConfigurationButton": "Filterkonfiguration erstellen"
     },
+    "preset": {
+      "addFilterConfigurationFromPreset": "Vorbereitete Filterkonfigurationen",
+      "createFilterConfigurationForManufacturerButton": "Hersteller-Filter",
+      "createFilterConfigurationForPriceButton": "Preis-Filter",
+      "createFilterConfigurationForRatingButton": "Bewertungs-Filter",
+      "createFilterConfigurationForShippingFreeButton": "Versandkostenfrei-Filter"
+    },
     "form": {
       "basics": {
         "cardTitle": "Filtereinstellungen",

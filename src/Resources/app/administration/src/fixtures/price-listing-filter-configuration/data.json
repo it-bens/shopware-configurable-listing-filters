@@ -1,0 +1,9 @@
+{
+  "dalField": "cheapestPrice",
+  "displayName": "Price",
+  "position": null,
+  "enabled": true,
+  "twigTemplate": "@Storefront/storefront/component/listing/filter/filter-range.html.twig",
+  "salesChannelId": null,
+  "unit": "€"
+}
