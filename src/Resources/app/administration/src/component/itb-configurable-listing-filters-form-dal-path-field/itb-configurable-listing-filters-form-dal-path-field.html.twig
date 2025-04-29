@@ -1,0 +1,52 @@
+<div class="sw-field sw-block-field sw-field--default" style="margin-bottom: 0">
+    <div class="sw-field__label">
+        <label
+            :for="identification"
+            :class="swFieldLabelClasses">
+            <slot name="label">
+                {{ label }}
+            </slot>
+        </label>
+
+        <sw-help-text
+            class="sw-field__help-text"
+            :text="helpText">
+        </sw-help-text>
+    </div>
+
+    <sw-container columns="1fr">
+        <sw-label appearance="pill" :dismissable="false" style="margin-bottom: 10px">
+            {{ value }}
+        </sw-label>
+    </sw-container>
+
+    <div class="sw-container" :style="containerStyle">
+        <template v-for="(selectedDalPathPart, index) in selectedDalPath">
+            <sw-text-field
+                :value="selectedDalPathPart"
+                :disabled="true">
+
+                <template
+                    #suffix
+                    v-if="index === selectedDalPath.length - 1">
+                    <sw-button
+                        variant="danger"
+                        size="x-small"
+                        :square="true"
+                        :block="false"
+                        style="width: 22px; line-height: 18px"
+                        @click="onDeleteLastDalPathPart">
+                        x
+                    </sw-button>
+                </template>
+            </sw-text-field>
+        </template>
+
+        <sw-select-field
+            v-if="definitionPropertyOptions.length > 0"
+            :name="identification"
+            :options="definitionPropertyOptions"
+            @change="onChange">
+        </sw-select-field>
+    </div>
+</div>

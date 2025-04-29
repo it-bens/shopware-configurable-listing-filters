@@ -16,14 +16,13 @@
     {% block itb_configurable_listing_filters_edit_actions %}
     <template #smart-bar-actions>
         <sw-button-process
-                class="itb-configurable-listing-filters-create__save-action"
-                :is-loading="isLoading"
-                :disabled="isLoading"
-                :process-success="isSaveSuccessful"
-                variant="primary"
-                @process-finish="saveFinish"
-                @click.prevent="onSave"
-        >
+            class="itb-configurable-listing-filters-create__save-action"
+            :is-loading="isLoading"
+            :disabled="isLoading"
+            :process-success="isSaveSuccessful"
+            variant="primary"
+            @process-finish="saveFinish"
+            @click.prevent="onSave">
             {{ $tc('itb-configurable-listing-filters.general.buttonSaveText') }}
         </sw-button-process>
     </template>
@@ -36,8 +35,8 @@
             :saveChangesFunction="onLanguageChangeSave"
             :abortChangeFunction="onLanguageChangeAbort"
             :disabled="!$route.params.id"
-            @on-change="onLanguageChange"
-        ></sw-language-switch>
+            @on-change="onLanguageChange">
+        </sw-language-switch>
     </template>
     {% endblock %}
 
@@ -54,9 +53,9 @@
                 {% block itb_configurable_listing_filters_edit_form_basics %}
                 <sw-card
                     :title="$tc('itb-configurable-listing-filters.form.basics.cardTitle')"
-                    position-identifier="sw-customer-create-base-form"
-                >
+                    position-identifier="sw-customer-create-base-form">
                     <itb-configurable-listing-filters-form-basics
+                        :filterType="$route.params.type"
                         :listingFilterConfiguration="listingFilterConfiguration">
                     </itb-configurable-listing-filters-form-basics>
                 </sw-card>
@@ -67,8 +66,7 @@
                 <sw-card
                     :title="$tc('itb-configurable-listing-filters.form.multiSelect.cardTitle')"
                     position-identifier="sw-customer-create-base-form"
-                    v-if="$route.params.type === 'multi-select'"
-                >
+                    v-if="$route.params.type === 'multi-select'">
                     <itb-configurable-listing-filters-form-multi-select
                         :listingFilterConfiguration="listingFilterConfiguration">
                     </itb-configurable-listing-filters-form-multi-select>
@@ -80,8 +78,7 @@
                 <sw-card
                     :title="$tc('itb-configurable-listing-filters.form.range.cardTitle')"
                     position-identifier="sw-customer-create-base-form"
-                    v-if="$route.params.type === 'range'"
-                >
+                    v-if="$route.params.type === 'range'">
                     <itb-configurable-listing-filters-form-range
                         :listingFilterConfiguration="listingFilterConfiguration">
                     </itb-configurable-listing-filters-form-range>
@@ -93,8 +90,7 @@
                 <sw-card
                     :title="$tc('itb-configurable-listing-filters.form.rangeInterval.cardTitle')"
                     position-identifier="sw-customer-create-base-form"
-                    v-if="$route.params.type === 'range-interval'"
-                >
+                    v-if="$route.params.type === 'range-interval'">
                     <itb-configurable-listing-filters-form-range-interval
                         :listingFilterConfiguration="listingFilterConfiguration">
                     </itb-configurable-listing-filters-form-range-interval>
@@ -106,8 +102,7 @@
                 <sw-card
                     :title="$tc('itb-configurable-listing-filters.form.rangeInterval.interval.cardTitle')"
                     position-identifier="sw-customer-create-base-form2"
-                    v-if="$route.params.type === 'range-interval'"
-                >
+                    v-if="$route.params.type === 'range-interval'">
                     <itb-configurable-listing-filters-form-range-interval-interval
                         :listingFilterConfiguration="listingFilterConfiguration">
                     </itb-configurable-listing-filters-form-range-interval-interval>

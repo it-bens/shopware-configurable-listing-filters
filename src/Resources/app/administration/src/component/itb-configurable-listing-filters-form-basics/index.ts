@@ -12,6 +12,10 @@ Shopware.Component.register('itb-configurable-listing-filters-form-basics', {
     ],
 
     props: {
+        filterType: {
+            type: String,
+            required: true,
+        },
         listingFilterConfiguration: {
             type: Object as () => ItbConfigurableListingFilters.ListingFilterConfiguration,
             required: false,

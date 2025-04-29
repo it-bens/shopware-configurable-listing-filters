@@ -120,6 +120,21 @@ export default Mixin.register('itbConfigurableListingFiltersLocator', Component.
                 default:
                     throw new Error(`Invalid entity name: ${listingFilterConfigurationType}`);
             }
+        },
+
+        getAllowedPropertyTypesByFilterType: function (listingFilterConfigurationType: string) {
+            switch (listingFilterConfigurationType) {
+                case 'checkbox':
+                    return ['boolean'];
+                case 'multi-select':
+                    return ['string'];
+                case 'range':
+                    return ['int', 'float'];
+                case 'range-interval':
+                    return ['int', 'float'];
+                default:
+                    throw new Error(`Invalid listing filter configuration type: ${listingFilterConfigurationType}`);
+            }
         }
     }
 }));
