@@ -33,6 +33,7 @@
             <directory>./src</directory>
         </include>
         <exclude>
+            <directory suffix="Definition.php">./src/Core/Content/ListingFilterConfiguration</directory>
             <directory>./src/DependencyInjection</directory>
             <directory>./src/Migration</directory>
         </exclude>
