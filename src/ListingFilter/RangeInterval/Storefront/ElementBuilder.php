@@ -11,8 +11,14 @@ final class ElementBuilder implements ElementBuilderInterface
 {
     public function buildElement(RangeIntervalListingFilterConfigurationIntervalEntity $rangeIntervalEntity): Element
     {
+        if ($rangeIntervalEntity->getTitle() !== null) {
+            return new Element($rangeIntervalEntity->getId(), $rangeIntervalEntity->getTitle());
+        }
+
         if ($rangeIntervalEntity->getMin() === null && $rangeIntervalEntity->getMax() === null) {
-            throw new \RuntimeException('Both min and max are null. This should be prevented by the pre-persistence validation.');
+            throw new \RuntimeException(
+                'The title is null and both min and max are null. This should be prevented by the pre-persistence validation.'
+            );
         }
 
         $prefix = (string) $rangeIntervalEntity->getRangeIntervalListingFilterConfiguration()
