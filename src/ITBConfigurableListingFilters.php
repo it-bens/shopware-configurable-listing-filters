@@ -23,6 +23,8 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 final class ITBConfigurableListingFilters extends Plugin
 {
+    public const PLUGIN_NAME = 'ITBConfigurableListingFilters';
+
     /**
      * @codeCoverageIgnore
      */

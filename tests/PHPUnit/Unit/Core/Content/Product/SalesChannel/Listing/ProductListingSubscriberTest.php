@@ -14,6 +14,7 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Ra
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\ProductListingSubscriber;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\FilterCollectionEnricherInterface;
+use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\NativeFilterRemoverInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Content\Product\Events\ProductListingCollectFilterEvent;
@@ -55,7 +56,11 @@ final class ProductListingSubscriberTest extends TestCase
     ): void {
         $request = self::createStub(Request::class);
         $filterCollection = $this->createStub(FilterCollection::class);
-        $salesChannelContext = $this->createMock(SalesChannelContext::class);
+
+        $salesChannelId = 'test-sales-channel-id';
+        $salesChannelContext = $this->createStub(SalesChannelContext::class);
+        $salesChannelContext->method('getSalesChannelId')
+            ->willReturn($salesChannelId);
 
         $checkBoxListingFilterConfigurationCollection = new CheckboxListingFilterConfigurationCollection([
             $checkboxListingFilterConfigurationEntity,
@@ -129,10 +134,67 @@ final class ProductListingSubscriberTest extends TestCase
                 }
             );
 
-        $productListingSubscriber = new ProductListingSubscriber($listingFilterConfigurationRepository, $filterCollectionEnricher);
+        $nativeFilterRemover = $this->createMock(NativeFilterRemoverInterface::class);
+        $nativeFilterRemover->expects($this->never())
+            ->method('removeNativeFilters');
+
+        $productListingSubscriber = new ProductListingSubscriber(
+            $listingFilterConfigurationRepository,
+            $filterCollectionEnricher,
+            $nativeFilterRemover
+        );
 
         $event = new ProductListingCollectFilterEvent($request, $filterCollection, $salesChannelContext);
 
         $productListingSubscriber->addConfigurationBasedFilters($event);
+    }
+
+    public function testRemoveNativeFilters(): void
+    {
+        $request = self::createStub(Request::class);
+        $filterCollection = $this->createStub(FilterCollection::class);
+
+        $salesChannelId = 'test-sales-channel-id';
+        $salesChannelContext = $this->createStub(SalesChannelContext::class);
+        $salesChannelContext->method('getSalesChannelId')
+            ->willReturn($salesChannelId);
+
+        $listingFilterConfigurationRepository = $this->createMock(ListingFilterConfigurationRepositoryInterface::class);
+        $listingFilterConfigurationRepository->expects($this->never())
+            ->method('getCheckboxListingFilterConfigurations');
+        $listingFilterConfigurationRepository->expects($this->never())
+            ->method('getMultiSelectListingFilterConfigurations');
+        $listingFilterConfigurationRepository->expects($this->never())
+            ->method('getRangeListingFilterConfigurations');
+        $listingFilterConfigurationRepository->expects($this->never())
+            ->method('getRangeIntervalListingFilterConfigurations');
+
+        $filterCollectionEnricher = $this->createMock(FilterCollectionEnricherInterface::class);
+        $filterCollectionEnricher->expects($this->never())
+            ->method('enrichFilterCollection');
+
+        $nativeFilterRemover = $this->createMock(NativeFilterRemoverInterface::class);
+        $nativeFilterRemover->method('removeNativeFilters')
+            ->willReturnCallback(
+                function (
+                    FilterCollection $filterCollectionArgument,
+                    string $salesChannelIdArgument
+                ) use ($filterCollection, $salesChannelId) {
+                    $this->assertSame($filterCollection, $filterCollectionArgument);
+                    $this->assertSame($salesChannelId, $salesChannelIdArgument);
+
+                    return null;
+                }
+            );
+
+        $productListingSubscriber = new ProductListingSubscriber(
+            $listingFilterConfigurationRepository,
+            $filterCollectionEnricher,
+            $nativeFilterRemover
+        );
+
+        $event = new ProductListingCollectFilterEvent($request, $filterCollection, $salesChannelContext);
+
+        $productListingSubscriber->removeNativeFilters($event);
     }
 }

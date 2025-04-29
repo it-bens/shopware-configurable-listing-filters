@@ -24,6 +24,8 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Ra
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\ProductListingSubscriber;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\FilterCollectionEnricher;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\FilterCollectionEnricherInterface;
+use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\NativeFilterRemover;
+use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\NativeFilterRemoverInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Dal\FilterBuilderInterface as CheckboxFilterBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Dal\RequestValueBuilderInterface as CheckboxRequestValueBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\Checkbox\Storefront\RenderDataBuilderInterface as CheckboxRenderDataBuilder;
@@ -36,6 +38,7 @@ use ITB\ITBConfigurableListingFilters\ListingFilter\Range\Storefront\RenderDataB
 use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\FilterBuilderInterface as RangeIntervalFilterBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Dal\RequestValueBuilderInterface as RangeIntervalRequestValueBuilderInterface;
 use ITB\ITBConfigurableListingFilters\ListingFilter\RangeInterval\Storefront\RenderDataBuilderInterface as RangeIntervalRenderDataBuilder;
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
@@ -100,8 +103,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             service(RangeIntervalFilterBuilderInterface::class),
         ]);
     $services->alias(FilterCollectionEnricherInterface::class, FilterCollectionEnricher::class);
+    $services->set(NativeFilterRemover::class)->args([service(SystemConfigService::class)]);
+    $services->alias(NativeFilterRemoverInterface::class, NativeFilterRemover::class);
     $services->set(ProductListingSubscriber::class)
-        ->args([service(ListingFilterConfigurationRepositoryInterface::class), service(FilterCollectionEnricherInterface::class)])
+        ->args([
+            service(ListingFilterConfigurationRepositoryInterface::class),
+            service(FilterCollectionEnricherInterface::class),
+            service(NativeFilterRemoverInterface::class),
+        ])
         ->tag('kernel.event_subscriber');
 
     // Listing page subscriber and helper services
