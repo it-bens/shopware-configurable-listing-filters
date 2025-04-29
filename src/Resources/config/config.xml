@@ -31,5 +31,40 @@
             </options>
             <defaultValue>beginning</defaultValue>
         </input-field>
+
+        <input-field type="bool">
+            <name>enableManufacturerFilter</name>
+            <label>Enable the Shopware-native manufacturer filter</label>
+            <label lang="de-DE">Shopware-nativen Hersteller-Filter aktivieren</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>enablePropertiesFilter</name>
+            <label>Enable the Shopware-native property filter</label>
+            <label lang="de-DE">Shopware-nativen Eigenschaften-Filter aktivieren</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>enablePriceFilter</name>
+            <label>Enable the Shopware-native price filter</label>
+            <label lang="de-DE">Shopware-nativen Preis-Filter aktivieren</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>enableRatingFilter</name>
+            <label>Enable the Shopware-native rating filter</label>
+            <label lang="de-DE">Shopware-nativen Bewertungen-Filter aktivieren</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>enableShippingFreeFilter</name>
+            <label>Enable the Shopware-native shipping-free filter</label>
+            <label lang="de-DE">Shopware-nativen Filter für kostenlosen Versand aktivieren</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
     </card>
 </config>

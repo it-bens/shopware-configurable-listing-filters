@@ -1,5 +1,65 @@
 {% sw_extends '@Storefront/storefront/component/listing/filter-panel.html.twig' %}
 
+{% block component_filter_panel_item_manufacturer %}
+    {% set itbConfigurableListingFiltersPluginConfig = config('ITBConfigurableListingFilters') %}
+
+    {% if itbConfigurableListingFiltersPluginConfig.config.enabled == false %}
+        {{ parent() }}
+    {% else %}
+        {% if itbConfigurableListingFiltersPluginConfig.config.enableManufacturerFilter == true %}
+            {{ parent() }}
+        {% endif %}
+    {% endif %}
+{% endblock component_filter_panel_item_manufacturer %}
+
+{% block component_filter_panel_item_properties %}
+    {% set itbConfigurableListingFiltersPluginConfig = config('ITBConfigurableListingFilters') %}
+
+    {% if itbConfigurableListingFiltersPluginConfig.config.enabled == false %}
+        {{ parent() }}
+    {% else %}
+        {% if itbConfigurableListingFiltersPluginConfig.config.enablePropertiesFilter == true %}
+            {{ parent() }}
+        {% endif %}
+    {% endif %}
+{% endblock component_filter_panel_item_properties %}
+
+{% block component_filter_panel_item_price %}
+    {% set itbConfigurableListingFiltersPluginConfig = config('ITBConfigurableListingFilters') %}
+
+    {% if itbConfigurableListingFiltersPluginConfig.config.enabled == false %}
+        {{ parent() }}
+    {% else %}
+        {% if itbConfigurableListingFiltersPluginConfig.config.enablePriceFilter == true %}
+            {{ parent() }}
+        {% endif %}
+    {% endif %}
+{% endblock component_filter_panel_item_price %}
+
+{% block component_filter_panel_item_rating_select %}
+    {% set itbConfigurableListingFiltersPluginConfig = config('ITBConfigurableListingFilters') %}
+
+    {% if itbConfigurableListingFiltersPluginConfig.config.enabled == false %}
+        {{ parent() }}
+    {% else %}
+        {% if itbConfigurableListingFiltersPluginConfig.config.showRatingFilter == true %}
+            {{ parent() }}
+        {% endif %}
+    {% endif %}
+{% endblock component_filter_panel_item_rating_select %}
+
+{% block component_filter_panel_item_shipping_free %}
+    {% set itbConfigurableListingFiltersPluginConfig = config('ITBConfigurableListingFilters') %}
+
+    {% if itbConfigurableListingFiltersPluginConfig.config.enabled == false %}
+        {{ parent() }}
+    {% else %}
+        {% if itbConfigurableListingFiltersPluginConfig.config.showShippingFreeFilter == true %}
+            {{ parent() }}
+        {% endif %}
+    {% endif %}
+{% endblock component_filter_panel_item_shipping_free %}
+
 {% block component_filter_panel_items %}
     {% set itbConfigurableListingFiltersPluginConfig = config('ITBConfigurableListingFilters') %}
     {% if itbConfigurableListingFiltersPluginConfig.config.enabled == false %}

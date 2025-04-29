@@ -7,6 +7,7 @@ namespace ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Li
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\ListingFilterConfigurationCollection;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\ListingFilterConfigurationRepositoryInterface;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\FilterCollectionEnricherInterface;
+use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\NativeFilterRemoverInterface;
 use Shopware\Core\Content\Product\Events\ProductListingCollectFilterEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -15,6 +16,7 @@ final class ProductListingSubscriber implements EventSubscriberInterface
     public function __construct(
         private readonly ListingFilterConfigurationRepositoryInterface $listingFilterConfigurationRepository,
         private readonly FilterCollectionEnricherInterface $filterCollectionEnricher,
+        private readonly NativeFilterRemoverInterface $nativeFilterRemover,
     ) {
     }
 
@@ -37,12 +39,17 @@ final class ProductListingSubscriber implements EventSubscriberInterface
     /**
      * @codeCoverageIgnore
      *
-     * @return array<class-string, string>
+     * @return array<class-string, array<array<int, string|int>>>
      */
     public static function getSubscribedEvents(): array
     {
         return [
-            ProductListingCollectFilterEvent::class => 'addConfigurationBasedFilters',
+            ProductListingCollectFilterEvent::class => [['addConfigurationBasedFilters', -20], ['removeNativeFilters', -10]],
         ];
+    }
+
+    public function removeNativeFilters(ProductListingCollectFilterEvent $event): void
+    {
+        $this->nativeFilterRemover->removeNativeFilters($event->getFilters(), $event->getSalesChannelContext()->getSalesChannelId());
     }
 }
