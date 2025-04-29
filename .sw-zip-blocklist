@@ -1,11 +1,13 @@
 .git/
 .github/
 bin/
+docs/
 docker/
 tests/
 .babelrc
 .eslintignore
 .eslintrc.js
+.gitattributes
 .gitignore
 .npmrc
 .postcssrc.js
@@ -16,11 +18,11 @@ composer.lock
 docker-compose.yml
 ecs.php
 jsconfig.json
+LICENSE
 Makefile
 phpstan.neon.dist
 phpstan-baseline.neon
 phpunit.xml.dist
-README.md
 rector.php
 tsconfig.json
 webpack.config.js
