@@ -27,12 +27,11 @@ declare namespace EntitySchema {
     }
 
     interface itb_lfc_multi_select extends ItbConfigurableListingFilters.ListingFilterConfiguration {
-        displayType: string | null;
         sortingOrder: string;
         allowedElements: string[] | null;
         forbiddenElements: string[] | null;
-        elementPrefix: string;
-        elementSuffix: string;
+        elementPrefix: string | null;
+        elementSuffix: string | null;
         explicitElementSorting: string[] | null;
     }
 

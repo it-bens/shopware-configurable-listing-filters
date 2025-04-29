@@ -9,6 +9,7 @@ import './component/itb-configurable-listing-filters-form-multi-select'
 import './component/itb-configurable-listing-filters-form-range'
 import './component/itb-configurable-listing-filters-form-range-interval'
 import './component/itb-configurable-listing-filters-form-range-interval-interval'
+import './component/itb-configurable-listing-filters-presets-button-group'
 
 import './page/itb-configurable-listing-filters-edit'
 import './page/itb-configurable-listing-filters-list'

@@ -1,0 +1,14 @@
+{
+  "dalField": "manufacturer.name",
+  "displayName": "Manufacturer",
+  "position": null,
+  "enabled": true,
+  "twigTemplate": "@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig",
+  "salesChannelId": null,
+  "sortingOrder": "asc",
+  "allowedElements": null,
+  "forbiddenElements": null,
+  "elementPrefix": null,
+  "elementSuffix": null,
+  "explicitElementSorting": null
+}
