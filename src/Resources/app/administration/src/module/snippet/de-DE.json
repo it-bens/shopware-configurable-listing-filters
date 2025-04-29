@@ -5,7 +5,7 @@
       "buttonDeleteText": "Löschen",
       "buttonEditText": "Bearbeiten",
       "buttonSaveText": "Speichern",
-      "moduleTitle": "Konfigurierbare Listing-Filter",
+      "moduleTitle": "Listing-Filter",
       "moduleDescription": "Verwaltung der konfigurierbaren Listing-Filter",
       "errorTitle": "Fehler",
       "successTitle": "Erfolg",
@@ -13,7 +13,7 @@
       "deletionErrorMessage": "Beim Löschen der Filterkonfiguration ist ein Fehler aufgetreten"
     },
     "list": {
-      "title": "Konfigurierbare Listing-Filter",
+      "title": "Listing-Filterkonfigurationen",
       "dataGrid": {
         "column": {
           "dalField": "DAL-Feld",
