@@ -91,6 +91,7 @@
                     "buttonDeleteInterval": "Delete interval",
                     "labelMin": "Minimum value",
                     "labelMax": "Maximum value",
+                    "labelTitle": "Title",
                     "labelPosition": "Position"
                 }
             }
