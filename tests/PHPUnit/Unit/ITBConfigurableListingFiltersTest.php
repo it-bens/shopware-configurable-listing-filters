@@ -11,6 +11,7 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Mu
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\Aggregate\RangeListingFilterConfigurationTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\Interval\Aggregate\RangeIntervalListingFilterConfigurationIntervalTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\Interval\RangeIntervalListingFilterConfigurationIntervalDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\Translation\RangeIntervalListingFilterConfigurationTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationDefinition;
@@ -42,8 +43,6 @@ final class ITBConfigurableListingFiltersTest extends TestCase
             ->with(Connection::class)
             ->willReturn($this->connectionMock);
 
-        // Instantiate the plugin manually as it doesn't have a constructor dependency
-        // We need reflection to set the protected container property
         $this->plugin = new ITBConfigurableListingFilters(true, '', '');
         $reflection = new \ReflectionClass($this->plugin);
         $containerProperty = $reflection->getProperty('container');
@@ -57,7 +56,6 @@ final class ITBConfigurableListingFiltersTest extends TestCase
             ->method('keepUserData')
             ->willReturn(true);
 
-        // Expect executeStatement to never be called
         $this->connectionMock
             ->expects($this->never())
             ->method('executeStatement');
@@ -73,18 +71,18 @@ final class ITBConfigurableListingFiltersTest extends TestCase
             ->willReturn(false);
 
         $expectedEntityNames = [
-            CheckboxListingFilterConfigurationDefinition::ENTITY_NAME,
             CheckboxListingFilterConfigurationTranslationDefinition::ENTITY_NAME,
-            MultiSelectListingFilterConfigurationDefinition::ENTITY_NAME,
+            CheckboxListingFilterConfigurationDefinition::ENTITY_NAME,
             MultiSelectListingFilterConfigurationTranslationDefinition::ENTITY_NAME,
-            RangeListingFilterConfigurationDefinition::ENTITY_NAME,
+            MultiSelectListingFilterConfigurationDefinition::ENTITY_NAME,
             RangeListingFilterConfigurationTranslationDefinition::ENTITY_NAME,
-            RangeIntervalListingFilterConfigurationDefinition::ENTITY_NAME,
-            RangeIntervalListingFilterConfigurationTranslationDefinition::ENTITY_NAME,
+            RangeListingFilterConfigurationDefinition::ENTITY_NAME,
+            RangeIntervalListingFilterConfigurationIntervalTranslationDefinition::ENTITY_NAME,
             RangeIntervalListingFilterConfigurationIntervalDefinition::ENTITY_NAME,
+            RangeIntervalListingFilterConfigurationTranslationDefinition::ENTITY_NAME,
+            RangeIntervalListingFilterConfigurationDefinition::ENTITY_NAME,
         ];
 
-        // Expect executeStatement to be called exactly once for each entity
         $this->connectionMock
             ->expects($this->exactly(\count($expectedEntityNames)))
             ->method('executeStatement')
@@ -102,14 +100,12 @@ final class ITBConfigurableListingFiltersTest extends TestCase
             ->method('keepUserData')
             ->willReturn(false);
 
-        // Configure container mock to return null for Connection
         $containerMockReturningNull = $this->createMock(ContainerInterface::class);
         $containerMockReturningNull
             ->method('get')
             ->with(Connection::class)
             ->willReturn(null);
 
-        // Set the container mock that returns null
         $reflection = new \ReflectionClass($this->plugin);
         $containerProperty = $reflection->getProperty('container');
         $containerProperty->setValue($this->plugin, $containerMockReturningNull);
