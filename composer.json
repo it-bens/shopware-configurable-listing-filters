@@ -1,7 +1,7 @@
 {
   "name": "it-bens/configurable-listing-filters",
   "description": "Shopware 6 Plugin for the flexible configuration of listing filters.",
-  "version": "0.1.0",
+  "version": "5.1.0",
   "type": "shopware-platform-plugin",
   "license": "MIT",
   "prefer-stable": true,
