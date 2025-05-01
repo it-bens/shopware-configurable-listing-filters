@@ -9,10 +9,6 @@ RUN set -ex; \
     sudo mkdir /opt/phpstorm-coverage && \
     sudo chmod -R 777 /opt/phpstorm-coverage
 
-# Remove existing JWT keys
-RUN set -ex; \
-    rm -rf /var/www/html/config/jwt
-
 # Remove sample plugin
 RUN set -ex; \
     sudo service mysql start && \
@@ -33,3 +29,6 @@ RUN set -ex; \
       phpunit/phpunit:'^10.5' \
       shopware/dev-tools:'^1.5.0' \
       zalas/phpunit-globals:'^4.0'
+
+# Copy boot_end script into image
+ADD ./docker/shopware/boot_end.sh /var/www/boot_end.sh
