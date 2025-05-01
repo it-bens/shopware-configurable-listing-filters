@@ -1,18 +1,14 @@
+import './component/itb-configurable-listing-filters-form-basics';
+import './component/itb-configurable-listing-filters-form-dal-path-field';
+import './component/itb-configurable-listing-filters-form-multi-select';
+import './component/itb-configurable-listing-filters-form-range';
+import './component/itb-configurable-listing-filters-form-range-interval';
+import './component/itb-configurable-listing-filters-form-range-interval-interval';
+import './component/itb-configurable-listing-filters-presets-button-group';
+import './page/itb-configurable-listing-filters-edit';
+import './page/itb-configurable-listing-filters-list';
 import deDE from './module/snippet/de-DE.json';
 import enGB from './module/snippet/en-GB.json';
-
-import './mixin/itb-configurable-listing-filters-locator'
-
-import './component/itb-configurable-listing-filters-form-basics'
-import './component/itb-configurable-listing-filters-form-dal-path-field'
-import './component/itb-configurable-listing-filters-form-multi-select'
-import './component/itb-configurable-listing-filters-form-range'
-import './component/itb-configurable-listing-filters-form-range-interval'
-import './component/itb-configurable-listing-filters-form-range-interval-interval'
-import './component/itb-configurable-listing-filters-presets-button-group'
-
-import './page/itb-configurable-listing-filters-edit'
-import './page/itb-configurable-listing-filters-list'
 
 Shopware.Module.register('itb-configurable-listing-filters', {
     type: 'plugin',
@@ -24,7 +20,7 @@ Shopware.Module.register('itb-configurable-listing-filters', {
 
     snippets: {
         'de-DE': deDE,
-        'en-GB': enGB
+        'en-GB': enGB,
     },
 
     routePrefixName: 'itb.configurable-listing-filters',
@@ -40,15 +36,15 @@ Shopware.Module.register('itb-configurable-listing-filters', {
             path: 'create/:type',
             meta: {
                 parentPath: 'itb.configurable-listing-filters.list',
-            }
+            },
         },
         edit: {
             component: 'itb-configurable-listing-filters-edit',
             path: 'edit/:type/:id',
             meta: {
                 parentPath: 'itb.configurable-listing-filters.list',
-            }
-        }
+            },
+        },
     },
 
     navigation: [{
@@ -56,6 +52,6 @@ Shopware.Module.register('itb-configurable-listing-filters', {
         id: 'itb-configurable-listing-filters',
         parent: 'sw-catalogue',
         position: 100,
-        label: 'itb-configurable-listing-filters.general.moduleTitle'
-    }]
+        label: 'itb-configurable-listing-filters.general.moduleTitle',
+    }],
 });

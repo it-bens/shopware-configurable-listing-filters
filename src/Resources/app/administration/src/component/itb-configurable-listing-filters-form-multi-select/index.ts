@@ -7,7 +7,6 @@ interface SortingOption {
     name: string;
 }
 
-// eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
 Shopware.Component.register('itb-configurable-listing-filters-form-multi-select', {
     template,
 
@@ -15,8 +14,8 @@ Shopware.Component.register('itb-configurable-listing-filters-form-multi-select'
         listingFilterConfiguration: {
             type: Object as () => EntitySchema.itb_lfc_multi_select,
             required: false,
-            default: null
-        }
+            default: null,
+        },
     },
 
     data(): {
@@ -31,8 +30,8 @@ Shopware.Component.register('itb-configurable-listing-filters-form-multi-select'
             listingFilterConfigurationExplicitElementSorting: (this.listingFilterConfiguration.explicitElementSorting || []).join('\n'),
             sortingOptions: [
                 { id: 'asc', name: this.$tc('itb-configurable-listing-filters.form.multiSelect.sortingOrderAsc') },
-                { id: 'desc', name: this.$tc('itb-configurable-listing-filters.form.multiSelect.sortingOrderDesc') }
-            ]
+                { id: 'desc', name: this.$tc('itb-configurable-listing-filters.form.multiSelect.sortingOrderDesc') },
+            ],
         };
     },
 
@@ -43,7 +42,7 @@ Shopware.Component.register('itb-configurable-listing-filters-form-multi-select'
             'forbiddenElements',
             'elementPrefix',
             'elementSuffix',
-            'explicitElementSorting'
+            'explicitElementSorting',
         ]),
     },
 
@@ -63,5 +62,5 @@ Shopware.Component.register('itb-configurable-listing-filters-form-multi-select'
         updateListingFilterConfigurationExplicitElementSorting() {
             this.listingFilterConfiguration.explicitElementSorting = this.stringToArray(this.listingFilterConfigurationExplicitElementSorting);
         },
-    }
+    },
 });

@@ -2,7 +2,6 @@ import template from './itb-configurable-listing-filters-form-range.html.twig';
 
 const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
 
-// eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
 Shopware.Component.register('itb-configurable-listing-filters-form-range', {
     template,
 
@@ -10,13 +9,13 @@ Shopware.Component.register('itb-configurable-listing-filters-form-range', {
         listingFilterConfiguration: {
             type: Object as () => EntitySchema.itb_lfc_range,
             required: false,
-            default: null
-        }
+            default: null,
+        },
     },
 
     computed: {
         ...mapPropertyErrors('listingFilterConfiguration', [
             'unit',
         ]),
-    }
+    },
 });
