@@ -6,9 +6,13 @@ namespace ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfigurat
 
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\ListingFilterConfigurationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\Aggregate\RangeListingFilterConfigurationTranslationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfigurationSet\Aggregate\SetRangeFilterConfigurationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfigurationSet\ListingFilterConfigurationSetDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
@@ -51,6 +55,15 @@ class RangeListingFilterConfigurationDefinition extends ListingFilterConfigurati
         $translationsAssociationField->addFlags(new ApiAware(), new Required());
 
         $fieldCollection->add($translationsAssociationField);
+
+        $setAssociationField = new ManyToManyAssociationField(
+            'sets',
+            ListingFilterConfigurationSetDefinition::class,
+            SetRangeFilterConfigurationDefinition::class,
+            'itb_lfc_range_id',
+            'itb_lfc_set_id'
+        );
+        $setAssociationField->addFlags(new CascadeDelete());
 
         return $fieldCollection;
     }

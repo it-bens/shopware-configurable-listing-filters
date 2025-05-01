@@ -6,9 +6,13 @@ namespace ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfigurat
 
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Checkbox\Aggregate\CheckboxListingFilterConfigurationTranslationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\ListingFilterConfigurationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfigurationSet\Aggregate\SetCheckboxFilterConfigurationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfigurationSet\ListingFilterConfigurationSetDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
@@ -45,6 +49,17 @@ class CheckboxListingFilterConfigurationDefinition extends ListingFilterConfigur
         $translationsAssociationField->addFlags(new ApiAware(), new Required());
 
         $fieldCollection->add($translationsAssociationField);
+
+        $setAssociationField = new ManyToManyAssociationField(
+            'sets',
+            ListingFilterConfigurationSetDefinition::class,
+            SetCheckboxFilterConfigurationDefinition::class,
+            'itb_lfc_checkbox_id',
+            'itb_lfc_set_id'
+        );
+        $setAssociationField->addFlags(new CascadeDelete());
+
+        $fieldCollection->add($setAssociationField);
 
         return $fieldCollection;
     }

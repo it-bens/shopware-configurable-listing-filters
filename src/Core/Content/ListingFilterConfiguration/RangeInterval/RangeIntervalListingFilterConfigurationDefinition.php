@@ -7,9 +7,13 @@ namespace ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfigurat
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\ListingFilterConfigurationDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\Interval\RangeIntervalListingFilterConfigurationIntervalDefinition;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\Aggregate\Translation\RangeIntervalListingFilterConfigurationTranslationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfigurationSet\Aggregate\SetRangeIntervalFilterConfigurationDefinition;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfigurationSet\ListingFilterConfigurationSetDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
@@ -67,6 +71,15 @@ class RangeIntervalListingFilterConfigurationDefinition extends ListingFilterCon
         $translationsAssociationField->addFlags(new ApiAware(), new Required());
 
         $fieldCollection->add($translationsAssociationField);
+
+        $setAssociationField = new ManyToManyAssociationField(
+            'sets',
+            ListingFilterConfigurationSetDefinition::class,
+            SetRangeIntervalFilterConfigurationDefinition::class,
+            'itb_lfc_range_interval_id',
+            'itb_lfc_set_id'
+        );
+        $setAssociationField->addFlags(new CascadeDelete());
 
         return $fieldCollection;
     }
