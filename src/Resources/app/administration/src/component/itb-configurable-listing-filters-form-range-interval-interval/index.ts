@@ -1,3 +1,4 @@
+import { data } from '@shopware-ag/admin-extension-sdk';
 import template from './itb-configurable-listing-filters-form-range-interval-interval.html.twig';
 
 const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
@@ -17,20 +18,15 @@ interface DataGridRecord {
     position: number;
 }
 
-// eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
 Shopware.Component.register('itb-configurable-listing-filters-form-range-interval-interval', {
     template,
-
-    inject: [
-        'repositoryFactory',
-    ],
 
     props: {
         listingFilterConfiguration: {
             type: Object as () => EntitySchema.itb_lfc_range_interval,
             required: false,
-            default: null
-        }
+            default: null,
+        },
     },
 
     computed: {
@@ -44,26 +40,26 @@ Shopware.Component.register('itb-configurable-listing-filters-form-range-interva
                     property: 'min',
                     label: this.$tc('itb-configurable-listing-filters.form.rangeInterval.interval.labelMin'),
                     inlineEdit: 'number',
-                    width: '110px'
+                    width: '110px',
                 },
                 {
                     property: 'max',
                     label: this.$tc('itb-configurable-listing-filters.form.rangeInterval.interval.labelMax'),
                     inlineEdit: 'number',
-                    width: '110px'
+                    width: '110px',
                 },
                 {
                     property: 'title',
                     label: this.$tc('itb-configurable-listing-filters.form.rangeInterval.interval.labelTitle'),
                     inlineEdit: 'string',
-                    width: '110px'
+                    width: '110px',
                 },
                 {
                     property: 'position',
                     label: this.$tc('itb-configurable-listing-filters.form.rangeInterval.interval.labelPosition'),
                     inlineEdit: 'number',
-                    width: '110px'
-                }
+                    width: '110px',
+                },
             ];
         },
 
@@ -79,7 +75,7 @@ Shopware.Component.register('itb-configurable-listing-filters-form-range-interva
                     min: interval.min,
                     max: interval.max,
                     title: interval.title,
-                    position: interval.position
+                    position: interval.position,
                 });
             });
 
@@ -87,7 +83,7 @@ Shopware.Component.register('itb-configurable-listing-filters-form-range-interva
         },
 
         intervalRepository() {
-            return this.repositoryFactory.create('itb_lfc_range_interval_interval');
+            return data.repository('itb_lfc_range_interval_interval');
         },
     },
 
@@ -105,8 +101,11 @@ Shopware.Component.register('itb-configurable-listing-filters-form-range-interva
             }
         },
 
-        onIntervalAdd(): void {
-            const interval: EntitySchema.itb_lfc_range_interval_interval = this.intervalRepository.create();
+        async onIntervalAdd(): Promise<void> {
+            const interval = await this.intervalRepository.create();
+            if (!interval) {
+                throw new Error('Failed to create interval');
+            }
 
             let highestPosition = 0;
             if (this.listingFilterConfiguration.intervals && this.listingFilterConfiguration.intervals.length > 0) {
@@ -132,5 +131,5 @@ Shopware.Component.register('itb-configurable-listing-filters-form-range-interva
                 this.listingFilterConfiguration.intervals.splice(index, 1);
             }
         },
-    }
+    },
 });

@@ -1,21 +1,11 @@
+import { data, notification } from '@shopware-ag/admin-extension-sdk';
+import { getCriteriaByFilterType, getDefaultTwigTemplateByFilterType, getRepositoryByFilterType, getTranslationKeyForCreatePageTitleByFilterType } from '../../mixin/itb-configurable-listing-filters-locator';
+import Criteria from '@shopware-ag/admin-extension-sdk/es/data/Criteria';
+import type { Entity } from '@shopware-ag/admin-extension-sdk/es/data/_internals/Entity';
 import template from './itb-configurable-listing-filters-edit.html.twig';
-import {Entity} from "@shopware-ag/admin-extension-sdk/es/data/_internals/Entity";
 
-const { Mixin, Context } = Shopware;
-const { Criteria } = Shopware.Data;
-
-// eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
 Shopware.Component.register('itb-configurable-listing-filters-edit', {
     template,
-
-    inject: [
-        'repositoryFactory',
-    ],
-
-    mixins: [
-        Mixin.getByName('notification'),
-        Mixin.getByName('itbConfigurableListingFiltersLocator'),
-    ],
 
     data(): {
         isLoading: boolean;
@@ -36,39 +26,31 @@ Shopware.Component.register('itb-configurable-listing-filters-edit', {
             isSaveSuccessful: false,
             listingFilterConfiguration: null,
             salesChannels: [],
-            languageId: null
+            languageId: null,
         };
     },
 
     computed: {
         createPageTitle() {
-            return this.$tc(this.getTranslationKeyForCreatePageTitleByFilterType(this.$route.params.type));
+            return this.$tc(getTranslationKeyForCreatePageTitleByFilterType(this.$route.params.type));
         },
 
         defaultTwigTemplate() {
-            return this.getDefaultTwigTemplateByFilterType(this.$route.params.type);
-        },
-
-        isSystemLanguage() {
-            return this.languageId === Context.api.systemLanguageId;
-        },
-
-        languageRepository() {
-            return this.repositoryFactory.create('language');
+            return getDefaultTwigTemplateByFilterType(this.$route.params.type);
         },
 
         listingFilterConfigurationRepository() {
-            return this.getRepositoryByFilterType(this.$route.params.type, this.repositoryFactory);
+            return getRepositoryByFilterType(this.$route.params.type);
         },
 
         salesChannelCriteria() {
-            const criteria = new Criteria();
+            const criteria = new data.Classes.Criteria();
             criteria.addSorting(Criteria.sort('name', 'ASC'));
             return criteria;
         },
 
         salesChannelRepository() {
-            return this.repositoryFactory.create('sales_channel');
+            return data.repository('sales_channel');
         },
     },
 
@@ -79,22 +61,26 @@ Shopware.Component.register('itb-configurable-listing-filters-edit', {
     methods: {
         async createdComponent() {
             if (!Shopware.State.getters['context/isSystemDefaultLanguage']) {
-                Shopware.Context.api.languageId = Shopware.Context.api.systemLanguageId;
+                Shopware.State.commit('context/resetLanguageToDefault');
             }
 
             this.isLoading = true;
 
             await this.loadSalesChannels();
-            this.$route.params.id ? await this.loadListingFilterConfiguration() : this.createListingFilterConfiguration();
+            this.$route.params.id ? await this.loadListingFilterConfiguration() : await this.createListingFilterConfiguration();
 
             this.isLoading = false;
         },
 
-        createListingFilterConfiguration(): void {
-            const listingFilterConfiguration = this.listingFilterConfigurationRepository.create();
+        async createListingFilterConfiguration(): Promise<void> {
+            const listingFilterConfiguration = await this.listingFilterConfigurationRepository.create();
+            if (!listingFilterConfiguration) {
+                throw new Error('The listing filter configuration could not be created.');
+            }
+
             listingFilterConfiguration.id = Shopware.Utils.createId();
             listingFilterConfiguration.enabled = true;
-            listingFilterConfiguration.twigTemplate = this.defaultTwigTemplate
+            listingFilterConfiguration.twigTemplate = this.defaultTwigTemplate;
 
             this.listingFilterConfiguration = listingFilterConfiguration;
         },
@@ -103,14 +89,18 @@ Shopware.Component.register('itb-configurable-listing-filters-edit', {
             return this.listingFilterConfigurationRepository.get(
                 this.$route.params.id,
                 undefined,
-                this.getCriteriaByFilterType(this.$route.params.type),
+                getCriteriaByFilterType(this.$route.params.type),
             ).then(result => {
                 this.listingFilterConfiguration = result;
-            })
+            });
         },
 
         async loadSalesChannels(): Promise<void> {
-            return this.salesChannelRepository.search(this.salesChannelCriteria).then(result => {
+            return data.repository('sales_channel').search(this.salesChannelCriteria).then(result => {
+                if (!result) {
+                    throw new Error('The sales channels could not be loaded.');
+                }
+
                 this.salesChannels = result;
             });
         },
@@ -153,7 +143,9 @@ Shopware.Component.register('itb-configurable-listing-filters-edit', {
             }).catch(() => {
                 this.isSaveSuccessful = false;
 
-                this.createNotificationError({
+                notification.dispatch({
+                    variant: 'error',
+                    title: this.$tc('itb-configurable-listing-filters.general.errorTitle'),
                     message: this.$tc('sw-customer.detail.messageSaveError'),
                 });
             }).finally(() => {

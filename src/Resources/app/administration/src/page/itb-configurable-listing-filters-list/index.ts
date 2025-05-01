@@ -1,7 +1,11 @@
+import { data, notification } from '@shopware-ag/admin-extension-sdk';
+import { getCriteriaByEntityName, getFilterTypeByEntityName, getRepositoryByEntityName } from '../../mixin/itb-configurable-listing-filters-locator';
+import Criteria from '@shopware-ag/admin-extension-sdk/es/data/Criteria';
+import type { Entity } from '@shopware-ag/admin-extension-sdk/es/data/_internals/Entity';
+import type EntityCollection from '@shopware-ag/admin-extension-sdk/es/data/_internals/EntityCollection';
 import template from './itb-configurable-listing-filters-list.html.twig';
 
-const { Mixin } = Shopware;
-const { Criteria } = Shopware.Data;
+type itb_lfc = 'itb_lfc_checkbox' | 'itb_lfc_multi_select' | 'itb_lfc_range' | 'itb_lfc_range_interval';
 
 interface DataGridColumn {
     property: string;
@@ -10,7 +14,7 @@ interface DataGridColumn {
 }
 
 interface DataGridRecord {
-    type: string,
+    type: string;
     id: string;
     dalField: string;
     displayName: string;
@@ -27,17 +31,6 @@ interface SalesChannelOption {
 Shopware.Component.register('itb-configurable-listing-filters-list', {
     template,
 
-    inject: [
-        'repositoryFactory',
-    ],
-
-    mixins: [
-        Mixin.getByName('notification'),
-        Mixin.getByName('listing'),
-        Mixin.getByName('placeholder'),
-        Mixin.getByName('itbConfigurableListingFiltersLocator'),
-    ],
-    
     data(): {
         isLoading: boolean;
         checkboxListingFilterConfigurations: Array<EntitySchema.itb_lfc_checkbox>;
@@ -60,13 +53,13 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
 
     metaInfo() {
         return {
-            title: this.$tc('itb-configurable-listing-filters.list.title')
+            title: this.$tc('itb-configurable-listing-filters.list.title'),
         };
     },
 
     computed: {
         salesChannelRepository() {
-            return this.repositoryFactory.create('sales_channel');
+            return data.repository('sales_channel');
         },
 
         dataGridColumns(): Array<DataGridColumn> {
@@ -74,32 +67,32 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
                 {
                     property: 'dalField',
                     label: this.$tc('itb-configurable-listing-filters.list.dataGrid.column.dalField'),
-                    rawData: true
+                    rawData: true,
                 },
                 {
                     property: 'displayName',
                     label: this.$tc('itb-configurable-listing-filters.list.dataGrid.column.displayName'),
-                    rawData: true
+                    rawData: true,
                 },
                 {
                     property: 'salesChannel',
                     label: this.$tc('itb-configurable-listing-filters.list.dataGrid.column.salesChannel'),
-                    rawData: true
+                    rawData: true,
                 },
                 {
                     property: 'position',
                     label: this.$tc('itb-configurable-listing-filters.list.dataGrid.column.position'),
-                    rawData: true
+                    rawData: true,
                 },
                 {
                     property: 'enabled',
                     label: this.$tc('itb-configurable-listing-filters.list.dataGrid.column.enabled'),
-                    rawData: true
-                }
+                    rawData: true,
+                },
             ];
         },
 
-        salesChannelCriteria(): Criteria {
+        salesChannelCriteria() {
             const criteria = new Criteria();
             criteria.addSorting(Criteria.sort('name', 'ASC'));
 
@@ -107,11 +100,11 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
         },
 
         listingFilterConfigurations(): Array<ItbConfigurableListingFilters.ListingFilterConfiguration> {
-           return [
+            return [
                 ...this.checkboxListingFilterConfigurations,
                 ...this.multiSelectListingFilterConfigurations,
                 ...this.rangeListingFilterConfigurations,
-                ...this.rangeIntervalListingFilterConfigurations
+                ...this.rangeIntervalListingFilterConfigurations,
             ];
         },
 
@@ -119,7 +112,7 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
             const records: Array<DataGridRecord> = [];
 
             const listingFilterConfigurations = this.listingFilterConfigurationsForSalesChannel(this.selectedSalesChannelForFiltering);
-            listingFilterConfigurations.forEach((listingFilterConfiguration) => {
+            listingFilterConfigurations.forEach((listingFilterConfiguration: Entity<itb_lfc>) => {
                 records.push({
                     type: listingFilterConfiguration.apiAlias.replace('_foreign_keys_extension', ''),
                     id: listingFilterConfiguration.id,
@@ -127,7 +120,7 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
                     displayName: listingFilterConfiguration.displayName,
                     salesChannel: this.getSalesChannelName(listingFilterConfiguration.salesChannelId),
                     position: listingFilterConfiguration.position ? listingFilterConfiguration.position.toString() : '',
-                    enabled: listingFilterConfiguration.enabled
+                    enabled: listingFilterConfiguration.enabled,
                 });
             });
 
@@ -137,16 +130,16 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
         salesChannelFilterOptions(): Array<SalesChannelOption> {
             const options: Array<SalesChannelOption> = [{
                 id: null,
-                name: this.$tc('itb-configurable-listing-filters.list.allSalesChannels')
+                name: this.$tc('itb-configurable-listing-filters.list.allSalesChannels'),
             }];
-            
-            this.salesChannels.forEach(salesChannel => {
+
+            this.salesChannels.forEach((salesChannel: Entity<'sales_channel'>) => {
                 options.push({
                     id: salesChannel.id,
-                    name: salesChannel.name
+                    name: salesChannel.name,
                 });
             });
-            
+
             return options;
         },
     },
@@ -168,10 +161,10 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
             let listingFilterConfigurations = this.listingFilterConfigurations;
 
             if (typeof salesChannelId === 'string') {
-                listingFilterConfigurations = listingFilterConfigurations.filter(listingFilterConfiguration => listingFilterConfiguration.salesChannelId === salesChannelId || listingFilterConfiguration.salesChannelId === null);
+                listingFilterConfigurations = listingFilterConfigurations.filter((listingFilterConfiguration: Entity<itb_lfc>) => listingFilterConfiguration.salesChannelId === salesChannelId || listingFilterConfiguration.salesChannelId === null);
             }
 
-            return listingFilterConfigurations.sort((a, b) => {
+            return listingFilterConfigurations.sort((a: Entity<itb_lfc>, b: Entity<itb_lfc>) => {
                 const posA = a.position || 999;
                 const posB = b.position || 999;
                 return posA - posB;
@@ -179,10 +172,10 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
         },
 
         async loadSalesChannels(): Promise<void> {
-            return this.salesChannelRepository.search(this.salesChannelCriteria).then(result => {
-                result.forEach(salesChannel => {
+            return this.salesChannelRepository.search(this.salesChannelCriteria).then((result: EntityCollection<'sales_channel'>) => {
+                result.forEach((salesChannel: Entity<'sales_channel'>) => {
                     this.salesChannels.push(salesChannel);
-                })
+                });
             });
         },
 
@@ -191,42 +184,58 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
 
             const promises: Array<Promise<void>> = [];
 
-            const checkboxListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_lfc_checkbox', this.repositoryFactory);
-            const checkboxListingFilterConfigurationCriteria = this.getCriteriaByEntityName('itb_lfc_checkbox');
+            const checkboxListingFilterConfigurationRepository = data.repository('itb_lfc_checkbox');
+            const checkboxListingFilterConfigurationCriteria = getCriteriaByEntityName('itb_lfc_checkbox');
             promises.push(checkboxListingFilterConfigurationRepository.search(checkboxListingFilterConfigurationCriteria).then(result => {
+                if (!result) {
+                    throw new Error('No result found for checkbox listing filter configuration');
+                }
+
                 this.checkboxListingFilterConfigurations = [];
                 result.forEach((listingFilterConfiguration) => {
                     this.checkboxListingFilterConfigurations.push(listingFilterConfiguration);
-                })
+                });
             }));
 
-            const multiSelectListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_lfc_multi_select', this.repositoryFactory);
-            const multiSelectListingFilterConfigurationCriteria = this.getCriteriaByEntityName('itb_lfc_multi_select');
+            const multiSelectListingFilterConfigurationRepository = data.repository('itb_lfc_multi_select');
+            const multiSelectListingFilterConfigurationCriteria = getCriteriaByEntityName('itb_lfc_multi_select');
             promises.push(multiSelectListingFilterConfigurationRepository.search(multiSelectListingFilterConfigurationCriteria).then(result => {
+                if (!result) {
+                    throw new Error('No result found for multi-select listing filter configuration');
+                }
+
                 this.multiSelectListingFilterConfigurations = [];
                 result.forEach((listingFilterConfiguration) => {
                     this.multiSelectListingFilterConfigurations.push(listingFilterConfiguration);
-                })
+                });
             }));
 
-            const rangeListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_lfc_range', this.repositoryFactory);
-            const rangeListingFilterConfigurationCriteria = this.getCriteriaByEntityName('itb_lfc_range');
+            const rangeListingFilterConfigurationRepository = data.repository('itb_lfc_range');
+            const rangeListingFilterConfigurationCriteria = getCriteriaByEntityName('itb_lfc_range');
             promises.push(rangeListingFilterConfigurationRepository.search(rangeListingFilterConfigurationCriteria).then(result => {
+                if (!result) {
+                    throw new Error('No result found for range listing filter configuration');
+                }
+
                 this.rangeListingFilterConfigurations = [];
                 result.forEach((listingFilterConfiguration) => {
                     this.rangeListingFilterConfigurations.push(listingFilterConfiguration);
-                })
+                });
             }));
 
-            const rangeIntervalListingFilterConfigurationRepository = this.getRepositoryByEntityName('itb_lfc_range_interval', this.repositoryFactory);
-            const rangeIntervalListingFilterConfigurationCriteria = this.getCriteriaByEntityName('itb_lfc_range_interval');
+            const rangeIntervalListingFilterConfigurationRepository = data.repository('itb_lfc_range_interval');
+            const rangeIntervalListingFilterConfigurationCriteria = getCriteriaByEntityName('itb_lfc_range_interval');
             promises.push(rangeIntervalListingFilterConfigurationRepository.search(rangeIntervalListingFilterConfigurationCriteria).then(result => {
+                if (!result) {
+                    throw new Error('No result found for range interval listing filter configuration');
+                }
+
                 this.rangeIntervalListingFilterConfigurations = [];
                 result.forEach((listingFilterConfiguration) => {
                     this.rangeIntervalListingFilterConfigurations.push(listingFilterConfiguration);
-                })
+                });
             }));
-            
+
             return Promise.all(promises).then(() => {
                 this.isLoading = false;
             }).catch(error => {
@@ -239,8 +248,8 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
             if (!id) {
                 return this.$tc('itb-configurable-listing-filters.list.allSalesChannels');
             }
-            
-            const channel = this.salesChannels.find(channel => channel.id === id);
+
+            const channel = this.salesChannels.find((channel: Entity<'sales_channel'>) => channel.id === id);
             return channel ? channel.name : id;
         },
 
@@ -248,27 +257,29 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
             await this.$router.push({
                 name: 'itb.configurable-listing-filters.edit',
                 params: {
-                    type: this.getFilterTypeByEntityName(dataGridRecord.type),
+                    type: getFilterTypeByEntityName(dataGridRecord.type),
                     id: dataGridRecord.id,
-                }
+                },
             });
         },
 
         async onDeleteListingFilterConfiguration(dataGridRecord: DataGridRecord): Promise<void> {
-            const repository = this.getRepositoryByEntityName(dataGridRecord.type, this.repositoryFactory)
+            const repository = getRepositoryByEntityName(dataGridRecord.type);
 
             this.isLoading = true;
             await repository.delete(dataGridRecord.id).then(() => {
                 this.loadListingFilterConfigurations();
-                this.createNotificationSuccess({
+                notification.dispatch({
+                    variant: 'success',
                     title: this.$tc('itb-configurable-listing-filters.general.successTitle'),
-                    message: this.$tc('itb-configurable-listing-filters.general.deleteSuccessMessage')
+                    message: this.$tc('itb-configurable-listing-filters.general.deleteSuccessMessage'),
                 });
             }).catch((error: Error) => {
                 console.error('Delete operation failed:', error);
-                this.createNotificationError({
+                notification.dispatch({
+                    variant: 'error',
                     title: this.$tc('itb-configurable-listing-filters.general.errorTitle'),
-                    message: this.$tc('itb-configurable-listing-filters.general.deletionErrorMessage')
+                    message: this.$tc('itb-configurable-listing-filters.general.deletionErrorMessage'),
                 });
             }).finally(() => {
                 this.isLoading = false;
@@ -286,6 +297,6 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
 
         saveOnLanguageChange(): void {},
 
-        abortOnLanguageChange(): void {}
-    }
+        abortOnLanguageChange(): void {},
+    },
 });

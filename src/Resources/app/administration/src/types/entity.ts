@@ -2,7 +2,7 @@ declare namespace ItbConfigurableListingFilters {
     import sales_channel = EntitySchema.sales_channel;
 
     interface ListingFilterConfiguration {
-        apiAlias: string,
+        apiAlias: string;
         id: string;
         dalField: string;
         displayName: string;
@@ -16,11 +16,11 @@ declare namespace ItbConfigurableListingFilters {
 
 declare namespace EntitySchema {
     interface Entities {
-        itb_lfc_checkbox: itb_lfc_checkbox,
-        itb_lfc_multi_select: itb_lfc_multi_select,
-        itb_lfc_range: itb_lfc_range,
-        itb_lfc_range_interval: itb_lfc_range_interval,
-        itb_lfc_range_interval_interval: itb_lfc_range_interval_interval,
+        itb_lfc_checkbox: itb_lfc_checkbox;
+        itb_lfc_multi_select: itb_lfc_multi_select;
+        itb_lfc_range: itb_lfc_range;
+        itb_lfc_range_interval: itb_lfc_range_interval;
+        itb_lfc_range_interval_interval: itb_lfc_range_interval_interval;
     }
 
     interface itb_lfc_checkbox extends ItbConfigurableListingFilters.ListingFilterConfiguration {

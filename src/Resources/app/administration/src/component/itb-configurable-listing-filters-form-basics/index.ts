@@ -1,15 +1,10 @@
+import { data } from '@shopware-ag/admin-extension-sdk';
 import template from './itb-configurable-listing-filters-form-basics.html.twig';
 
-const { Criteria } = Shopware.Data;
 const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
 
-// eslint-disable-next-line sw-deprecation-rules/private-feature-declarations
 Shopware.Component.register('itb-configurable-listing-filters-form-basics', {
     template,
-
-    inject: [
-        'repositoryFactory'
-    ],
 
     props: {
         filterType: {
@@ -19,28 +14,28 @@ Shopware.Component.register('itb-configurable-listing-filters-form-basics', {
         listingFilterConfiguration: {
             type: Object as () => ItbConfigurableListingFilters.ListingFilterConfiguration,
             required: false,
-            default: null
-        }
+            default: null,
+        },
     },
 
     computed: {
         ...mapPropertyErrors('listingFilterConfiguration', [
             'dalField',
             'displayName',
-            'twigTemplate'
+            'twigTemplate',
         ]),
 
         salesChannelRepository() {
-            return this.repositoryFactory.create('sales_channel');
+            return data.repository('sales_channel');
         },
 
         salesChannelCriteria() {
-            const criteria = new Criteria();
-            criteria.addSorting(Criteria.sort('name', 'ASC'));
+            const criteria = new data.Classes.Criteria();
+            criteria.addSorting(data.Classes.Criteria.sort('name', 'ASC'));
             return criteria;
         },
 
-        isDisplayNameRequired() {
+        isDisplayNameRequired(): boolean {
             return Shopware.State.getters['context/isSystemDefaultLanguage'];
         },
     },
@@ -52,5 +47,5 @@ Shopware.Component.register('itb-configurable-listing-filters-form-basics', {
     methods: {
         async createdComponent(): Promise<void> {
         },
-    }
+    },
 });
