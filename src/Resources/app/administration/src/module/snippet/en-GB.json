@@ -1,107 +1,107 @@
 {
-    "itb-configurable-listing-filters": {
-        "general": {
-            "buttonAddText": "Add Filter Configuration",
-            "buttonDeleteText": "Delete",
-            "buttonEditText": "Edit",
-            "buttonSaveText": "Save",
-            "moduleTitle": "Listing Filters",
-            "moduleDescription": "Manage Configurable Listing Filters",
-            "errorTitle": "Error",
-            "successTitle": "Success",
-            "deleteSuccessMessage": "Filter configuration deleted successfully",
-            "deletionErrorMessage": "An error occurred while deleting the filter configuration"
-        },
-        "list": {
-            "title": "Listing Filter Configurations",
-            "dataGrid": {
-                "column": {
-                    "dalField": "DAL field",
-                    "displayName": "Display name",
-                    "salesChannel": "Sales channel",
-                    "position": "Position",
-                    "enabled": "Enabled",
-                    "actions": "Actions"
-                }
-            },
-            "labelSalesChannel": "Sales channel",
-            "allSalesChannels": "All sales channels",
-            "createCheckboxFilterConfigurationButton": "For Checkbox Filter",
-            "createMultiSelectFilterConfigurationButton": "For Multi Select Filter",
-            "createRangeFilterConfigurationButton": "For Range Filter",
-            "createRangeIntervalFilterConfigurationButton": "For Range Interval Filter",
-            "createFilterConfigurationButton": "Create Filter Configuration"
-        },
-        "preset": {
-            "addFilterConfigurationFromPreset": "Presets",
-            "createFilterConfigurationForManufacturerButton": "Manufacturer Filter",
-            "createFilterConfigurationForPriceButton": "Price Filter",
-            "createFilterConfigurationForRatingButton": "Rating Filter",
-            "createFilterConfigurationForShippingFreeButton": "Shipping Free Filter"
-        },
-        "form": {
-            "basics": {
-                "cardTitle": "Filter Settings",
-                "labelDalField": "DAL field",
-                "placeholderDalField": "Enter the DAL field ...",
-                "helpTextDalField": "Path relative to the product entity.",
-                "labelDisplayName": "Display name",
-                "placeholderDisplayName": "Enter the display name ...",
-                "labelTwigTemplate": "TWIG template",
-                "placeholderTwigTemplate": "Enter the TWIG template path ...",
-                "labelEnabled": "Enabled",
-                "labelPosition": "Filter Position",
-                "placeholderPosition": "Enter the filter position ...",
-                "labelSalesChannel": "Sales channel",
-                "placeholderSalesChannel": "Select the sales channel ..."
-            },
-            "checkbox": {
-                "createPageTitle": "Create Checkbox Filter Configuration"
-            },
-            "multiSelect": {
-                "createPageTitle": "Create Multi Select Filter Configuration",
-                "cardTitle": "Multi Select Filter Settings",
-                "labelSortingOrder": "Element Sorting order",
-                "placeholderSortingOrder": "Choose the sorting order ...",
-                "sortingOrderAsc": "Ascending",
-                "sortingOrderDesc": "Descending",
-                "labelAllowedElements": "Allowed Elements",
-                "placeholderAllowedElements": "Enter the allowed elements ...",
-                "helpTextAllowedElements": "Only these elements will be displayed. Leave empty to show all. One element per line.",
-                "labelForbiddenElements": "Forbidden elements",
-                "placeholderForbiddenElements": "Enter the forbidden elements ...",
-                "helpTextForbiddenElements": "These elements will be hidden. One element per line",
-                "labelElementPrefix": "Element prefix",
-                "placeholderElementPrefix": "Enter the prefix ...",
-                "labelElementSuffix": "Element suffix",
-                "placeholderElementSuffix": "Enter the suffix ...",
-                "labelExplicitElementSorting": "Explicit element sorting",
-                "placeholderExplicitElementSorting": "Enter the elements that should be explicitly sorted ...",
-                "helpTextExplicitElementSorting": "The elements will appear on top of the list in the given order. One element per line."
-            },
-            "range": {
-                "createPageTitle": "Create Range Filter Configuration",
-                "cardTitle": "Range Filter Settings",
-                "labelUnit": "Unit",
-                "placeholderUnit": "Enter the unit ..."
-            },
-            "rangeInterval": {
-                "createPageTitle": "Create Range Interval Filter Configuration",
-                "cardTitle": "Range Interval Filter Settings",
-                "labelElementPrefix": "Element prefix",
-                "placeholderElementPrefix": "Enter the prefix ...",
-                "labelElementSuffix": "Element suffix",
-                "placeholderElementSuffix": "Enter the suffix ...",
-                "interval": {
-                    "cardTitle": "Intervals",
-                    "buttonAddInterval": "Add interval",
-                    "buttonDeleteInterval": "Delete interval",
-                    "labelMin": "Minimum value",
-                    "labelMax": "Maximum value",
-                    "labelTitle": "Title",
-                    "labelPosition": "Position"
-                }
-            }
+  "itb-configurable-listing-filters": {
+    "general": {
+      "buttonAddText": "Add Filter Configuration",
+      "buttonDeleteText": "Delete",
+      "buttonEditText": "Edit",
+      "buttonSaveText": "Save",
+      "moduleTitle": "Listing Filters",
+      "moduleDescription": "Manage Configurable Listing Filters",
+      "errorTitle": "Error",
+      "successTitle": "Success",
+      "deleteSuccessMessage": "Filter configuration deleted successfully",
+      "deletionErrorMessage": "An error occurred while deleting the filter configuration"
+    },
+    "list": {
+      "title": "Listing Filter Configurations",
+      "dataGrid": {
+        "column": {
+          "dalField": "DAL field",
+          "displayName": "Display name",
+          "salesChannel": "Sales channel",
+          "position": "Position",
+          "enabled": "Enabled",
+          "actions": "Actions"
         }
+      },
+      "labelSalesChannel": "Sales channel",
+      "allSalesChannels": "All sales channels",
+      "createCheckboxFilterConfigurationButton": "For Checkbox Filter",
+      "createMultiSelectFilterConfigurationButton": "For Multi Select Filter",
+      "createRangeFilterConfigurationButton": "For Range Filter",
+      "createRangeIntervalFilterConfigurationButton": "For Range Interval Filter",
+      "createFilterConfigurationButton": "Create Filter Configuration"
+    },
+    "preset": {
+      "addFilterConfigurationFromPreset": "Presets",
+      "createFilterConfigurationForManufacturerButton": "Manufacturer Filter",
+      "createFilterConfigurationForPriceButton": "Price Filter",
+      "createFilterConfigurationForRatingButton": "Rating Filter",
+      "createFilterConfigurationForShippingFreeButton": "Shipping Free Filter"
+    },
+    "form": {
+      "basics": {
+        "cardTitle": "Filter Settings",
+        "labelDalField": "DAL field",
+        "placeholderDalField": "Enter the DAL field ...",
+        "helpTextDalField": "Path relative to the product entity.",
+        "labelDisplayName": "Display name",
+        "placeholderDisplayName": "Enter the display name ...",
+        "labelTwigTemplate": "TWIG template",
+        "placeholderTwigTemplate": "Enter the TWIG template path ...",
+        "labelEnabled": "Enabled",
+        "labelPosition": "Filter Position",
+        "placeholderPosition": "Enter the filter position ...",
+        "labelSalesChannel": "Sales channel",
+        "placeholderSalesChannel": "Select the sales channel ..."
+      },
+      "checkbox": {
+        "createPageTitle": "Create Checkbox Filter Configuration"
+      },
+      "multiSelect": {
+        "createPageTitle": "Create Multi Select Filter Configuration",
+        "cardTitle": "Multi Select Filter Settings",
+        "labelSortingOrder": "Element Sorting order",
+        "placeholderSortingOrder": "Choose the sorting order ...",
+        "sortingOrderAsc": "Ascending",
+        "sortingOrderDesc": "Descending",
+        "labelAllowedElements": "Allowed Elements",
+        "placeholderAllowedElements": "Enter the allowed elements ...",
+        "helpTextAllowedElements": "Only these elements will be displayed. Leave empty to show all. One element per line.",
+        "labelForbiddenElements": "Forbidden elements",
+        "placeholderForbiddenElements": "Enter the forbidden elements ...",
+        "helpTextForbiddenElements": "These elements will be hidden. One element per line",
+        "labelElementPrefix": "Element prefix",
+        "placeholderElementPrefix": "Enter the prefix ...",
+        "labelElementSuffix": "Element suffix",
+        "placeholderElementSuffix": "Enter the suffix ...",
+        "labelExplicitElementSorting": "Explicit element sorting",
+        "placeholderExplicitElementSorting": "Enter the elements that should be explicitly sorted ...",
+        "helpTextExplicitElementSorting": "The elements will appear on top of the list in the given order. One element per line."
+      },
+      "range": {
+        "createPageTitle": "Create Range Filter Configuration",
+        "cardTitle": "Range Filter Settings",
+        "labelUnit": "Unit",
+        "placeholderUnit": "Enter the unit ..."
+      },
+      "rangeInterval": {
+        "createPageTitle": "Create Range Interval Filter Configuration",
+        "cardTitle": "Range Interval Filter Settings",
+        "labelElementPrefix": "Element prefix",
+        "placeholderElementPrefix": "Enter the prefix ...",
+        "labelElementSuffix": "Element suffix",
+        "placeholderElementSuffix": "Enter the suffix ...",
+        "interval": {
+          "cardTitle": "Intervals",
+          "buttonAddInterval": "Add interval",
+          "buttonDeleteInterval": "Delete interval",
+          "labelMin": "Minimum value",
+          "labelMax": "Maximum value",
+          "labelTitle": "Title",
+          "labelPosition": "Position"
+        }
+      }
     }
+  }
 }

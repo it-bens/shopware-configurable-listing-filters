@@ -14,7 +14,9 @@
     "noErrorTruncation": false,
     "paths": {
       "@/*": ["./src/Resources/app/administration/src/*"],
-      "Shopware/*": ["./vendor/shopware/administration/Resources/app/administration/src/*"],
+      "Shopware/*": [
+        "./vendor/shopware/administration/Resources/app/administration/src/*"
+      ],
       "vue": ["./node_modules/vue/dist/vue.esm.js"]
     },
     "resolveJsonModule": true,
@@ -31,8 +33,5 @@
     "./vendor/shopware/administration/Resources/app/administration/src/**/*.d.ts",
     "./vendor/shopware/administration/Resources/app/administration/src/global.types.ts"
   ],
-  "exclude": [
-    "node_modules", 
-    "dist"
-  ]
+  "exclude": ["node_modules", "dist"]
 }

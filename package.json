@@ -1,0 +1,10 @@
+{
+  "name": "configurable-listing-filters",
+  "description": "Shopware 6 Plugin for the flexible configuration of listing filters.",
+  "author": "Martin Bens",
+  "license": "MIT",
+  "private": "true",
+  "devDependencies": {
+    "prettier": "3.5.3"
+  }
+}
