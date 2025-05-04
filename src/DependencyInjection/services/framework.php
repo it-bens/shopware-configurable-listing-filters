@@ -41,7 +41,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(EventFilter::class)->args([service(EventFlattenerInterface::class)]);
     $services->alias(EventFilterInterface::class, EventFilter::class);
 
-    $services->set(NonStaticEntityDefinitionQueryHelper::class)->args([service(EntityDefinitionQueryHelper::class)]);
+    $services->set(NonStaticEntityDefinitionQueryHelper::class);
     $services->alias(NonStaticEntityDefinitionQueryHelperInterface::class, NonStaticEntityDefinitionQueryHelper::class);
 
     $services->set(FilterFieldInformationCollector::class)->args([
