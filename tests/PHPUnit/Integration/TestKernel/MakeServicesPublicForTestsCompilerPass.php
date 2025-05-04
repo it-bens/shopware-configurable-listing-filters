@@ -6,6 +6,7 @@ namespace ITB\ITBConfigurableListingFilters\Test\PHPUnit\Integration\TestKernel;
 
 use ITB\ITBConfigurableListingFilters\Core\Content\Cms\ProductListingPageSubscriber;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\ProductListingSubscriber;
+use ITB\ITBConfigurableListingFilters\Core\Framework\Adapter\Cache\CacheInvalidationSubscriber;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -22,6 +23,9 @@ final class MakeServicesPublicForTestsCompilerPass implements CompilerPassInterf
 
         $productListingSubscriberDefinition = $container->getDefinition(ProductListingSubscriber::class);
         $productListingSubscriberDefinition->setPublic(true);
+
+        $cacheInvalidationSubscriberDefinition = $container->getDefinition(CacheInvalidationSubscriber::class);
+        $cacheInvalidationSubscriberDefinition->setPublic(true);
     }
 
     private function isPHPUnit(): bool
