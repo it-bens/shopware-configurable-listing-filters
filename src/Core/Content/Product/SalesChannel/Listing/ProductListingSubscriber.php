@@ -22,11 +22,15 @@ final class ProductListingSubscriber implements EventSubscriberInterface
 
     public function addConfigurationBasedFilters(ProductListingCollectFilterEvent $event): void
     {
-        $listingFilterConfigurationCollection = new ListingFilterConfigurationCollection(
-            $this->listingFilterConfigurationRepository->getCheckboxListingFilterConfigurations($event->getSalesChannelContext()),
-            $this->listingFilterConfigurationRepository->getMultiSelectListingFilterConfigurations($event->getSalesChannelContext()),
-            $this->listingFilterConfigurationRepository->getRangeListingFilterConfigurations($event->getSalesChannelContext()),
-            $this->listingFilterConfigurationRepository->getRangeIntervalListingFilterConfigurations($event->getSalesChannelContext()),
+        $context = $event->getSalesChannelContext()
+            ->getContext();
+        $salesChannelId = $event->getSalesChannelContext()
+            ->getSalesChannelId();
+
+        $listingFilterConfigurationCollection = ListingFilterConfigurationCollection::withListingFilterConfigurationRepository(
+            $this->listingFilterConfigurationRepository,
+            $context,
+            $salesChannelId
         );
 
         $this->filterCollectionEnricher->enrichFilterCollection(

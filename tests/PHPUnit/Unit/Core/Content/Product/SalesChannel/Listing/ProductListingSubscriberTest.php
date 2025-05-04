@@ -12,6 +12,8 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Mu
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationCollection;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationEntity;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationCollection;
+use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationEntity;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\ProductListingSubscriber;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\FilterCollectionEnricherInterface;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\Service\NativeFilterRemoverInterface;
@@ -19,6 +21,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Content\Product\Events\ProductListingCollectFilterEvent;
 use Shopware\Core\Content\Product\SalesChannel\Listing\FilterCollection;
+use Shopware\Core\Framework\Context;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -41,10 +44,16 @@ final class ProductListingSubscriberTest extends TestCase
         $rangeListingFilterConfigurationEntity->setDalField('rangeField');
         $rangeListingFilterConfigurationEntity->setPosition(3);
 
+        $rangeIntervalListingFilterConfigurationEntity = new RangeIntervalListingFilterConfigurationEntity();
+        $rangeIntervalListingFilterConfigurationEntity->setUniqueIdentifier('rangeInterval');
+        $rangeIntervalListingFilterConfigurationEntity->setDalField('rangeIntervalField');
+        $rangeIntervalListingFilterConfigurationEntity->setPosition(4);
+
         yield [
             $checkboxListingFilterConfigurationEntity,
             $multiSelectListingFilterConfigurationEntity,
             $rangeListingFilterConfigurationEntity,
+            $rangeIntervalListingFilterConfigurationEntity,
         ];
     }
 
@@ -53,14 +62,18 @@ final class ProductListingSubscriberTest extends TestCase
         CheckboxListingFilterConfigurationEntity $checkboxListingFilterConfigurationEntity,
         MultiSelectListingFilterConfigurationEntity $multiSelectListingFilterConfigurationEntity,
         RangeListingFilterConfigurationEntity $rangeListingFilterConfigurationEntity,
+        RangeIntervalListingFilterConfigurationEntity $rangeIntervalListingFilterConfigurationEntity
     ): void {
         $request = self::createStub(Request::class);
         $filterCollection = $this->createStub(FilterCollection::class);
 
+        $context = $this->createStub(Context::class);
         $salesChannelId = 'test-sales-channel-id';
         $salesChannelContext = $this->createStub(SalesChannelContext::class);
         $salesChannelContext->method('getSalesChannelId')
             ->willReturn($salesChannelId);
+        $salesChannelContext->method('getContext')
+            ->willReturn($context);
 
         $checkBoxListingFilterConfigurationCollection = new CheckboxListingFilterConfigurationCollection([
             $checkboxListingFilterConfigurationEntity,
@@ -71,37 +84,58 @@ final class ProductListingSubscriberTest extends TestCase
         $rangeListingFilterConfigurationCollection = new RangeListingFilterConfigurationCollection([
             $rangeListingFilterConfigurationEntity,
         ]);
+        $rangeIntervalListingFilterConfigurationCollection = new RangeIntervalListingFilterConfigurationCollection([
+            $rangeIntervalListingFilterConfigurationEntity,
+        ]);
 
         $listingFilterConfigurationRepository = $this->createMock(ListingFilterConfigurationRepositoryInterface::class);
         $listingFilterConfigurationRepository
             ->method('getCheckboxListingFilterConfigurations')
-            ->willReturnCallback(function (SalesChannelContext $salesChannelContextArgument) use (
-                $salesChannelContext,
+            ->willReturnCallback(function (Context $contextArgument, string $salesChannelIdArgument) use (
+                $context,
+                $salesChannelId,
                 $checkBoxListingFilterConfigurationCollection
             ): CheckboxListingFilterConfigurationCollection {
-                $this->assertSame($salesChannelContext, $salesChannelContextArgument);
+                $this->assertSame($context, $contextArgument);
+                $this->assertSame($salesChannelId, $salesChannelIdArgument);
 
                 return $checkBoxListingFilterConfigurationCollection;
             });
         $listingFilterConfigurationRepository
             ->method('getMultiSelectListingFilterConfigurations')
-            ->willReturnCallback(function (SalesChannelContext $salesChannelContextArgument) use (
-                $salesChannelContext,
+            ->willReturnCallback(function (Context $contextArgument, string $salesChannelIdArgument) use (
+                $context,
+                $salesChannelId,
                 $multiSelectListingFilterConfigurationCollection
             ): MultiSelectListingFilterConfigurationCollection {
-                $this->assertSame($salesChannelContext, $salesChannelContextArgument);
+                $this->assertSame($context, $contextArgument);
+                $this->assertSame($salesChannelId, $salesChannelIdArgument);
 
                 return $multiSelectListingFilterConfigurationCollection;
             });
         $listingFilterConfigurationRepository
             ->method('getRangeListingFilterConfigurations')
-            ->willReturnCallback(function (SalesChannelContext $salesChannelContextArgument) use (
-                $salesChannelContext,
+            ->willReturnCallback(function (Context $contextArgument, string $salesChannelIdArgument) use (
+                $context,
+                $salesChannelId,
                 $rangeListingFilterConfigurationCollection
             ): RangeListingFilterConfigurationCollection {
-                $this->assertSame($salesChannelContext, $salesChannelContextArgument);
+                $this->assertSame($context, $contextArgument);
+                $this->assertSame($salesChannelId, $salesChannelIdArgument);
 
                 return $rangeListingFilterConfigurationCollection;
+            });
+        $listingFilterConfigurationRepository
+            ->method('getRangeIntervalListingFilterConfigurations')
+            ->willReturnCallback(function (Context $contextArgument, string $salesChannelIdArgument) use (
+                $context,
+                $salesChannelId,
+                $rangeIntervalListingFilterConfigurationCollection
+            ): RangeIntervalListingFilterConfigurationCollection {
+                $this->assertSame($context, $contextArgument);
+                $this->assertSame($salesChannelId, $salesChannelIdArgument);
+
+                return $rangeIntervalListingFilterConfigurationCollection;
             });
 
         $filterCollectionEnricher = $this->createMock(FilterCollectionEnricherInterface::class);
@@ -115,6 +149,7 @@ final class ProductListingSubscriberTest extends TestCase
                     $checkboxListingFilterConfigurationEntity,
                     $multiSelectListingFilterConfigurationEntity,
                     $rangeListingFilterConfigurationEntity,
+                    $rangeIntervalListingFilterConfigurationEntity,
                     $request,
                     $filterCollection
                 ) {
@@ -123,6 +158,7 @@ final class ProductListingSubscriberTest extends TestCase
                             $checkboxListingFilterConfigurationEntity,
                             $multiSelectListingFilterConfigurationEntity,
                             $rangeListingFilterConfigurationEntity,
+                            $rangeIntervalListingFilterConfigurationEntity,
                         ],
                         $listingFilterConfigurationCollectionArgument->getListingFilterConfigurations()
                     );

@@ -32,11 +32,16 @@ final class ProductListingPageSubscriber implements EventSubscriberInterface
 
         $aggregationResults = $this->productListingAggregationsExtractor->extractProductListingAggregations($cmsPageCollection);
 
+        $context = $event->getSalesChannelContext()
+            ->getContext();
+        $salesChannelId = $event->getSalesChannelContext()
+            ->getSalesChannelId();
+
         $listingFilterConfigurationCollection = new ListingFilterConfigurationCollection(
-            $this->listingFilterConfigurationRepository->getCheckboxListingFilterConfigurations($event->getSalesChannelContext()),
-            $this->listingFilterConfigurationRepository->getMultiSelectListingFilterConfigurations($event->getSalesChannelContext()),
-            $this->listingFilterConfigurationRepository->getRangeListingFilterConfigurations($event->getSalesChannelContext()),
-            $this->listingFilterConfigurationRepository->getRangeIntervalListingFilterConfigurations($event->getSalesChannelContext()),
+            $this->listingFilterConfigurationRepository->getCheckboxListingFilterConfigurations($context, $salesChannelId),
+            $this->listingFilterConfigurationRepository->getMultiSelectListingFilterConfigurations($context, $salesChannelId),
+            $this->listingFilterConfigurationRepository->getRangeListingFilterConfigurations($context, $salesChannelId),
+            $this->listingFilterConfigurationRepository->getRangeIntervalListingFilterConfigurations($context, $salesChannelId),
         );
 
         $renderDataCollection = $this->renderDataCollectionBuilder->buildRenderDataCollection(

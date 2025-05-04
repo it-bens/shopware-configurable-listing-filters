@@ -8,6 +8,7 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Ch
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\MultiSelect\MultiSelectListingFilterConfigurationCollection;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Range\RangeListingFilterConfigurationCollection;
 use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\RangeInterval\RangeIntervalListingFilterConfigurationCollection;
+use Shopware\Core\Framework\Context;
 use Traversable;
 
 /**
@@ -38,6 +39,19 @@ final class ListingFilterConfigurationCollection implements \IteratorAggregate
             $this->multiSelectListingFilterConfigurationCollection,
             $this->rangeListingFilterConfigurationCollection,
             $this->rangeIntervalListingFilterConfigurationCollection
+        );
+    }
+
+    public static function withListingFilterConfigurationRepository(
+        ListingFilterConfigurationRepositoryInterface $listingFilterConfigurationRepository,
+        Context $context,
+        ?string $salesChannelId
+    ): self {
+        return new self(
+            $listingFilterConfigurationRepository->getCheckboxListingFilterConfigurations($context, $salesChannelId),
+            $listingFilterConfigurationRepository->getMultiSelectListingFilterConfigurations($context, $salesChannelId),
+            $listingFilterConfigurationRepository->getRangeListingFilterConfigurations($context, $salesChannelId),
+            $listingFilterConfigurationRepository->getRangeIntervalListingFilterConfigurations($context, $salesChannelId),
         );
     }
 
