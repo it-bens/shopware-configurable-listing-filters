@@ -18,7 +18,7 @@ interface DataGridRecord {
     position: number;
 }
 
-Shopware.Component.register('itb-configurable-listing-filters-form-range-interval-interval', {
+export default Shopware.Component.wrapComponentConfig({
     template,
 
     props: {

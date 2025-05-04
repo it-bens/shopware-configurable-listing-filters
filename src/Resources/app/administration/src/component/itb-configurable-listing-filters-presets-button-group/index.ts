@@ -5,7 +5,7 @@ import { getRatingListingFilterConfiguration } from '../../../src/fixtures/ratin
 import { getShippingFreeListingFilterConfiguration } from '../../../src/fixtures/shipping-free-listing-filter-configuration';
 import template from './itb-configurable-listing-filters-presets-button-group.html.twig';
 
-Shopware.Component.register('itb-configurable-listing-filters-presets-button-group', {
+export default Shopware.Component.wrapComponentConfig({
     template,
 
     methods: {

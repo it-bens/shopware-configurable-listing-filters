@@ -7,7 +7,7 @@ interface SortingOption {
     name: string;
 }
 
-Shopware.Component.register('itb-configurable-listing-filters-form-multi-select', {
+export default Shopware.Component.wrapComponentConfig({
     template,
 
     props: {

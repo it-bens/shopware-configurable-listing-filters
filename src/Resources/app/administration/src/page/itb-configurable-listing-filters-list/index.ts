@@ -28,7 +28,7 @@ interface SalesChannelOption {
     name: string;
 }
 
-Shopware.Component.register('itb-configurable-listing-filters-list', {
+export default Shopware.Component.wrapComponentConfig({
     template,
 
     data(): {
@@ -249,8 +249,8 @@ Shopware.Component.register('itb-configurable-listing-filters-list', {
                 return this.$tc('itb-configurable-listing-filters.list.allSalesChannels');
             }
 
-            const channel = this.salesChannels.find((channel: Entity<'sales_channel'>) => channel.id === id);
-            return channel ? channel.name : id;
+            const salesChannel = this.salesChannels.find((channel: Entity<'sales_channel'>) => channel.id === id);
+            return salesChannel ? salesChannel.name : id;
         },
 
         async onEditListingFilterConfiguration(dataGridRecord: DataGridRecord): Promise<void> {

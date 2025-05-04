@@ -2,7 +2,7 @@ import template from './itb-configurable-listing-filters-form-range.html.twig';
 
 const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
 
-Shopware.Component.register('itb-configurable-listing-filters-form-range', {
+export default Shopware.Component.wrapComponentConfig({
     template,
 
     props: {
