@@ -9,10 +9,18 @@
     "paths": {
       "vue$": ["./node_modules/vue/dist/vue.esm.js"],
       "@/*": ["./src/Resources/app/administration/src/*"],
-      "module/*": ["./vendor/shopware/administration/Resources/app/administration/src/module/*"],
-      "scss/*": ["./vendor/shopware/administration/Resources/app/administration/src/app/assets/scss/*"],
-      "assets/*": ["./vendor/shopware/administration/Resources/app/administration/static/*"],
-      "Shopware": ["./vendor/shopware/administration/Resources/app/administration/src/core/shopware"]
+      "module/*": [
+        "./vendor/shopware/administration/Resources/app/administration/src/module/*"
+      ],
+      "scss/*": [
+        "./vendor/shopware/administration/Resources/app/administration/src/app/assets/scss/*"
+      ],
+      "assets/*": [
+        "./vendor/shopware/administration/Resources/app/administration/static/*"
+      ],
+      "Shopware": [
+        "./vendor/shopware/administration/Resources/app/administration/src/core/shopware"
+      ]
     }
   },
   "include": [

@@ -19,9 +19,7 @@
         "conditions": [
           {
             "exec": "\\CaptainHook\\App\\Hook\\Condition\\FileStaged\\OfType",
-            "args": [
-              "php"
-            ]
+            "args": ["php"]
           }
         ]
       },
@@ -31,9 +29,7 @@
         "conditions": [
           {
             "exec": "\\CaptainHook\\App\\Hook\\Condition\\FileStaged\\OfType",
-            "args": [
-              "php"
-            ]
+            "args": ["php"]
           }
         ]
       },

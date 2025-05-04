@@ -95,6 +95,7 @@ The invalidation currently doesn't consider the sales channel assignment of the 
 If you find a bug or have a feature wish, please open an issue on GitHub. Please provide as much information as possible. If you can, please provide a screenshot.
 
 ## Contributing
+
 I am really happy that the software developer community loves Open Source, like I do! ♥
 
 That's why I appreciate every issue that is opened (preferably constructive) and every pull request that provides other or even better code to this package.
