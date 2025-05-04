@@ -18,8 +18,13 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Ra
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\DelegatingLoader;
+use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\DirectoryLoader;
+use Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 final class ITBConfigurableListingFilters extends Plugin
 {
@@ -30,10 +35,21 @@ final class ITBConfigurableListingFilters extends Plugin
      */
     public function build(ContainerBuilder $container): void
     {
+        parent::build($container);
+
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/DependencyInjection'));
         $loader->load('services.php');
 
-        parent::build($container);
+        $locator = new FileLocator('Resources/config');
+        $resolver = new LoaderResolver([
+            new YamlFileLoader($container, $locator),
+            new GlobFileLoader($container, $locator),
+            new DirectoryLoader($container, $locator),
+        ]);
+
+        $configLoader = new DelegatingLoader($resolver);
+        $confDir = \rtrim($this->getPath(), '/') . '/Resources/config';
+        $configLoader->load($confDir . '/{packages}/*.yaml', 'glob');
     }
 
     public function uninstall(UninstallContext $uninstallContext): void

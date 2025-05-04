@@ -44,5 +44,6 @@
 
     <extensions>
         <bootstrap class="Zalas\PHPUnit\Globals\AttributeExtension" />
+        <bootstrap class="DG\BypassFinals\PHPUnitExtension" />
     </extensions>
 </phpunit>

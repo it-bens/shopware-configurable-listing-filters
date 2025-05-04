@@ -82,6 +82,14 @@ Every filter type has its own additional settings (except the checkbox filter).
 
 The intervals are the elements that will be shown in the multi-select filter. An interval can have a `min`, a `max`, a `title` and a `position`. At least one of `min` or `max` must be set (not `null`). If one of them is `null`, it means that the interval has no end in this direction. The `title` is the name of the element in the list of the filter. `min` and `max` will be used for the title if no `title` is provided. The `position` indicates the order of the elements in the filter.
 
+## Invalidating the Cache
+
+Shopware relies heavily on caching to deliver listing pages fast and efficient. Shopware has its own `CacheInvalidatorSubscriber`. It's methods listen to the `EntityWrittenContainerEvent` and invalidate parts of the page cache based on the certain aspect they were built for. Properties/DAL fields of the product entity don't require additional invalidation because the subscriber already has a method for that. There is also a method that listens for changes of the product manufacturer.
+
+Because this plugin allows to create listing filters on properties of other entities, listing pages have to be invalidated manually by this plugin. Therefore the plugin implements its own `CacheInvalidatorSubscriber`. It checks if a relevant entity (or translation entity) was written and invalidates all listing pages that contain at least one filter, created by this plugin and that contain a product that was (directly or indirectly) changed.
+
+The invalidation currently doesn't consider the sales channel assignment of the listing filters.
+
 ## Reporting a problem and feature wishes
 
 If you find a bug or have a feature wish, please open an issue on GitHub. Please provide as much information as possible. If you can, please provide a screenshot.

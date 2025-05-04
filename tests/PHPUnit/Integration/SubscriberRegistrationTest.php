@@ -6,6 +6,7 @@ namespace ITB\ITBConfigurableListingFilters\Test\PHPUnit\Integration;
 
 use ITB\ITBConfigurableListingFilters\Core\Content\Cms\ProductListingPageSubscriber;
 use ITB\ITBConfigurableListingFilters\Core\Content\Product\SalesChannel\Listing\ProductListingSubscriber;
+use ITB\ITBConfigurableListingFilters\Core\Framework\Adapter\Cache\CacheInvalidationSubscriber;
 use ITB\ITBConfigurableListingFilters\Test\PHPUnit\Integration\TestKernel\TestKernel;
 use Shopware\Core\Framework\Test\TestCaseBase\KernelLifecycleManager;
 use Shopware\Core\Framework\Test\TestCaseBase\KernelTestBehaviour;
@@ -33,5 +34,7 @@ final class SubscriberRegistrationTest extends AbstractIntegrationTestCase
         $this->assertInstanceOf(ProductListingPageSubscriber::class, $productListingPageSubscriber);
         $productListingSubscriber = $container->get(ProductListingSubscriber::class);
         $this->assertInstanceOf(ProductListingSubscriber::class, $productListingSubscriber);
+        $cacheInvalidationSubscriber = $container->get(CacheInvalidationSubscriber::class);
+        $this->assertInstanceOf(CacheInvalidationSubscriber::class, $cacheInvalidationSubscriber);
     }
 }

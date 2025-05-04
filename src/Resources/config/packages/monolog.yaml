@@ -1,0 +1,9 @@
+monolog:
+  channels: ['itb_configurable_listing_filters_channel']
+
+  handlers:
+    itbConfigurableListingFiltersHandler:
+      type: rotating_file
+      path: "%kernel.logs_dir%/itb_configurable_listing_filters%kernel.environment%.log"
+      level: error
+      channels: [ "itb_configurable_listing_filters_channel" ]
