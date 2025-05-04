@@ -20,6 +20,7 @@ RUN set -ex; \
 # Install dependencies required for static analysis and testing
 RUN set -ex; \
     sudo service mysql start && \
+    composer require shopware/conflicts:'0.1.22' --no-scripts && \
     composer config platform.php '8.1' && \
     composer update && \
     composer require --dev \
