@@ -4,7 +4,7 @@ import Criteria from '@shopware-ag/admin-extension-sdk/es/data/Criteria';
 import type { Entity } from '@shopware-ag/admin-extension-sdk/es/data/_internals/Entity';
 import template from './itb-configurable-listing-filters-edit.html.twig';
 
-Shopware.Component.register('itb-configurable-listing-filters-edit', {
+export default Shopware.Component.wrapComponentConfig({
     template,
 
     data(): {

@@ -3,7 +3,7 @@ import template from './itb-configurable-listing-filters-form-basics.html.twig';
 
 const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
 
-Shopware.Component.register('itb-configurable-listing-filters-form-basics', {
+export default Shopware.Component.wrapComponentConfig({
     template,
 
     props: {

@@ -1,8 +1,6 @@
-import { getAllowedPropertyTypesByFilterType } from '../../mixin/itb-configurable-listing-filters-locator';
 import type { Property } from 'src/core/data/entity-definition.data';
+import { getAllowedPropertyTypesByFilterType } from '../../mixin/itb-configurable-listing-filters-locator';
 import template from './itb-configurable-listing-filters-form-dal-path-field.html.twig';
-
-const utils = Shopware.Utils;
 
 interface Properties {
     [key: string]: Property;
@@ -13,7 +11,7 @@ interface DefinitionPropertyOption {
     name: string;
 }
 
-Shopware.Component.register('itb-configurable-listing-filters-form-dal-path-field', {
+export default Shopware.Component.wrapComponentConfig({
     template,
 
     model: {
@@ -54,7 +52,7 @@ Shopware.Component.register('itb-configurable-listing-filters-form-dal-path-fiel
         selectedDalPath: Array<string>;
     } {
         return {
-            id: utils.createId(),
+            id: Shopware.Utils.createId(),
             containerStyle: 'grid-template-columns: 1fr; gap: 0px 30px; place-items: stretch;',
             selectedDalPath: this.value.split('.').filter(dalPathPart => dalPathPart !== ''),
         };
