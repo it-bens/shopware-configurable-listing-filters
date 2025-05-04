@@ -24,6 +24,7 @@ RUN set -ex; \
     composer config platform.php '8.1' && \
     composer update && \
     composer require --dev \
+      dg/bypass-finals:'^1.9' \
       phpstan/phpstan:'^1.12' \
       phpstan/phpstan-phpunit:'^1.4' \
       phpstan/phpstan-symfony:'^1.4' \

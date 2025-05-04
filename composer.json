@@ -20,6 +20,7 @@
   "require-dev": {
     "captainhook/captainhook": "^5.25",
     "captainhook/plugin-composer": "^5.3",
+    "dg/bypass-finals": "^1.9",
     "frosh/shopware-rector": "^0.3.0",
     "phpstan/phpstan": "^1.12",
     "phpstan/phpstan-phpunit": "^1.4",
