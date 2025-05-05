@@ -9,6 +9,8 @@ use ITB\ITBConfigurableListingFilters\Core\Content\ListingFilterConfiguration\Mu
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\ListField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
@@ -39,6 +41,11 @@ class MultiSelectListingFilterConfigurationDefinition extends ListingFilterConfi
     protected function defineFields(): FieldCollection
     {
         $fieldCollection = parent::defineFields();
+
+        $additionalDalFields = new ListField('additional_dal_fields', 'additionalDalFields', StringField::class);
+        $additionalDalFields->addFlags(new ApiAware());
+
+        $fieldCollection->add($additionalDalFields);
 
         $allowedElementsField = new TranslatedField('allowedElements');
         $allowedElementsField->addFlags(new ApiAware());

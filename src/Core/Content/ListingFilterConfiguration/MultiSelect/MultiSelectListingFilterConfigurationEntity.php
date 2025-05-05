@@ -13,6 +13,27 @@ class MultiSelectListingFilterConfigurationEntity extends ListingFilterConfigura
     /**
      * @var array<string>|null
      */
+    protected ?array $additionalDalFields = null;
+
+    /**
+     * @return array<string>|null
+     */
+    public function getAdditionalDalFields(): ?array
+    {
+        return $this->additionalDalFields;
+    }
+
+    /**
+     * @param array<string>|null $additionalDalFields
+     */
+    public function setAdditionalDalFields(?array $additionalDalFields): void
+    {
+        $this->additionalDalFields = $additionalDalFields;
+    }
+
+    /**
+     * @var array<string>|null
+     */
     protected ?array $allowedElements = null;
 
     protected ?string $elementPrefix = null;
